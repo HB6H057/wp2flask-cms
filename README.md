@@ -1,2 +1,2 @@
-# wp2django-cms
-A CMS engine written in Django for tigang.net
+# wp2flask-cms
+A CMS engine written in Flask for tigang.net
