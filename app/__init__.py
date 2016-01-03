@@ -1,7 +1,6 @@
 from flask import Flask
 from flask.ext.login import LoginManager
 from app.core.models import db
-
 def create_app():
     """
     Initialize && create app
@@ -41,15 +40,15 @@ def init_blueprint(app):
     """
     from app.core.home import home
     app.register_blueprint(home)
-
-    from app.core.archive import archive
-    app.register_blueprint(archive)
-
-    from app.core.category import category
-    app.register_blueprint(category)
-
-    from app.core.post import post
-    app.register_blueprint(post)
-
-    from app.core.tag import tag
-    app.register_blueprint(tag)
+    #
+    # from app.core.archive import archive
+    # app.register_blueprint(archive)
+    #
+    # from app.core.category import category
+    # app.register_blueprint(category)
+    #
+    # from app.core.post import post
+    # app.register_blueprint(post)
+    #
+    # from app.core.tag import tag
+    # app.register_blueprint(tag)
