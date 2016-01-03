@@ -26,3 +26,37 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User %s>' % self.username
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True, unique=True)
+    slug = db.Column(db.String(64), index=True, unique=True)
+    description = db.Column(db.String(128))
+
+    posts = db.Column(db.String(64))
+
+    def __repr__(self):
+        return '<Category %s>' % self.name
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(64), index=True, unique=True)
+    description = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    categorys = db.Column(db.String(64))
+    user_id = db.Column(db.String(64))
+    tags = db.Column(db.String(64))
+
+    def __repr__(self):
+        return '<Post %s>' % self.title
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True, unique=True)
+    slug = db.Column(db.String(64), index=True, unique=True)
+
+    posts = db.Column(db.String(64))
+
+    def __repr__(self):
+        return '<Tag %s>' % self.name
