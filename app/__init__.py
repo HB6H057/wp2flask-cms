@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.login import LoginManager
 from app.core.models import db
+
 def create_app():
     """
     Initialize && create app
