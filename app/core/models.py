@@ -38,7 +38,7 @@ class User(UserMixin, db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
-    slug = db.Column(db.String(64), index=True, unique=True)
+    # slug = db.Column(db.String(64), index=True, unique=True)
     description = db.Column(db.String(128))
 
     posts = db.relationship('Post', backref='category', lazy='dynamic')
@@ -49,7 +49,7 @@ class Category(db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64), index=True, unique=True)
-    description = db.Column(db.Text)
+    body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -65,7 +65,7 @@ class Post(db.Model):
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
-    slug = db.Column(db.String(64), index=True, unique=True)
+    # slug = db.Column(db.String(64), index=True, unique=True)
 
     # posts m2m
 

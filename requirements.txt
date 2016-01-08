@@ -2,6 +2,7 @@ aniso8601==1.1.0
 appnope==0.1.0
 blinker==1.4
 decorator==4.0.6
+fake-factory==0.5.3
 Flask==0.10.1
 Flask-Login==0.3.2
 Flask-RESTful==0.3.5
