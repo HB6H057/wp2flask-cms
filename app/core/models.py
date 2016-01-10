@@ -1,4 +1,7 @@
+import re
 from datetime import datetime
+
+from xpinyin import Pinyin
 
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import UserMixin
@@ -11,6 +14,23 @@ post_tag_table = db.Table(
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
     db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
 )
+
+class BaseModels(object):
+    def toslug(self, name):
+        '''
+            1. chinese to pinyin.
+            2. to lower.
+            3. remove special character. (except: '-',' ')
+            4. to convert ' ' into '-'
+            5. fix special case of slug.
+                I.  multi '-', eg: 'GlaDOS's block' ---> 'gladoss--blog'
+                II. ...
+        '''
+        name = Pinyin().get_pinyin(name)
+        pattern = re.compile(r'[^a-zA-z0-9\-]')
+        slug = re.sub(pattern, '', name.lower().replace(' ', '-'))
+        slug = re.sub('-+', '-', slug)
+        return slug
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -35,20 +55,30 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %s>' % self.username
 
-class Category(db.Model):
+class Category(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, unique=True)
-    # slug = db.Column(db.String(64), index=True, unique=True)
+    name_ = db.Column(db.String(64), index=True, unique=True)
+    slug = db.Column(db.String(64), index=True, unique=True)
     description = db.Column(db.String(128))
 
     posts = db.relationship('Post', backref='category', lazy='dynamic')
 
+    @property
+    def name(self):
+        return self.name_
+
+    @name.setter
+    def name(self, name):
+        self.name_ = name
+        self.slug = self.toslug(name)
+
     def __repr__(self):
         return '<Category %s>' % self.name
 
-class Post(db.Model):
+class Post(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(64), index=True, unique=True)
+    title_ = db.Column(db.String(64), index=True, unique=True)
+    slug = db.Column(db.String(64), index=True, unique=True)
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
@@ -59,15 +89,33 @@ class Post(db.Model):
                             backref=db.backref('posts', lazy='dynamic')
                           )
 
+    @property
+    def title(self):
+        return self.title_
+
+    @title.setter
+    def title(self, title):
+        self.title_ = title
+        self.slug = self.toslug(title)
+
     def __repr__(self):
         return '<Post %s>' % self.title
 
-class Tag(db.Model):
+class Tag(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, unique=True)
-    # slug = db.Column(db.String(64), index=True, unique=True)
+    name_ = db.Column(db.String(64), index=True, unique=True)
+    slug = db.Column(db.String(64), index=True, unique=True)
 
     # posts m2m
+
+    @property
+    def name(self):
+        return self.name_
+
+    @name.setter
+    def name(self, name):
+        self.name_ = name
+        self.slug = self.toslug(name)
 
     def __repr__(self):
         return '<Tag %s>' % self.name

@@ -8,6 +8,7 @@ def create_app():
     """
     app = Flask(__name__)
     app.config.from_object('config')
+    app.config.setdefault('SQLALCHEMY_TRACK_MODIFICATIONS', True)
     init_db(app)
     init_login(app)
     init_blueprint(app)

@@ -34,3 +34,4 @@ Werkzeug==0.11.3
 wheel==0.26.0
 Whoosh==2.7.0
 WTForms==2.1
+xpinyin==0.5.4
