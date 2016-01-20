@@ -8,4 +8,4 @@ def index():
     """
     Index page
     """
-    return 'hello'
+    return 'first templates'

@@ -1,7 +1,7 @@
 #!flask/bin/python
 from faker import Factory
 
-from flask.ext.script import Manager
+from flask.ext.script import Manager, Server
 
 from app import create_app
 
@@ -58,4 +58,5 @@ def forged():
     db.session.commit()
 
 if __name__ == '__main__':
+    manager.add_command("runserver", Server(use_debugger=True))
     manager.run()
