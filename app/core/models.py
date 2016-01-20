@@ -83,7 +83,7 @@ class Post(db.Model, BaseModels):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    categorys = db.Column(db.Integer, db.ForeignKey('category.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
     tags = db.relationship('Tag', secondary=post_tag_table,
                             backref=db.backref('posts', lazy='dynamic')
