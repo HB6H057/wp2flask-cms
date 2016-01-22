@@ -8,4 +8,4 @@ def index():
     """
     Index page
     """
-    return 'first templates'
+    return render_template('index.html')

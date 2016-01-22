@@ -1,0 +1,220 @@
+﻿/*
+Theme Name: WPYOU CMS
+Theme URI: http://www.wpyou.com/
+Description: A Web 2.0 Wordpress Lovers Theme designed by <a href="http://www.wpyou.com/">WPYOU</a>.
+Version: 1.0
+Author: Bob
+Author URI: http://www.wpyou.com/
+Tags: blue, white, cms, fixed width, two columns, widgets
+/*
+
+/* ???CSS???? */
+body { margin:0 auto; padding:0; font-family: '????'; font-size:12px; text-align:left; color:#000; background: #FFF;}
+
+div,form,ul,ol,li,span,p { margin:0; padding:0; border:0;}
+h1,h2,h3,h4,h5,h6{ margin:0;padding:0;}
+input,select{ line-height:16px;}
+img,a img{border:0;}
+ul,ol,li{list-style-type:none;}
+em{ font-style:normal;}
+
+.clear{ clear:both; font-size:1px; width:1px; margin-top:0px !important; *margin-top:-1px; line-height:0; visibility:hidden; }
+.banner_ad{ margin:0px auto; padding:10px 0px; width:970px; text-align:center;}
+.long_ad{ margin-top:10px; width:658px; height:80px; overflow:hidden; background:#999;}
+
+/* ?????????? */
+a{ color:#0040D8; text-decoration: none;}
+a:hover{ color:#BD0A01; text-decoration: underline; }
+
+.a_help:link, .a_help:visited{ text-decoration:underline;}
+
+/* ???? */
+.header{ margin:0px auto; width:970px; }
+.header-content{ float:left;}
+#logo{ float:left; margin:10px 0px; }
+#blogtitle{ float:left; text-indent:-1000px; display:block; }
+#blogtitle a:link, #blogtitle a:visited{ width:180px; height:70px; background:url(/static/images/logo.gif) no-repeat 0px top; overflow:hidden; display:block;}
+
+/* Header Right */
+.headerR{ float:right; overflow:hidden;}
+.top_menu{ float:right; padding-left:14px; color:#DDD; background:url(/static/images/bg.png) no-repeat 0 0px;}
+.menu_list{ float:left; height:26px; padding:6px 14px 4px 0px; background:url(/static/images/bg.png) no-repeat right 0px;}
+.menu_list li{ float:left; padding:0px 5px;}
+.menu_list li.current_page_item{ color:#F60;}
+.menu_list a:link, .menu_list a:visited{ color:#666; text-decoration:none; display:block;}
+.menu_list a:hover{ color:#000;}
+.menu_list li.current_page_item a:link, .menu_list li.current_page_item a:visited{ color:#006ADF; font-weight:bold; text-decoration:none; display:block;}
+
+/* ?????? */
+.so{ float:right; margin-top:10px; overflow:hidden;}
+#ls{ float:left; width:220px; padding: 2px 0px 0px 3px; height:20px; line-height:19px; border:1px solid #CCCCCC;}
+#searchsubmit{ float:left; width:65px; height:24px; margin-left:4px; cursor:pointer; }
+
+/* ?????? */
+.menu{ float:right; margin:-15px 80px 0px 0px; _margin:-15px 0px 0px 0px;}
+.menu ul{ float:right; height:26px;}
+.menu ul li{ float:left; margin-left:10px; width:80px; padding:7px 0px 4px; text-align:center; font-size:14px; font-weight:bold; background:url(/static/images/bg.png) no-repeat 0 -41px;}
+.menu ul li.current_page_item{ background:url(/static/images/bg.png) no-repeat 0 -84px;}
+.menu ul a:link, .menu ul a:visited{ color:#666; text-decoration:none; display:block;}
+.menu ul a:hover{ color:#000;}
+.menu ul li.current_page_item a:link, .menu ul li.current_page_item a:visited{ color:#000; text-decoration:none; display:block;}
+
+/* ??????? */
+.navigation{ float:left; width:970px; height:35px;}
+.mnavil, .mnavim, .mnavir{ float:left; width:6px; height:36px;}
+.mnavil{ background:url(/static/images/bg.png) no-repeat right -39px;}
+.mnavim{ width:958px; background:url(/static/images/bg.png) no-repeat 0 -126px; }
+.mnavir{ float:right; background:url(/static/images/bg.png) no-repeat right -79px;}
+
+.main_menu{ margin:5px 6px;}
+.main_menu li{ float:left; padding:7px 8px 5px; font-size:14px;  background:url(/static/images/bg.png) no-repeat right -181px; }
+.main_menu li.lir{ background:none;}
+.main_menu li.current-cat a{ color:#FFFF00; text-decoration:underline;}
+.main_menu a:link, .main_menu a:visited{ color:#FFF; text-decoration:none; display:block;}
+.main_menu a:hover{ color:#FFFF00; text-decoration:underline;}
+
+/* ????????? */
+.taobao{ margin:0 auto; width:970px;}
+.taobaoso{ float:left; margin:10px 0px 0px 30px; width:970px; height:70px;}
+
+/* ???????? */
+.wrap{ margin:0px auto; width:970px;}
+.content{ float:left; width:970px; margin-top:10px;}
+.bb_home{ float:left; width:658px; overflow:hidden;}
+
+/* ??????01 ???? */
+.sidebar1{ float:left; width:198px; height:267px; border:1px solid #CCC; overflow:hidden;}
+.special, .sbar1{ margin-bottom:10px;}
+.sbar1 h2{ padding:6px 10px 4px; font-size:14px; border-bottom:1px solid #8CC1FC; color:#404040; background:url(/static/images/bg.png) no-repeat 0 -177px;}
+.sbar1_content{ margin:10px 0px 8px;}
+.promo{ margin-left:6px;}
+.promo li{ margin:6px 0px 7px; *margin:5px 0px 5px; padding-left:10px; height:14px; line-height:14px; background:url(/static/images/spot_cats.gif) no-repeat 0 5px; overflow:hidden;}
+.promo li ul li{ padding-left:10px; line-height:22px; font-size:12px; font-weight:normal; background:url(/static/images/spot_cats.gif) no-repeat 0 10px;}
+
+/* baobei tuijian */
+.bb_recommend{ float:left; margin-left:10px; padding:5px 0px; width:446px; height:257px; border:1px solid #CCC; overflow:hidden;}
+.baobei{ border-bottom:1px dashed #DDD;}
+.baobei h2{ width:426px; line-height:20px; padding:12px 10px 6px; font-size:16px;}
+.baobei_detail{ padding:0px 10px 5px; color:#333; line-height:20px;}
+.baobei_detail p{ padding:6px 0px;}
+
+.allcats{ float:left; margin-left:-10px;}
+
+/* ??????????? */
+.bb_cats{ float:left; margin:10px 0px 0px; width:334px;}
+.cats_content{ margin:0px 0px 0px 10px; height:150px; border:1px solid #CCC;}
+.cats_content h2{ padding:7px 0px 5px 8px; font-size:14px; background:url(/static/images/bg.png) no-repeat 0 -255px;}
+.cats_content ul{ float:left; padding:10px 5px 12px 10px;}
+.cats_content ul li{ margin:6px 0px 2px; padding-left:12px; width:290px; height:16px; font-size:14px; background:url(/static/images/spot_cats.gif) no-repeat 0 6px; overflow:hidden;}
+.cats_content ul li a:link, .cats_content ul li a:visited{ color:#333;}
+.cats_content ul li a:hover{ color:#BD0A01;}
+
+/* ??????02 ???? */
+.sidebar2 ul{ margin:0 auto;}
+.sidebar2{ float:right; width:302px;}
+.sidebar2 li{ margin-bottom:10px; background:#FFFBEE;}
+.sidebar2 h2{ padding:7px 0px 5px 8px; font-size:14px; background:url(/static/images/bg.png) no-repeat right -232px;}
+.sidebar2 li ul{ padding:10px 10px; border:1px solid #CCC;}
+.sidebar2 li ul li{ margin-bottom:0px; padding:6px 0px 2px 12px; width:268px; height:14px; font-size:13px; background:url(/static/images/spot_cats.gif) no-repeat 0 12px; overflow:hidden;}
+.sidebar2 h2 a:link, .sidebar2 h2 a:visited{ color:#000;}
+.sidebar2 h2 a:hover{ color:#BD0A01;}
+
+
+/* ?????? */
+.subnavi{ float:left; width:658px; margin-bottom:10px; text-indent:8px; height:28px; line-height:28px; border-bottom:1px solid #CCC; background:#F8F8F8; color:#000000;}
+.subnavi .subnavi-l{ float:left; width:420px; height:28px; line-height:28px; overflow:hidden;}
+.subnavi .subnavi-r{ float:right; width:500px; height:28px; line-height:28px; overflow:hidden;}
+.subnavi a:link, .subnavi a:visited{color:#333333; text-decoration:none; font-weight:normal;}
+.subnavi a:hover{ color:#CC0000; text-decoration:underline;}
+
+/** ?б?? **/
+.taobaobei{ float:left; width:658px; border:1px solid #CCC; overflow:hidden;}
+.bb_post{}
+.bb_list{ width:98%; margin:0 1%; padding-bottom:5px; border-bottom:1px dashed #CCC;}
+.bb_list_page{ border-bottom:none;}
+.bb_list h2{ width:96%; line-height:30px; padding:10px 10px 8px; font-size:14px;}
+.bb_detail{ padding:0px 10px 5px; color:#333; line-height:20px;}
+.bb_detail p{ width:616px; padding:8px 0px;}
+.bb_list h2 a:link, .bb_list h2 a:visited{ color:#000; text-decoration:none;}
+.bb_list h2 a:hover{ color:#C30; text-decoration:underline;}
+.bb_date{ float:right; margin:-28px 8px 0px 0px; color:#666666;}
+
+/* ????? */
+.baobei_info{ font-size:14px;}
+.baobei_info h3, .baobei_info h4{ width:98%; margin:20px 0px 15px; padding:5px; font-size:16px; font-weight:bold;}
+.baobei_info h3{ color:#660066; border-bottom:2px solid #666;}
+.baobei_info h4{ color:#005B5B; border-bottom:2px solid #666;}
+.baobei_info p{ line-height:26px;}
+.baobei_info ol li{ margin:10px 10px 10px 20px; list-style:square; line-height:22px; color:#666;}
+.baobei_info ul li{ margin:10px 10px 10px 20px; list-style:decimal; line-height:22px; color:#666;}
+.txtcenter{ text-align:center; font-size:24px !important;}
+.descmid{ margin:0px auto 14px; text-align:center; border-bottom:1px solid #EEE; color:#999;}
+.descmid label{ padding:0px 10px 0px 20px; line-height:22px;}
+.page-date{ background:url(/static/images/icon.gif) no-repeat 1px 1px;}
+.page-cats{ background:url(/static/images/icon.gif) no-repeat 1px -23px;}
+.page-views{ background:url(/static/images/icon.gif) no-repeat 1px -45px;}
+.page-comments{ background:url(/static/images/icon.gif) no-repeat 1px -66px;}
+
+/* ???? ???? */
+.post_foot_pro_next{float:left; padding:10px 0px;}
+.pro_next{float:left; width:500px; margin:5px 10px; overflow:hidden; }
+
+
+/* ??? */
+.page_navi{ float:left; width:100%; height:45px; line-height:45px; text-align:center; background:url(/static/images/bg_pagenavi.jpg) no-repeat left center; }
+
+/* ?????????? */
+.relran{ width:99%; margin:0px 0px 5px 0px;}
+.relran h3{ float:left; width:100%; margin:10px 0px; padding:8px 0px 5px; text-indent:8px; font-size:14px; font-weight:bold; background:#F3F3F3; border-bottom:1px solid #BBC5CC; }
+.relran .relran_cont{ float:left; width:99%; margin:5px 5px 10px 5px;}
+.relran_cont ul{ margin:0px 0px; }
+.relran ul li{ float:left; width:500px; padding:6px 0px 2px 12px; width:500px; height:16px; font-size:14px; background:url(/static/images/spot_cats.gif) no-repeat 0 12px; }
+
+/* ???? */
+#comments{ width:100%; margin:10px 0px; padding:8px 0px 5px; text-indent:8px; background:#F3F3F3; border-bottom:1px solid #BBC5CC; }
+.commentlist{ }
+.commentlist p{ text-indent:0px;}
+.commentlist a:link, .commentlist a:visited{ background:none; color:#454545;}
+.commentlist a:hover{ background:none; color:#CC0000; text-decoration:underline;}
+.commentlist li{ float:left; margin:5px 0px; width:96%; padding:15px 10px 5px 10px; background:#FFF; border:1px solid #BBC5CC;}
+.commentlist li.alt{ background:#FFFAF4; border:1px solid #BBC5CC;}
+.commentlist li .gravatar{ float:left; width:48px; margin:0px 8px 5px 0px; padding:1px 1px; text-align:center; border:1px solid #C7C7C7;}
+.commentlist li .gravatar img{ margin:0px !important; padding:0px !important;}
+.commentlist li .floor{ float:left; width:48px; margin-top:1px; padding:2px 0px 1px; text-align:center; border-top:1px solid #A7B6BE; background:F8F8F8; color:#999999;}
+.commentlist li .authordata{ float:right; width:480px;}
+.commentlist li .commentmetadata{ float:right; color:#999999;}
+.commentlist li .commentcontent{ float:right; width:480px;}
+#editcomment{ float:left; font-size:14px;}
+#editcomment p{ padding:10px 10px 5px;}
+#author, #email, #url{ margin-left:8px; width:40%; border:1px solid #CCCCCC; color:#906; font-weight:bold; font-size:14px; background:#FCFCFC; padding:5px 3px;}
+
+#submit{ margin-bottom:15px;margin-top:5px;padding:2px;}
+#respond{ float:left; width:100%; margin:10px 0px; padding:8px 0px 5px; text-indent:8px; background:#F3F3F3; border-bottom:1px solid #BBC5CC; }
+#comment{ margin:-23px 0px 0px 72px; padding:8px 5px; width:80%; color:#333; font-size:14px; border:1px solid #CCCCCC;}
+
+#but_submit{ margin-left:72px;}
+#submit{ float:left; width:220px; height:32px; font-size:18px; font-weight:bold; letter-spacing:3px;}
+#ctrl_enter{ float:left; margin:16px 0px 0px 5px; color:#066283; font-weight:bold;}
+.submit_hover{ border:2px solid #FF6600;}
+
+/* ???????? */
+.flink{ float:left; margin:15px 0px 0px; width:970px; }
+.flink h4{ padding:6px 10px 4px; font-size:12px; border:1px solid #E1E1E1; border-bottom:none; color:#444; background-color:#F4F4F4;}
+.fsites{ float:left; width:968px; border:1px solid #E1E1E1; padding:8px 0px;}
+.sitesPic{ margin:0px 10px;}
+.sitesPic li{ float:left; margin:3px 2px 2px; height:32px; white-space:nowrap;}
+.sitesPic li img{ width:88px;height:31px; border:1px solid #FFF;}
+.sitestxt li{ float:left; margin:3px 5px 2px; height:20px; white-space:nowrap;}
+
+/* ??? */
+.foot{ margin:10px auto; width:970px; padding:10px 0px; border-top:1px solid #DDD; color:#999;}
+.foot p{ padding:3px 0px; text-align:center;}
+.foot a:link,.foot a:visited{ color:#666;}
+.foot-navi{ margin:0 auto; text-align:center;}
+.foot-menu{ text-align:center;}
+.foot-menu li{ float:left;}
+
+#wshare{
+margin: 0 auto;
+width: 344px;
+height: 27px;}
