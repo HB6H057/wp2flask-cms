@@ -41,7 +41,7 @@ def forged():
     users = [generate_user() for i in xrange(10)]
     db.session.add_all(users)
 
-    categorys = [generate_category() for i in xrange(5)]
+    categorys = [generate_category() for i in xrange(10)]
     db.session.add_all(categorys)
 
     tags = [generate_tag() for i in xrange(30)]
@@ -52,7 +52,7 @@ def forged():
     random_tags = lambda: sample(tags, randint(1, 5))
 
     posts = [generate_post(random_user,
-                           random_category, random_tags) for i in xrange(15)]
+                           random_category, random_tags) for i in xrange(100)]
     db.session.add_all(posts)
 
     db.session.commit()

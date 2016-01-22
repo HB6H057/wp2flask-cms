@@ -51,16 +51,10 @@
 				<div class="mnavil"></div>
 				<div class="mnavim">
 					<ul class="main_menu">
-						<li class="cat-item cat-item-1"><a href="/" title="高中复习提纲首页">首页</a></li>
-						<li class="cat-item cat-item-3"><a href="category/shuxue" title="查看 高中语文复习提纲 下的所有文章">数学复习提纲</a></li>
-						<li class="cat-item cat-item-4"><a href="category/yuwen" title="查看 高中语文复习提纲 下的所有文章">语文复习提纲</a></li>
-						<li class="cat-item cat-item-5"><a href="category/yingyu" title="查看 高中英语复习提纲 下的所有文章">英语复习提纲</a></li>
-						<li class="cat-item cat-item-6"><a href="category/wuli" title="查看 高中物理复习提纲 下的所有文章">物理复习提纲</a></li>
-						<li class="cat-item cat-item-7"><a href="category/huaxue" title="查看 高中化学复习提纲 下的所有文章">化学复习提纲</a></li>
-						<li class="cat-item cat-item-8"><a href="category/shengwu" title="查看 高中生物复习提纲 下的所有文章">生物复习提纲</a></li>
-						<li class="cat-item cat-item-9"><a href="category/zhengzhi" title="查看 高中政治复习提纲 下的所有文章">政治复习提纲</a></li>
-						<li class="cat-item cat-item-10"><a href="category/lishi" title="查看 高中历史复习提纲 下的所有文章">历史复习提纲</a></li>
-						<li class="cat-item cat-item-11"><a href="category/dili" title="查看 高中地理复习提纲 下的所有文章">地理复习提纲</a></li>
+						<li class="cat-item cat-item-0"><a href="/" title="高中复习提纲首页">首页</a></li>
+						{% for c in cates %}
+						<li class="cat-item cat-item-{{c.id}}"><a href="category/{{c.slug}}" title="查看 {{c.name}} 下的所有文章">{{c.name}}</a></li>
+						{% endfor %}
 					</ul>
 				</div>
 				<div class="mnavir"></div>

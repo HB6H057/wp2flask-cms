@@ -15,17 +15,9 @@
           <h2>最热复习提纲</h2>
           <div class="sbar1_content">
             <ul class="promo">
-              <li><a href="lishi/bixiusan-yi.html" title="高中历史必修三提纲-第一单元 中国传统文化主流思想的演变">高中历史必修三提纲-第一单元 中国传统文化主流思想的演变</a></li>
-              <li><a href="lishi/li-shi-bi-xiu-er-7.html" title="高中历史必修二-第七单元苏联社会主义建设的经验与教训">高中历史必修二-第七单元苏联社会主义建设的经验与教训</a></li>
-              <li><a href="yingyu/ying-yu-bi-xiu-yi-unit-1-friendship.html" title="高中英语必修一复习归纳-Unit 1 Friendship">高中英语必修一复习归纳-Unit 1 Friendship</a></li>
-              <li><a href="huaxue/bi-xiu-yi-fang-cheng-shi-1.html" title="高一化学必修一化学方程式大全 [1]">高一化学必修一化学方程式大全 [1]</a></li>
-              <li><a href="shengwu/sheng-wu-xuan-xiu-3-1-ji-yin-gong-cheng.html" title="生物选修3知识点-专题1 基因工程">生物选修3知识点-专题1 基因工程</a></li>
-              <li><a href="zhengzhi/zheng-zhi-sheng-huo-3.html" title="《政治生活》知识点梳理-第三单元-建设社会主义政治文明">《政治生活》知识点梳理-第三单元-建设社会主义政治文明</a></li>
-              <li><a href="yingyu/ying-yu-bi-xiu-er-unit2-the-olympic-games.html" title="高中英语必修二知识点-Unit 2 The Olympic Games">高中英语必修二知识点-Unit 2 The Olympic Games</a></li>
-              <li><a href="lishi/li-shi-bi-xiu-yi-1.html" title="高中历史必修一-第一单元 古代中国的政治制度">高中历史必修一-第一单元 古代中国的政治制度</a></li>
-              <li><a href="shengwu/sheng-wu-bi-xiu-1-3.html" title="生物必修一复习提纲-第三章 细胞的结构和功能">生物必修一复习提纲-第三章 细胞的结构和功能</a></li>
-              <li><a href="yingyu/ying-yu-bi-xiu-san-unit5-canada-the-ture-north.html" title="高中英语必修三归纳-Unit5 Canada-“The Ture North”">高中英语必修三归纳-Unit5 Canada-“The Ture North”</a></li>
-              <li><a href="huaxue/bi-xiu-yi-fang-cheng-shi-2.html" title="高一化学必修一化学方程式大全 [2]">高一化学必修一化学方程式大全 [2]</a></li>
+              {% for h in hot_list %}
+              <li><a href="{{h.category.slug}}/{{h.slug}}.html" title="{{h.title}}">{{h.title}}</a></li>
+              {% endfor %}
             </ul>
           </div>
         </div>
@@ -34,22 +26,14 @@
       <!-- 侧边栏1 结束 -->
       <!-- 宝贝推荐 开始 -->
       <div class="bb_recommend">
-
-        <div class="baobei" id="baobei-460">
-          <h2><a href="shuxue/gong-shi-kou-jue.html" rel="bookmark" title="高中数学八大模块公式口诀">高中数学八大模块公式口诀</a></h2>
+        {% for p in random_brief %}
+        <div class="baobei" id="baobei-{{p.id}}">
+          <h2><a href="{{p.cslug}}/{{p.slug}}.html" rel="bookmark" title="{{p.title}}">{{p.title}}</a></h2>
           <div class="baobei_detail">
-            一、《集合与函数》 　　内容子交并补集，还有幂指对函数。性质奇偶与增减，观察图象最明显。 　　复合函数式出现，性质乘法法则辨，若... </div>
+            {{p.brief}}
+          </div>
         </div>
-        <div class="baobei" id="baobei-449">
-          <h2><a href="shuxue/4-1-ji-he-zheng-ming-xuan-jiang.html" rel="bookmark" title="数学选修4-1《几何证明选讲》知识点总结(精简版)">数学选修4-1《几何证明选讲》知识点总结(精简版)</a></h2>
-          <div class="baobei_detail">
-            高中数学选修4-1知识点总结 平行线等分线段定理 平行线等分线段定理：如果一组平行线在一条直线上截得的线段相等，那么在其他直线上截得... </div>
-        </div>
-        <div class="baobei" id="baobei-424">
-          <h2><a href="huaxue/bi-xiu-2-fang-cheng-shi-1.html" rel="bookmark" title="高一必修2化学方程式(新课标) 1">高一必修2化学方程式(新课标) 1</a></h2>
-          <div class="baobei_detail">
-            第一章&nbsp;&nbsp;&nbsp; 物质结构　元素周期律 1、Li与O2反应（点燃）4Li + O2 2Li2 O&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P6 Na与O2反应（点燃）&nbsp;&nbsp; 2Na+O2 Na2O2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P6 Na与H2... </div>
-        </div>
+        {% endfor %}
       </div>
       <!-- 宝贝推荐 结束 -->
       <div class="clear"></div>
@@ -59,243 +43,21 @@
       <div class="clear"></div>
       <div class="allcats">
         <!-- 单一分类 开始 -->
-        <!-- 如果要增加栏目，请在array中输入你要显示的cat分类的ID -->
-
         <!-- 分类列表 开始 -->
-        <div id="cat-1" class="bb_cats">
+        {% for c in cate_list %}
+        <div id="cat-{{c.id}}" class="bb_cats">
           <div class="cats_content">
-            <!-- showposts 输出文章的“数目”， “cat=$category”，输出指定分类的文章 -->
-            <h2><a href="category/yuwen" title="">高中语文复习提纲</a></h2>
-            <!-- 输出指定分类的标题 -->
+            <h2><a href="category/{{c.slug}}" title="{{c.title}}">{{c.title}}</a></h2>
             <ul>
-              <!-- Loop 开始 -->
-              <li><a href="yuwen/bi-xiu-1-wen-yan-wen-2.html" title="高中语文必修一文言文知识梳理 (2)">高中语文必修一文言文知识梳理 (2)</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="yuwen/bi-xiu-1-wen-yan-wen-1.html" title="高中语文必修一文言文知识梳理 (1)">高中语文必修一文言文知识梳理 (1)</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="yuwen/bi-xiu-2-wen-yan-wen-2.html" title="人教版高中语文必修二文言文知识梳理 (2)">人教版高中语文必修二文言文知识梳理 (2)</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="yuwen/bi-xiu-2-wen-yan-wen-1.html" title="人教版高中语文必修二文言文知识梳理 (1)">人教版高中语文必修二文言文知识梳理 (1)</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 结束 -->
+              {% for p in c.plist %}
+              <li><a href="{{p.cslug}}/{{p.slug}}.html" title="{{p.title}}">{{p.title}}</a></li>
+              {% endfor %}
             </ul>
           </div>
         </div>
-
+        {% endfor %}
         <!-- 分类列表 结束 -->
         <!-- 如果要增加栏目，请在array中输入你要显示的cat分类的ID -->
-
-        <!-- 分类列表 开始 -->
-        <div id="cat-2" class="bb_cats">
-          <div class="cats_content">
-            <!-- showposts 输出文章的“数目”， “cat=$category”，输出指定分类的文章 -->
-            <h2><a href="category/yingyu" title="">高中英语复习提纲</a></h2>
-            <!-- 输出指定分类的标题 -->
-            <ul>
-              <!-- Loop 开始 -->
-              <li><a href="yingyu/unit5-theme-parks.html" title="英语必修四复习提纲-Unit5 Theme Parks">英语必修四复习提纲-Unit5 Theme Parks</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="yingyu/unit4-body-language.html" title="英语必修四复习提纲-Unit4 Body language">英语必修四复习提纲-Unit4 Body language</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="yingyu/unit3-a-taste-of-english-humour.html" title="英语必修四复习提纲-Unit3 A taste of English humour">英语必修四复习提纲-Unit3 A taste of English humour</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="yingyu/unit2-working-the-land.html" title="英语必修四复习提纲-Unit2 Working the land">英语必修四复习提纲-Unit2 Working the land</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="yingyu/unit1-women-of-achievement.html" title="英语必修四复习提纲-Unit1 Women of achievement">英语必修四复习提纲-Unit1 Women of achievement</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 结束 -->
-            </ul>
-          </div>
-        </div>
-
-        <!-- 分类列表 结束 -->
-        <!-- 如果要增加栏目，请在array中输入你要显示的cat分类的ID -->
-
-        <!-- 分类列表 开始 -->
-        <div id="cat-3" class="bb_cats">
-          <div class="cats_content">
-            <!-- showposts 输出文章的“数目”， “cat=$category”，输出指定分类的文章 -->
-            <h2><a href="category/shuxue" title="关于数学的提纲!">高中数学复习提纲</a></h2>
-            <!-- 输出指定分类的标题 -->
-            <ul>
-              <!-- Loop 开始 -->
-              <li><a href="shuxue/gong-shi-kou-jue.html" title="高中数学八大模块公式口诀">高中数学八大模块公式口诀</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="shuxue/4-1-ji-he-zheng-ming-xuan-jiang.html" title="数学选修4-1《几何证明选讲》知识点总结(精简版)">数学选修4-1《几何证明选讲》知识点总结(精简版)</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 结束 -->
-            </ul>
-          </div>
-        </div>
-
-        <!-- 分类列表 结束 -->
-        <!-- 如果要增加栏目，请在array中输入你要显示的cat分类的ID -->
-
-        <!-- 分类列表 开始 -->
-        <div id="cat-4" class="bb_cats">
-          <div class="cats_content">
-            <!-- showposts 输出文章的“数目”， “cat=$category”，输出指定分类的文章 -->
-            <h2><a href="category/wuli" title="">高中物理复习提纲</a></h2>
-            <!-- 输出指定分类的标题 -->
-            <ul>
-              <!-- Loop 开始 -->
-              <li><a href="wuli/wu-li-bi-xiu-yi-zhi-shi-dian-3.html" title="高中物理必修一知识点-第三章:力与物体的平衡">高中物理必修一知识点-第三章:力与物体的平衡</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="wuli/wu-li-bi-xiu-yi-zhi-shi-dian-2.html" title="高中物理必修一知识点-第二章:探究匀变速运动的规律">高中物理必修一知识点-第二章:探究匀变速运动的规律</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="wuli/wu-li-bi-xiu-yi-zhi-shi-dian-1.html" title="高中物理必修一知识点-第一章:运动的描述">高中物理必修一知识点-第一章:运动的描述</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="wuli/wu-li-ke-ben-mu-lu-2.html" title="新课标高中物理课本目录[2]">新课标高中物理课本目录[2]</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="wuli/wu-li-ke-ben-mu-lu-1.html" title="新课标高中物理课本目录[1]">新课标高中物理课本目录[1]</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 结束 -->
-            </ul>
-          </div>
-        </div>
-
-        <!-- 分类列表 结束 -->
-        <!-- 如果要增加栏目，请在array中输入你要显示的cat分类的ID -->
-
-        <!-- 分类列表 开始 -->
-        <div id="cat-5" class="bb_cats">
-          <div class="cats_content">
-            <!-- showposts 输出文章的“数目”， “cat=$category”，输出指定分类的文章 -->
-            <h2><a href="category/huaxue" title="">高中化学复习提纲</a></h2>
-            <!-- 输出指定分类的标题 -->
-            <ul>
-              <!-- Loop 开始 -->
-              <li><a href="huaxue/bi-xiu-2-fang-cheng-shi-1.html" title="高一必修2化学方程式(新课标) 1">高一必修2化学方程式(新课标) 1</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="huaxue/bi-xiu-yi-fang-cheng-shi-2.html" title="高一化学必修一化学方程式大全 [2]">高一化学必修一化学方程式大全 [2]</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="huaxue/bi-xiu-yi-fang-cheng-shi-1.html" title="高一化学必修一化学方程式大全 [1]">高一化学必修一化学方程式大全 [1]</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 结束 -->
-            </ul>
-          </div>
-        </div>
-
-        <!-- 分类列表 结束 -->
-        <!-- 如果要增加栏目，请在array中输入你要显示的cat分类的ID -->
-
-        <!-- 分类列表 开始 -->
-        <div id="cat-6" class="bb_cats">
-          <div class="cats_content">
-            <!-- showposts 输出文章的“数目”， “cat=$category”，输出指定分类的文章 -->
-            <h2><a href="category/shengwu" title="">高中生物复习提纲</a></h2>
-            <!-- 输出指定分类的标题 -->
-            <ul>
-              <!-- Loop 开始 -->
-              <li><a href="shengwu/sheng-wu-xuan-xiu-3-5-sheng-tai-gong-cheng.html" title="生物选修3知识点-专题5 生态工程">生物选修3知识点-专题5 生态工程</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="shengwu/sheng-wu-xuan-xiu-3-4-lun-li-wen-ti.html" title="生物选修3知识点-专题4 生物技术的安全性和伦理问题">生物选修3知识点-专题4 生物技术的安全性和伦理问题</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="shengwu/sheng-wu-xuan-xiu-3-pei-tai-gong-cheng.html" title="生物选修3知识点-专题3 胚胎工程">生物选修3知识点-专题3 胚胎工程</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="shengwu/sheng-wu-xuan-xiu-3-2-xi-bao-gong-cheng.html" title="生物选修3知识点-专题2 细胞工程">生物选修3知识点-专题2 细胞工程</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="shengwu/sheng-wu-xuan-xiu-3-1-ji-yin-gong-cheng.html" title="生物选修3知识点-专题1 基因工程">生物选修3知识点-专题1 基因工程</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 结束 -->
-            </ul>
-          </div>
-        </div>
-
-        <!-- 分类列表 结束 -->
-        <!-- 如果要增加栏目，请在array中输入你要显示的cat分类的ID -->
-
-        <!-- 分类列表 开始 -->
-        <div id="cat-7" class="bb_cats">
-          <div class="cats_content">
-            <!-- showposts 输出文章的“数目”， “cat=$category”，输出指定分类的文章 -->
-            <h2><a href="category/zhengzhi" title="">高中政治复习提纲</a></h2>
-            <!-- 输出指定分类的标题 -->
-            <ul>
-              <!-- Loop 开始 -->
-              <li><a href="zhengzhi/zheng-zhi-sheng-huo-4.html" title="《政治生活》知识点梳理-第四单元-当代国际社会">《政治生活》知识点梳理-第四单元-当代国际社会</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="zhengzhi/zheng-zhi-sheng-huo-3.html" title="《政治生活》知识点梳理-第三单元-建设社会主义政治文明">《政治生活》知识点梳理-第三单元-建设社会主义政治文明</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="zhengzhi/zheng-zhi-sheng-huo-2.html" title="《政治生活》知识点梳理-第二单元-为人民服务的政府">《政治生活》知识点梳理-第二单元-为人民服务的政府</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="zhengzhi/zheng-zhi-sheng-huo-1.html" title="《政治生活》知识点梳理-第一单元-公民的政治生活">《政治生活》知识点梳理-第一单元-公民的政治生活</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="zhengzhi/jing-ji-sheng-huo-4.html" title="《经济生活》知识点梳理-第四单元-面对市场经济">《经济生活》知识点梳理-第四单元-面对市场经济</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 结束 -->
-            </ul>
-          </div>
-        </div>
-
-        <!-- 分类列表 结束 -->
-        <!-- 如果要增加栏目，请在array中输入你要显示的cat分类的ID -->
-
-        <!-- 分类列表 开始 -->
-        <div id="cat-8" class="bb_cats">
-          <div class="cats_content">
-            <!-- showposts 输出文章的“数目”， “cat=$category”，输出指定分类的文章 -->
-            <h2><a href="category/lishi" title="">高中历史复习提纲</a></h2>
-            <!-- 输出指定分类的标题 -->
-            <ul>
-              <!-- Loop 开始 -->
-              <li><a href="lishi/bixiusan-ba.html" title="高中历史必修三提纲-第八单元 19世纪以来的世界文学艺术">高中历史必修三提纲-第八单元 19世纪以来的世界文学艺术</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="lishi/bixiusan-qi.html" title="高中历史必修三提纲-第七单元 现代中国的科技、教育与文学艺术">高中历史必修三提纲-第七单元 现代中国的科技、教育与文学艺术</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="lishi/bixiusan-liu.html" title="高中历史必修三提纲-第六单元 20世纪以来中国重大思想理论成果">高中历史必修三提纲-第六单元 20世纪以来中国重大思想理论成果</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="lishi/bixiusan-wu.html" title="高中历史必修三提纲-第五单元 近代中国的思想解放潮流">高中历史必修三提纲-第五单元 近代中国的思想解放潮流</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 开始 -->
-              <li><a href="lishi/bixiusan-si.html" title="高中历史必修三提纲-第四单元 近代以来世界的科学发展历程">高中历史必修三提纲-第四单元 近代以来世界的科学发展历程</a></li>
-              <!-- 由上述条件指定分类的文章标题列表 -->
-              <!-- Loop 结束 -->
-            </ul>
-          </div>
-        </div>
-
-        <!-- 分类列表 结束 -->
-        <!-- 如果要增加栏目，请在array中输入你要显示的cat分类的ID -->
-
-        <!-- 分类列表 开始 -->
-        <div id="cat-9" class="bb_cats">
-          <div class="cats_content">
-            <!-- showposts 输出文章的“数目”， “cat=$category”，输出指定分类的文章 -->
-            <h2><a href="category/dili" title="">高中地理复习提纲</a></h2>
-            <!-- 输出指定分类的标题 -->
-            <ul>
-              <!-- Loop 结束 -->
-            </ul>
-          </div>
-        </div>
-
-        <!-- 分类列表 结束 -->
         <!-- 单一分类 开始 -->
         <div class="clear"></div>
       </div>
@@ -307,22 +69,9 @@
         <li id="categories-3" class="widget widget_categories">
           <h2 class="widgettitle">复习提纲分类</h2>
           <ul>
-            <li class="cat-item cat-item-7"><a href="category/huaxue">高中化学复习提纲</a> (3)
-            </li>
-            <li class="cat-item cat-item-10"><a href="category/lishi">高中历史复习提纲</a> (24)
-            </li>
-            <li class="cat-item cat-item-9"><a href="category/zhengzhi">高中政治复习提纲</a> (8)
-            </li>
-            <li class="cat-item cat-item-3"><a href="category/shuxue" title="关于数学的提纲!">高中数学复习提纲</a> (2)
-            </li>
-            <li class="cat-item cat-item-6"><a href="category/wuli">高中物理复习提纲</a> (5)
-            </li>
-            <li class="cat-item cat-item-8"><a href="category/shengwu">高中生物复习提纲</a> (8)
-            </li>
-            <li class="cat-item cat-item-5"><a href="category/yingyu">高中英语复习提纲</a> (20)
-            </li>
-            <li class="cat-item cat-item-4"><a href="category/yuwen">高中语文复习提纲</a> (4)
-            </li>
+            {% for c in cate_sidebar %}
+            <li class="cat-item cat-item-{{c.id}}"><a href="category/{{c.slug}}">{{c.title}}</a> ({{c.count}})</li>
+            {% endfor %}
           </ul>
         </li>
         <li id="archives-3" class="widget widget_archive">
@@ -341,36 +90,11 @@
         <li id="recent-posts-3" class="widget widget_recent_entries">
           <h2 class="widgettitle">最新复习提纲</h2>
           <ul>
+            {% for p in new_plist %}
             <li>
-              <a href="shuxue/gong-shi-kou-jue.html">高中数学八大模块公式口诀</a>
+              <a href="{{p.cslug}}/{{p.slug}}.html">{{p.title}}</a>
             </li>
-            <li>
-              <a href="shuxue/4-1-ji-he-zheng-ming-xuan-jiang.html">数学选修4-1《几何证明选讲》知识点总结(精简版)</a>
-            </li>
-            <li>
-              <a href="huaxue/bi-xiu-2-fang-cheng-shi-1.html">高一必修2化学方程式(新课标) 1</a>
-            </li>
-            <li>
-              <a href="yuwen/bi-xiu-1-wen-yan-wen-2.html">高中语文必修一文言文知识梳理 (2)</a>
-            </li>
-            <li>
-              <a href="yuwen/bi-xiu-1-wen-yan-wen-1.html">高中语文必修一文言文知识梳理 (1)</a>
-            </li>
-            <li>
-              <a href="yuwen/bi-xiu-2-wen-yan-wen-2.html">人教版高中语文必修二文言文知识梳理 (2)</a>
-            </li>
-            <li>
-              <a href="yuwen/bi-xiu-2-wen-yan-wen-1.html">人教版高中语文必修二文言文知识梳理 (1)</a>
-            </li>
-            <li>
-              <a href="huaxue/bi-xiu-yi-fang-cheng-shi-2.html">高一化学必修一化学方程式大全 [2]</a>
-            </li>
-            <li>
-              <a href="huaxue/bi-xiu-yi-fang-cheng-shi-1.html">高一化学必修一化学方程式大全 [1]</a>
-            </li>
-            <li>
-              <a href="lishi/bixiusan-ba.html">高中历史必修三提纲-第八单元 19世纪以来的世界文学艺术</a>
-            </li>
+            {% endfor %}
           </ul>
         </li>
         <li id="linkcat-2" class="widget widget_links">
@@ -386,51 +110,10 @@
 
         <li id="tag_cloud-3" class="widget widget_tag_cloud">
           <h2 class="widgettitle">复习提纲标签</h2>
-          <div class="tagcloud"><a href="tag/pep" class="tag-link-14" title="73个话题" style="font-size: 22pt;">人教版</a>
-            <a href="tag/hua-xue-bi-xiu-yi" class="tag-link-53" title="2个话题" style="font-size: 9.6050955414pt;">化学必修一</a>
-            <a href="tag/li-shi-bi-xiu-yi" class="tag-link-26" title="8个话题" style="font-size: 13.7961783439pt;">历史必修一</a>
-            <a href="tag/li-shi-bi-xiu-san" class="tag-link-52" title="8个话题" style="font-size: 13.7961783439pt;">历史必修三</a>
-            <a href="tag/li-shi-bi-xiu-er" class="tag-link-34" title="8个话题" style="font-size: 13.7961783439pt;">历史必修二</a>
-            <a href="tag/li-shi-di-yi-dan-yuan" class="tag-link-25" title="3个话题" style="font-size: 10.6751592357pt;">历史第一单元</a>
-            <a href="tag/li-shi-di-7-dan-yuan" class="tag-link-32" title="3个话题" style="font-size: 10.6751592357pt;">历史第七单元</a>
-            <a href="tag/li-shi-di-3-dan-yuan" class="tag-link-28" title="3个话题" style="font-size: 10.6751592357pt;">历史第三单元</a>
-            <a href="tag/li-shi-di-er-dan-yuan" class="tag-link-27" title="3个话题" style="font-size: 10.6751592357pt;">历史第二单元</a>
-            <a href="tag/li-shi-di-5-dan-yuan" class="tag-link-30" title="3个话题" style="font-size: 10.6751592357pt;">历史第五单元</a>
-            <a href="tag/li-shi-di-8-dan-yuan" class="tag-link-33" title="3个话题" style="font-size: 10.6751592357pt;">历史第八单元</a>
-            <a href="tag/li-shi-di-6-dan-yuan" class="tag-link-31" title="3个话题" style="font-size: 10.6751592357pt;">历史第六单元</a>
-            <a href="tag/li-shi-di-4-dan-yuan" class="tag-link-29" title="3个话题" style="font-size: 10.6751592357pt;">历史第四单元</a>
-            <a href="tag/zheng-zhi-bi-xiu-yi" class="tag-link-13" title="4个话题" style="font-size: 11.5668789809pt;">政治必修一</a>
-            <a href="tag/zheng-zhi-bi-xiu-er" class="tag-link-18" title="4个话题" style="font-size: 11.5668789809pt;">政治必修二</a>
-            <a href="tag/zheng-zhi-di-1-dan-yuan" class="tag-link-12" title="2个话题" style="font-size: 9.6050955414pt;">政治第一单元</a>
-            <a href="tag/zheng-zhi-di-3-dan-yuan" class="tag-link-16" title="2个话题" style="font-size: 9.6050955414pt;">政治第三单元</a>
-            <a href="tag/zheng-zhi-di-2-dan-yuan" class="tag-link-15" title="2个话题" style="font-size: 9.6050955414pt;">政治第二单元</a>
-            <a href="tag/zheng-zhi-di-4-dan-yuan" class="tag-link-17" title="2个话题" style="font-size: 9.6050955414pt;">政治第四单元</a>
-            <a href="tag/wenyanwen" class="tag-link-55" title="4个话题" style="font-size: 11.5668789809pt;">文言文</a>
-            <a href="tag/wu-li-bi-xiu-yi" class="tag-link-20" title="3个话题" style="font-size: 10.6751592357pt;">物理必修一</a>
-            <a href="tag/wu-li-di-yi-zhang" class="tag-link-19" title="1个话题" style="font-size: 8pt;">物理第一章</a>
-            <a href="tag/wu-li-di-san-zhang" class="tag-link-22" title="1个话题" style="font-size: 8pt;">物理第三章</a>
-            <a href="tag/wu-li-di-er-zhang" class="tag-link-21" title="1个话题" style="font-size: 8pt;">物理第二章</a>
-            <a href="tag/sheng-wu-zhuan-ti-1" class="tag-link-45" title="1个话题" style="font-size: 8pt;">生物专题1</a>
-            <a href="tag/sheng-wu-zhuan-ti-2" class="tag-link-46" title="1个话题" style="font-size: 8pt;">生物专题2</a>
-            <a href="tag/sheng-wu-zhuan-ti-3" class="tag-link-47" title="1个话题" style="font-size: 8pt;">生物专题3</a>
-            <a href="tag/sheng-wu-zhuan-ti-4" class="tag-link-48" title="1个话题" style="font-size: 8pt;">生物专题4</a>
-            <a href="tag/sheng-wu-bi-xiu-yi" class="tag-link-24" title="3个话题" style="font-size: 10.6751592357pt;">生物必修一</a>
-            <a href="tag/sheng-wu-di-san-zhang" class="tag-link-35" title="1个话题" style="font-size: 8pt;">生物第三章</a>
-            <a href="tag/sheng-wu-di-er-zhang" class="tag-link-23" title="1个话题" style="font-size: 8pt;">生物第二章</a>
-            <a href="tag/sheng-wu-di-si-zhang" class="tag-link-36" title="1个话题" style="font-size: 8pt;">生物第四章</a>
-            <a href="tag/sheng-wu-xuan-xiu-3" class="tag-link-44" title="6个话题" style="font-size: 12.9044585987pt;">生物选修3</a>
-            <a href="tag/mulu" class="tag-link-59" title="2个话题" style="font-size: 9.6050955414pt;">目录</a>
-            <a href="tag/unit-1" class="tag-link-38" title="3个话题" style="font-size: 10.6751592357pt;">英语Unit 1</a>
-            <a href="tag/unit-2" class="tag-link-39" title="4个话题" style="font-size: 11.5668789809pt;">英语Unit 2</a>
-            <a href="tag/unit-3" class="tag-link-40" title="4个话题" style="font-size: 11.5668789809pt;">英语Unit 3</a>
-            <a href="tag/unit-4" class="tag-link-41" title="4个话题" style="font-size: 11.5668789809pt;">英语Unit 4</a>
-            <a href="tag/unit-5" class="tag-link-42" title="4个话题" style="font-size: 11.5668789809pt;">英语Unit 5</a>
-            <a href="tag/ying-yu-bi-xiu-yi" class="tag-link-37" title="5个话题" style="font-size: 12.2802547771pt;">英语必修一</a>
-            <a href="tag/ying-yu-bi-xiu-san" class="tag-link-50" title="5个话题" style="font-size: 12.2802547771pt;">英语必修三</a>
-            <a href="tag/ying-yu-bi-xiu-er" class="tag-link-43" title="4个话题" style="font-size: 11.5668789809pt;">英语必修二</a>
-            <a href="tag/ying-yu-bi-xiu-si" class="tag-link-51" title="5个话题" style="font-size: 12.2802547771pt;">英语必修四</a>
-            <a href="tag/yu-wen-bi-xiu-yi" class="tag-link-56" title="2个话题" style="font-size: 9.6050955414pt;">语文必修一</a>
-            <a href="tag/yu-wen-bi-xiu-2" class="tag-link-54" title="2个话题" style="font-size: 9.6050955414pt;">语文必修二</a></div>
+          <div class="tagcloud">
+            {% for t in tags %}
+            <a href="tag/{{t.slug}}" class="tag-link-{{t.id}}" title="{{t.posts.count()}}个话题" style="font-size: 9pt;">{{t.name}}</a>
+            {% endfor %}
         </li>
       </ul>
     </div>

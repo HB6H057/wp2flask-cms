@@ -1,7 +1,7 @@
 # encoding: utf-8
 from flask import render_template
 
-from app.core.models import User, Post, Category
+from app.core.models import User, Post, Category, Tag
 
 class BaseSerive(object):
     @staticmethod
