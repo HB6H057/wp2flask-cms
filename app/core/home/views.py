@@ -8,4 +8,4 @@ def index():
     """
     Index page
     """
-    return render_template('index.html')
+    return render_template('index.jinja2')
