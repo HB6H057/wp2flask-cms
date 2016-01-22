@@ -17,3 +17,4 @@ deploy_key_rsa
 /*.db
 /db_repository/*
 /flask/*
+*.DS_Store
