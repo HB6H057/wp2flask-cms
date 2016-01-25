@@ -63,61 +63,7 @@
       </div>
     </div>
     <!-- 侧边栏2 开始 -->
-
-    <div class="sidebar2">
-      <ul>
-        <li id="categories-3" class="widget widget_categories">
-          <h2 class="widgettitle">复习提纲分类</h2>
-          <ul>
-            {% for c in cate_sidebar %}
-            <li class="cat-item cat-item-{{c.id}}"><a href="category/{{c.slug}}">{{c.title}}</a> ({{c.count}})</li>
-            {% endfor %}
-          </ul>
-        </li>
-        <li id="archives-3" class="widget widget_archive">
-          <h2 class="widgettitle">复习提纲索引</h2>
-          <ul>
-            <li><a href="2011/09">2011年九月</a>&nbsp;(1)</li>
-            <li><a href="2011/06">2011年六月</a>&nbsp;(1)</li>
-            <li><a href="2011/01">2011年一月</a>&nbsp;(1)</li>
-            <li><a href="2010/11">2010年十一月</a>&nbsp;(5)</li>
-            <li><a href="2010/10">2010年十月</a>&nbsp;(9)</li>
-            <li><a href="2010/09">2010年九月</a>&nbsp;(19)</li>
-            <li><a href="2010/08">2010年八月</a>&nbsp;(19)</li>
-            <li><a href="2010/07">2010年七月</a>&nbsp;(19)</li>
-          </ul>
-        </li>
-        <li id="recent-posts-3" class="widget widget_recent_entries">
-          <h2 class="widgettitle">最新复习提纲</h2>
-          <ul>
-            {% for p in new_plist %}
-            <li>
-              <a href="{{p.cslug}}/{{p.slug}}.html">{{p.title}}</a>
-            </li>
-            {% endfor %}
-          </ul>
-        </li>
-        <li id="linkcat-2" class="widget widget_links">
-          <h2 class="widgettitle">链接表</h2>
-
-          <ul class="xoxo blogroll">
-            <li>
-              <a href="http://www.hb6.org/" rel="me" title="高中复习提纲网管理员博客" target="_blank"><img src="static/images/web_logo.gif" alt="这个M" title="高中复习提纲网管理员博客"> 这个M</a>
-            </li>
-
-          </ul>
-        </li>
-
-        <li id="tag_cloud-3" class="widget widget_tag_cloud">
-          <h2 class="widgettitle">复习提纲标签</h2>
-          <div class="tagcloud">
-            {% for t in tags %}
-            <a href="tag/{{t.slug}}" class="tag-link-{{t.id}}" title="{{t.posts.count()}}个话题" style="font-size: 9pt;">{{t.name}}</a>
-            {% endfor %}
-        </li>
-      </ul>
-    </div>
-    <!-- 淘宝购物技巧 -->
+    {% include 'sidebar.html' %}
     <!-- 侧边栏2 结束  -->
 
     <br clear="all">
