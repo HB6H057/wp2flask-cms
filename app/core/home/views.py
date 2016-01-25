@@ -64,3 +64,7 @@ def index():
     return render_template('index.jinja2', cates=cates, cate_list=cate_list,
                             hot_list=hot_list, random_brief=random_brief,
                             cate_sidebar=cate_sidebar, new_plist=new_plist, tags=tags)
+
+@home.route('/category/<string:cslug>')
+def index():
+    return render_template('cate_list.jinja2')
