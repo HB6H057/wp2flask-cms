@@ -8,10 +8,10 @@
 	<meta name="keywords" content="{%block keywords%}提纲,高中,复习,数学,语文,英语,物理,化学,生物,政治,地理,历史,重点,归纳{%endblock keywords%}">
 	<meta name="generator" content="wp2flask-cms">
 	<link rel="shortcut icon" href="favicon.ico">
-	<link rel="icon" type="image/gif" href="static/images/animated_favicon1.gif">
+	<link rel="icon" type="image/gif" href="{{url_for('static', filename='images/animated_favicon1.gif')}}">
 	<!-- <link rel="alternate" type="application/rss+xml" title="高中复习提纲网 RSS Feed" href="feed"> -->
 	{%block style%}
-	<link rel="stylesheet" href="static/css/style.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" media="screen">
 	{%endblock style%}
 {% endblock head %}
 </head>
@@ -23,7 +23,7 @@
 		<div class="header-content">
 			<!-- 顶部功能 开始 -->
 			<div id="logo">
-				<h1 id="blogtitle"><a href="/" title="高中复习提纲网首页">高中复习提纲网</a></h1>
+				<h1 id="blogtitle"><a href="{{url_for('home.index')}}" title="高中复习提纲网首页">高中复习提纲网</a></h1>
 				<!-- <img alt="高考加油!!!" src="/gaokaojiayou.gif" />  -->
 			</div>
 			<div class="headerR">
@@ -51,9 +51,9 @@
 				<div class="mnavil"></div>
 				<div class="mnavim">
 					<ul class="main_menu">
-						<li class="cat-item cat-item-0"><a href="/" title="高中复习提纲首页">首页</a></li>
+						<li class="cat-item cat-item-0"><a href="{{url_for('home.index')}}" title="高中复习提纲首页">首页</a></li>
 						{% for c in cates %}
-						<li class="cat-item cat-item-{{c.id}}"><a href="category/{{c.slug}}" title="查看 {{c.name}} 下的所有文章">{{c.name}}</a></li>
+						<li class="cat-item cat-item-{{c.id}}"><a href="{{url_for('home.cate_list', cslug=c.slug)}}" title="查看 {{c.name}} 下的所有文章">{{c.name}}</a></li>
 						{% endfor %}
 					</ul>
 				</div>
