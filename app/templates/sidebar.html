@@ -4,14 +4,14 @@
       <h2 class="widgettitle">复习提纲分类</h2>
       <ul>
         {% for c in cate_sidebar %}
-        <li class="cat-item cat-item-{{c.id}}"><a href="category/{{c.slug}}">{{c.title}}</a> ({{c.count}})</li>
+        <li class="cat-item cat-item-{{c.id}}"><a href="{{ url_for('home.category', cslug=c.slug) }}">{{c.title}}</a> ({{c.count}})</li>
         {% endfor %}
       </ul>
     </li>
     <li id="archives-3" class="widget widget_archive">
       <h2 class="widgettitle">复习提纲索引</h2>
       <ul>
-        <li><a href="2011/09">2011年九月</a>&nbsp;(1)</li>
+        <li><a href="{{ url_for('home.archive', year=2011, month='09') }}">2011年九月</a>&nbsp;(1)</li>
         <li><a href="2011/06">2011年六月</a>&nbsp;(1)</li>
         <li><a href="2011/01">2011年一月</a>&nbsp;(1)</li>
         <li><a href="2010/11">2010年十一月</a>&nbsp;(5)</li>
@@ -26,7 +26,7 @@
       <ul>
         {% for p in new_plist %}
         <li>
-          <a href="{{p.cslug}}/{{p.slug}}.html">{{p.title}}</a>
+          <a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}">{{p.title}}</a>
         </li>
         {% endfor %}
       </ul>
@@ -46,7 +46,7 @@
       <h2 class="widgettitle">复习提纲标签</h2>
       <div class="tagcloud">
         {% for t in tags %}
-        <a href="tag/{{t.slug}}" class="tag-link-{{t.id}}" title="{{t.posts.count()}}个话题" style="font-size: 9pt;">{{t.name}}</a>
+        <a href="{{ url_for('home.tag', tslug=t.slug) }}" class="tag-link-{{t.id}}" title="{{t.posts.count()}}个话题" style="font-size: 9pt;">{{t.name}}</a>
         {% endfor %}
     </li>
   </ul>

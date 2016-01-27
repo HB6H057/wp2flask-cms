@@ -66,5 +66,41 @@ def index():
                             cate_sidebar=cate_sidebar, new_plist=new_plist, tags=tags)
 
 @home.route('/category/<string:cslug>')
-def index():
-    return render_template('cate_list.jinja2')
+def category(cslug):
+    cates = Category.query.all()
+    return render_template('cate_list.jinja2', cates=cates)
+
+@home.route('/<int:year>/<string:month>', methods=['GET', 'POST'])
+def archive(year, month):
+    """
+    Archive default page
+    """
+    return 'High & Dry'
+
+@home.route('/<string:cslug>/<string:pslug>.html', methods=['GET', 'POST'])
+def post(cslug, pslug):
+    """
+    post page
+    """
+    return 'Universal'
+
+@home.route('/tag/<string:tslug>', methods=['GET', 'POST'])
+def tag(tslug):
+    """
+    Tag default page
+    """
+    return 'Yes, it really, really, really could happen'
+
+@home.route('/about', methods=['GET', 'POST'])
+def page_about():
+    """
+    about page
+    """
+    return 'Yes, it really, really, really could happen'
+
+@home.route('/jiaofushu', methods=['GET', 'POST'])
+def page_jiaofushu():
+    """
+    jiaofushu page
+    """
+    return 'All goes round again'
