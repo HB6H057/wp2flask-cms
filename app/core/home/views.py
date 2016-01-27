@@ -68,7 +68,34 @@ def index():
 @home.route('/category/<string:cslug>')
 def category(cslug):
     cates = Category.query.all()
-    return render_template('cate_list.jinja2', cates=cates)
+    cate_posts = Category.query.filter_by(slug=cslug).one().posts
+
+    plist = [
+        dict(
+            id=p.id,
+            title=p.title,
+            slug=p.slug,
+            cslug=p.category.slug,
+            brief=p.body[:360],
+        )
+        for p in cate_posts
+    ]
+
+    cate_sidebar = [
+        {
+            'id': c.id,
+            'title': c.name,
+            'slug': c.slug,
+            'count': c.posts.count()
+        }
+        for c in cates
+    ]
+
+    tags = Tag.query.all()
+
+    return render_template('category.jinja2', cates=cates, plist=plist,
+                            cate_sidebar=cate_sidebar, tags=tags
+                          )
 
 @home.route('/<int:year>/<string:month>', methods=['GET', 'POST'])
 def archive(year, month):
@@ -89,7 +116,20 @@ def tag(tslug):
     """
     Tag default page
     """
-    return 'Yes, it really, really, really could happen'
+
+    posts = Tag.query.filter_by(slug=tslug).one().posts
+    plist = [
+        dict(
+            id=p.id,
+            title=p.title,
+            slug=p.slug,
+            cslug=p.category.slug,
+            brief=p.body[:360],
+        )
+        for p in posts
+    ]
+
+    return render_template('tag.jinja2', plist=plist)
 
 @home.route('/about', methods=['GET', 'POST'])
 def page_about():
