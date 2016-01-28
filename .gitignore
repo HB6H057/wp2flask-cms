@@ -18,3 +18,4 @@ deploy_key_rsa
 /db_repository/*
 /flask/*
 *.DS_Store
+*.project
