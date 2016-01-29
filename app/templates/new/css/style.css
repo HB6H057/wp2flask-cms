@@ -1,0 +1,37 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	/*background-image: url(http://image.golaravel.com/5/c9/44e1c4e50d55159c65da6a41bc07e.jpg);*/	
+	background-color: white;
+	text-indent: -9999px;
+	height: 120px;
+	border: solid 1px gainsboro;
+	border-bottom: none;
+}
+.search-block{
+	display: inline;
+}
+
+.cate-button{
+}
+
+.navbar-header{
+}
+
+.logo {
+	background-image: url(http://i1.mb5u.com/img/logo.gif) ;
+	height: 65px;
+	width: 247px;
+	margin-left: 5px;
+}
+
+.cate-navbar {
+	font-size: 20px;
+	text-align: center;
+}
+ .test {
+ 	border: solid 1px darkgray;
+ }
