@@ -4,15 +4,15 @@
 }
 
 .header {
-	/*background-image: url(http://image.golaravel.com/5/c9/44e1c4e50d55159c65da6a41bc07e.jpg);*/	
+	/*background-image: url(http://image.golaravel.com/5/c9/44e1c4e50d55159c65da6a41bc07e.jpg);*/
 	background-color: white;
-	text-indent: -9999px;
 	height: 120px;
 	border: solid 1px gainsboro;
 	border-bottom: none;
 }
 .search-block{
 	display: inline;
+	padding: 20px;
 }
 
 .cate-button{
@@ -26,6 +26,7 @@
 	height: 65px;
 	width: 247px;
 	margin-left: 5px;
+	text-indent: -9999px;
 }
 
 .cate-navbar {
