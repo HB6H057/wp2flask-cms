@@ -109,7 +109,7 @@ def post(cslug, pslug):
     """
     post page
     """
-    return 'Universal'
+    return render_template('post.jinja2')
 
 @home.route('/tag/<string:tslug>', methods=['GET', 'POST'])
 def tag(tslug):
