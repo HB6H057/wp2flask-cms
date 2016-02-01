@@ -6,20 +6,9 @@
 {% block content %}
 <div class="taobaobei">
     <div class="subnavi">
-        <div class="subnavi-l">当前位置: <a href="http://www.tigang.net">高中复习提纲网</a> &gt; <a href="http://www.tigang.net/category/shuxue" rel="category tag">高中数学复习提纲</a> &gt; 提纲详细内容</div>
+        <div class="subnavi-l">当前位置: {{url_for('home.index')}} &gt; <a href="http://www.tigang.net/category/shuxue" rel="category tag">高中数学复习提纲</a> &gt; 提纲详细内容</div>
     </div>
     <!--– 复制加版权开始 –-->
-    <script type="text/javascript">
-        document.body.oncopy = function() {
-            event.returnValue = false;
-            var t = document.selection.createRange().text;
-            var s = "本文来源于高中复习提纲网 http://www.tigang.net";
-            var x = "原文地址： http://www.tigang.net/shuxue/gong-shi-kou-jue.html ";
-
-            clipboardData.setData('Text', '\r\n' + t + '\r\n' + s + '\r\n' + x + '\r\n');
-        }
-    </script>
-    <!--– 复制加版权结束 –-->
     <div class="bb_post">
         <div class="bb_list" id="baobei-460">
             <h2 class="txtcenter"><a href="http://www.tigang.net/shuxue/gong-shi-kou-jue.html" rel="bookmark" title="高中数学八大模块公式口诀">高中数学八大模块公式口诀</a></h2>
