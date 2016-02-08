@@ -6,12 +6,12 @@
 {% block content %}
 <div class="taobaobei">
     <div class="subnavi">
-        <div class="subnavi-l">当前位置: {{url_for('home.index')}} &gt; <a href="http://www.tigang.net/category/shuxue" rel="category tag">高中数学复习提纲</a> &gt; 提纲详细内容</div>
+        <div class="subnavi-l">当前位置: <a href="{{url_for('home.index')}}">高中复习提纲网</a> &gt; <a href="{{url_for('home.category', cslug=p.category.slug)}}" rel="category tag">高中数学复习提纲</a> &gt; 提纲详细内容</div>
     </div>
     <!--– 复制加版权开始 –-->
     <div class="bb_post">
         <div class="bb_list" id="baobei-460">
-            <h2 class="txtcenter"><a href="http://www.tigang.net/shuxue/gong-shi-kou-jue.html" rel="bookmark" title="高中数学八大模块公式口诀">高中数学八大模块公式口诀</a></h2>
+            <h2 class="txtcenter"><a href="http://www.tigang.net/shuxue/gong-shi-kou-jue.html" rel="bookmark" title="{{ p.title }}">{{ p.title }}</a></h2>
             <div class="descmid dashborder">
                 <label class="page-date">发表时间：2011-09-02</label><label class="page-views">关注度：21,844 views </label><label class="page-comments">评论数：<a href="#respond">1</a></label>
             </div>
@@ -24,25 +24,10 @@
 
             <div class="bb_detail baobei_info">
               {{ p.body }}
-
-                <div class="wp_rp_wrap  wp_rp_plain" id="wp_rp_first">
-                    <div class="wp_rp_content">
-                        <h3 class="related_post_title">Related Posts</h3>
-                        <ul class="related_post wp_rp">
-                            <li data-position="0" data-poid="in-449" data-post-type="none"><a href="http://www.tigang.net/shuxue/4-1-ji-he-zheng-ming-xuan-jiang.html" class="wp_rp_title">数学选修4-1《几何证明选讲》知识点总结(精简版)</a></li>
-                            <li data-position="1" data-poid="in-85" data-post-type="none"><a href="http://www.tigang.net/shengwu/sheng-wu-bi-xiu-1-2.html" class="wp_rp_title">生物必修一复习提纲-第二章 细胞的化学组成</a></li>
-                            <li data-position="2" data-poid="in-247" data-post-type="none"><a href="http://www.tigang.net/yingyu/ying-yu-bi-xiu-er-unit5-music.html" class="wp_rp_title">高中英语必修二知识点-Unit 5 Music</a></li>
-                            <li data-position="3" data-poid="in-217" data-post-type="none"><a href="http://www.tigang.net/shengwu/sheng-wu-xuan-xiu-3-2-xi-bao-gong-cheng.html" class="wp_rp_title">生物选修3知识点-专题2 细胞工程</a></li>
-                            <li data-position="4" data-poid="in-240" data-post-type="none"><a href="http://www.tigang.net/yingyu/ying-yu-bi-xiu-er-unit4-wildlife-protection.html" class="wp_rp_title">高中英语必修二知识点-Unit 4 Wildlife protection</a></li>
-                        </ul>
-                        <div class="wp_rp_footer"><a class="wp_rp_edit" href="#" id="wp_rp_edit_related_posts">Edit Related Posts</a></div>
-                        <div class="wp_rp_footer"><a class="wp_rp_backlink" target="_blank" href="http://www.zemanta.com/?wp-related-posts" rel="nofollow">Zemanta</a></div>
-                    </div>
-                </div>
                 <div class="reship">
                     <hr>
-                    <p>转载请注明文章转载自：<a href="{{ url_for('home.index') }}">高中复习提纲网</a> [http://www.tigang.net]<br>本文链接地址：<a href="{{ url_for('home.post', cslug=p.slug, pslug=p.cslug) }}" rel="bookmark">{{ p.title }}</a><br>
-                        <a href="{{ url_for('home.post', ) }}"><img src="http://www.tigang.net/wp-content/themes/WPYOU%20CMS/images/jfs.jpg" alt="高中教辅书排行榜" title="高中教辅书排行榜"></a>
+                    <p>转载请注明文章转载自：<a href="{{ url_for('home.index') }}">高中复习提纲网</a> [http://www.tigang.net]<br>本文链接地址：<a href="{{ url_for('home.post', cslug=p.slug, pslug=p.category.slug) }}" rel="bookmark">{{ p.title }}</a><br>
+                        <a href="{{ url_for('home.page_about') }}"><img src="http://www.tigang.net/wp-content/themes/WPYOU%20CMS/images/jfs.jpg" alt="高中教辅书排行榜" title="高中教辅书排行榜"></a>
                     </p>
                     <hr>
                 </div>
@@ -101,7 +86,7 @@
 
                 <li class="alt" id="comment-62">
                     <div class="gravatar">
-                        <a href="http://www.321u.cn/" target="_blank"><img alt="" src="http://2.gravatar.com/avatar/b480f259c0969f237d908e561e7c9486?s=48&amp;d=http%3A%2F%2Fen.gravatar.com%2Fuserimage%2F3244064%2Fabe7b8020c8fc8cc9b009469b5c159fc.jpeg&amp;r=g" srcset="http://2.gravatar.com/avatar/b480f259c0969f237d908e561e7c9486?s=96&amp;d=http%3A%2F%2Fen.gravatar.com%2Fuserimage%2F3244064%2Fabe7b8020c8fc8cc9b009469b5c159fc.jpeg&amp;r=g 2x" class="avatar avatar-48 photo" height="48" width="48"></a>
+                        <a href="http://www.321u.cn/" target="_blank"><img alt="" src="http://secure.gravatar.com/avatar/b480f259c0969f237d908e561e7c9486?s=48&amp;d=http%3A%2F%2Fen.gravatar.com%2Fuserimage%2F3244064%2Fabe7b8020c8fc8cc9b009469b5c159fc.jpeg&amp;r=g" srcset="http://2.gravatar.com/avatar/b480f259c0969f237d908e561e7c9486?s=96&amp;d=http%3A%2F%2Fen.gravatar.com%2Fuserimage%2F3244064%2Fabe7b8020c8fc8cc9b009469b5c159fc.jpeg&amp;r=g 2x" class="avatar avatar-48 photo" height="48" width="48"></a>
                         <label class="floor">1楼</label></div>
                     <small class="commentmetadata">十月 13th, 2011 at 12:40 下午 &nbsp;&nbsp;<a class="comment-edit-link" href="http://www.tigang.net/wp-admin/comment.php?action=editcomment&amp;c=62">edit</a></small>
                     <strong><a href="http://www.321u.cn/" rel="external nofollow" target="_blank">博客大全-博客收录</a></strong> 说:
