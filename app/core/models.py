@@ -85,6 +85,7 @@ class Post(db.Model, BaseModels):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
+    comments = db.relationship('Comment', backref='post', lazy='dynamic')
     tags = db.relationship('Tag', secondary=post_tag_table,
                             backref=db.backref('posts', lazy='dynamic')
                           )
@@ -100,6 +101,15 @@ class Post(db.Model, BaseModels):
 
     def __repr__(self):
         return '<Post %s>' % self.title
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String(64), nullable=False)
+    mail = db.Column(db.String(64), nullable=False)
+    site = db.Column(db.String(64))
+    content = db.Text()
+
+    post_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Tag(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)
