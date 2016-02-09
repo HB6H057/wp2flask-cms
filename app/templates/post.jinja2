@@ -99,38 +99,7 @@
 
             </ol>
 
-
-
-
-            <div class="clear"></div>
-            <h3 id="respond">发表评论</h3>
-            <div id="editcomment">
-
-                <form action="http://www.tigang.net/wp-comments-post.php" method="post" id="commentform">
-
-
-                    <p>您现在是以 <a href="http://www.tigang.net/wp-admin/profile.php">admin</a> 的身份登录,<a href="http://www.tigang.net/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Fwww.tigang.net%2Fshuxue%2Fgong-shi-kou-jue.html&amp;_wpnonce=6eed91186a" title="Log out of this account"> 点击退出系统 »</a></p>
-
-
-                    <!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
-
-                    <p><label for="content">评论内容:</label><br><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4" onkeyup="javascript:return ctrlEnter(event);"></textarea></p>
-
-                    <p id="but_submit"><input name="submit" type="submit" id="submit" tabindex="5" value="提交评论">
-                        <input type="hidden" name="comment_post_ID" value="460">
-                    </p>
-
-                    <p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="e9b9a18ce0"></p><input type="hidden" id="_wp_unfiltered_html_comment_disabled" name="_wp_unfiltered_html_comment" value="aabfdb8e9b">
-
-                    <p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="97"></p>
-                    <p id="sw_connect" class="sw_button">
-                        <label>
-		<input name="post_2_weibo" type="checkbox" id="post_2_weibo" value="1" style="width:auto"> 同步到微博</label>
-                    </p>
-
-                </form>
-            </div>
-
+            {% include 'commentbox.html' %}
         </div>
 
 

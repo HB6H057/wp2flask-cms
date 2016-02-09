@@ -1,0 +1,26 @@
+<div class="clear"></div>
+<h3 id="respond">发表评论</h3>
+<div id="editcomment">
+
+<form action="http://www.tigang.net/wp-comments-post.php" method="post" id="commentform">
+
+
+<div class="clear"></div>
+<div class="form_comment">
+<p><label for="author">您的网名: </label><input type="text" name="author" id="author" value="" size="22" tabindex="1"> *</p>
+
+<p><label for="email">电子邮件: </label><input type="text" name="email" id="email" value="" size="22" tabindex="2"> * 绝不会泄露</p>
+
+<p><label for="url">你的网址: </label><input type="text" name="url" id="url" value="" size="22" tabindex="3"></p>
+</div>
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+
+<p><label for="content">评论内容:</label><br><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4" onkeyup="javascript:return ctrlEnter(event);"></textarea></p>
+
+<p id="but_submit"><input name="submit" type="submit" id="submit" tabindex="5" value="提交评论">
+<input type="hidden" name="comment_post_ID" value="460">
+</p>
+
+</form>
+</div>
