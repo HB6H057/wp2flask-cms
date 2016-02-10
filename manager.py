@@ -10,7 +10,7 @@ manager = Manager(app)
 
 @manager.command
 def forged():
-    from app.core.models import db, User, Category, Post, Tag
+    from app.core.models import db, User, Category, Post, Tag, Comment
     from random import choice, sample, randint
 
     db.drop_all()
@@ -38,6 +38,13 @@ def forged():
     def generate_tag():
         return Tag(name=faker.first_name())
 
+    def generate_comment(func_post):
+        return Comment(author=faker.first_name(),
+                       email=faker.email(),
+                       site='http://www.%s.com' % (faker.first_name()),
+                       content=faker.sentence(),
+                       post=func_post())
+
     users = [generate_user() for i in xrange(10)]
     db.session.add_all(users)
 
@@ -54,6 +61,11 @@ def forged():
     posts = [generate_post(random_user,
                            random_category, random_tags) for i in xrange(100)]
     db.session.add_all(posts)
+
+    random_post = lambda: choice(posts)
+
+    comments = [generate_comment(random_post) for i in xrange(1000)]
+    db.session.add_all(comments)
 
     db.session.commit()
 
