@@ -77,8 +77,8 @@ class Category(db.Model, BaseModels):
 
 class Post(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)
-    title_ = db.Column(db.String(64), index=True, unique=True)
-    slug = db.Column(db.String(64), index=True, unique=True)
+    title_ = db.Column(db.String(128), index=True, unique=True)
+    slug = db.Column(db.String(128), index=True, unique=True)
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
