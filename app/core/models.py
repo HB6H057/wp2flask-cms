@@ -107,7 +107,8 @@ class Comment(db.Model):
     author = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(64), nullable=False)
     site = db.Column(db.String(64))
-    content = db.Text()
+    content = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 

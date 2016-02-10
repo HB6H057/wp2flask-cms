@@ -113,7 +113,6 @@ def post(cslug, pslug):
     post = Post.query.filter_by(slug=pslug).first()
 
 
-
     return render_template('post.jinja2', p=post)
 
 @home.route('/tag/<string:tslug>', methods=['GET', 'POST'])
