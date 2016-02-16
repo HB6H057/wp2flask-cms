@@ -134,17 +134,3 @@ def tag(tslug):
     ]
 
     return render_template('tag.jinja2', plist=plist)
-
-@home.route('/about', methods=['GET', 'POST'])
-def page_about():
-    """
-    about page
-    """
-    return 'Yes, it really, really, really could happen'
-
-@home.route('/jiaofushu', methods=['GET', 'POST'])
-def page_jiaofushu():
-    """
-    jiaofushu page
-    """
-    return 'All goes round again'

@@ -1,11 +1,18 @@
-form app.core.base import *
+# encoding: utf-8
+from app.core.base import *
 
 from . import page
 
-class PageViews(Baseviews):
-    @home.route('/about', methods=['GET', 'POST'])
-    def index(self):
-        """
-        About page
-        """
-        self.test()
+@page.route('/about', methods=['GET', 'POST'])
+def about():
+    """
+    about page
+    """
+    return 'Yes, it really, really, really could happen'
+
+@page.route('/jiaofushu', methods=['GET', 'POST'])
+def jiaofushu():
+    """
+    jiaofushu page
+    """
+    return 'All goes round again'

@@ -42,10 +42,10 @@ def init_blueprint(app):
     """
     from app.core.home import home
     app.register_blueprint(home)
-    #
-    # from app.core.archive import archive
-    # app.register_blueprint(archive)
-    #
+
+    from app.core.page import page
+    app.register_blueprint(page)
+
     # from app.core.category import category
     # app.register_blueprint(category)
     #
