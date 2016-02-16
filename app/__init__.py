@@ -46,9 +46,9 @@ def init_blueprint(app):
     from app.core.page import page
     app.register_blueprint(page)
 
-    # from app.core.category import category
-    # app.register_blueprint(category)
-    #
+    from app.core.module import module
+    app.register_blueprint(module)
+
     # from app.core.post import post
     # app.register_blueprint(post)
     #
