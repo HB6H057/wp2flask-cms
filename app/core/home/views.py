@@ -60,7 +60,7 @@ def index():
     ]
 
     tags = Tag.query.all()
-
+    
     return render_template('index.jinja2', cates=cates, cate_list=cate_list,
                             hot_list=hot_list, random_brief=random_brief,
                             cate_sidebar=cate_sidebar, new_plist=new_plist, tags=tags)
