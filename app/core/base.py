@@ -5,31 +5,45 @@ from app.core.models import User, Post, Category, Tag
 
 class BaseSerive(object):
     @staticmethod
-    def get_newest_posts(slug, model=Post, count=3):
+    def get_newest_posts(slug=None, model=Post, count=3):
         """
         get newest posts
+        BUG: if slug not exits or ..
         """
-        cate = model.query.filter_by(slug=slug).one()
-        posts = cate.posts[:count]
+        if model == Post:
+            posts = Post.query.limit(count).all()
 
-        cate_posts_dict = dict(
-            id=cate.id,
-            slug=cate.slug,
-            name=cate.name,
-            plist=[
+            posts_data = [
                 dict(
                     id=p.id,
                     title=p.title,
                     slug=p.slug,
                 )
                 for p in posts
-            ],
-        )
+            ]
 
-        return cate_posts_dict
+        else:
+            cate = model.query.filter_by(slug=slug).one()
+            posts = cate.posts[:count]
+
+            posts_data = dict(
+                id=cate.id,
+                slug=cate.slug,
+                name=cate.name,
+                plist=[
+                    dict(
+                        id=p.id,
+                        title=p.title,
+                        slug=p.slug,
+                    )
+                    for p in posts
+                ],
+            )
+
+        return posts_data
 
     @staticmethod
-    def get_tag_data(self):
+    def get_tag_data():
         """
         get tag data
         """
@@ -48,7 +62,7 @@ class BaseSerive(object):
         return tag_dict
 
     @staticmethod
-    def get_cate_data(self):
+    def get_cate_data():
         """
         get category data
         TODO: finish sorted function
@@ -68,8 +82,22 @@ class BaseSerive(object):
         return nav_dict
 
     @staticmethod
-    def random_get_data(self, model=Post, count=3):
+    def random_get_data(model=Post, count=3):
         """
         Random get data (no finish)
         """
         return model.query.limit(count).all()
+
+class HomeServer(object):
+
+    @staticmethod
+    def get_hot_posts(model=Post, count=3):
+        pass
+
+    @staticmethod
+    def get_brief(model=Post, count=3):
+        pass
+
+    @staticmethod
+    def get_cate_posts(count=5):
+        pass
