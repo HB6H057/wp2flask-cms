@@ -1,0 +1,310 @@
+#%RAML 0.8
+---
+  title: tigang-api
+  baseUri: /api
+  version: v1
+
+  /posts:
+    description: 所有文章
+    get:
+      queryParameters:
+        cate_id:
+          description: 获取`cate_id = {cate_id}`条件下的所有文章
+        tag_id:
+          description: 获取`tag_id = {tag_id}`条件下的所有文章
+    post:
+      description: 提交一篇新文章
+    /{post_id}:
+      description: Post实体
+      get:
+        description: 获取`post_id = {post_id}`的文章
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  {
+                    "id": 1,
+                    "title": "我猜你们在看这段文字",
+                    "slug": "wo-cai-ni-men-zai-kan-zhe-duan-wen-zi",
+                    "body": "直播写代码：http://www.douyutv.com/socket",
+                    "timestamp":"2016-03-13 05:55",
+                    "tags":[
+                      "直播",
+                      "熬夜",
+                      "写代码"
+                    ]
+                  }
+          404:
+            body:
+              application/json:
+                example: |
+                  {
+                    "message": "没有找到该文章"
+                  }
+      put:
+        description: 更改`post_id = {post_id}`文章的内容
+      delete:
+        description: 删除一篇新文章
+      /category:
+        get:
+          description: 获取`post_id = {post_id}`文章的分类信息
+          responses:
+            200:
+              body:
+                application/json:
+                  example: |
+                    {
+                      "id": 1,
+                      "name": "斗鱼直播间",
+                      "slug": "douyutv",
+                      "post_count": 30,
+                      "description": "所有斗鱼直播间"
+                    }
+      /tags:
+        description: 所有归属于`post_id = {post_id}`文章的标签
+        get:
+          description: 获取所有`post_id = {post_id}`文章的标签
+          responses:
+            200:
+              body:
+                application/json:
+                  example: |
+                    [
+                      {
+                        "id": 1,
+                        "name": "直播",
+                        "slug": "live",
+                        "post_count": 3
+                      },
+                      {
+                        "id": 2,
+                        "name": "熬夜",
+                        "slug": "stay-up-late",
+                        "post_count": 3
+                      },
+                      {
+                        "id": 3,
+                        "name": "写代码",
+                        "slug": "coding",
+                        "post_count": 4
+                      }
+                    ]
+      /comments:
+        get:
+          description: 获取所有`post_id = {post_id}`文章的评论
+          responses:
+            200:
+              body:
+                application/json:
+                  example: |
+                    [
+                      {
+                        "id": 1,
+                        "author": "你家伟哥",
+                        "email": "we@foobar.com",
+                        "site": "http://www.hb6.org/",
+                        "content": "叫我伟哥就可以了。",
+                        "timestamp": "2016-03-13 05:57",
+                        "post_id": 1
+                      },
+                      {
+                        "id": 2,
+                        "author": "你家伟哥",
+                        "email": "we@foobar.com",
+                        "site": "http://www.hb6.org/",
+                        "content": "实在不行你就叫我小伟",
+                        "timestamp": "2016-03-13 05:59",
+                        "post_id": 2
+                      },
+                      {
+                        "id": 3,
+                        "author": "李纳斯·托沃兹(伪)",
+                        "email": "Linus@foobar.com",
+                        "site": "http://www.Linus.org/",
+                        "content": "hello",
+                        "timestamp": "2016-03-13 06:57",
+                        "post_id": 3
+                      }
+                    ]
+
+  /categorys:
+    description: 所有分类
+    get:
+      queryParameters:
+        post_id:
+    post:
+      description: 添加新分类
+    /{cate_id}:
+      description: Category实体
+      get:
+        description: 获取`cate_id = {cate_id}`的分类
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  {
+                    "id": 1,
+                    "name": "斗鱼直播间",
+                    "slug": "douyutv",
+                    "post_count": 30,
+                    "description": "所有斗鱼直播间"
+                  }
+          404:
+            body:
+              application/json:
+                example: |
+                  {
+                    "messgae": "找不到这个分类"
+                  }
+
+      put:
+        description: 更改`cate_id = {cate_id}`的分类
+      delete:
+        description: 删除`cate_id = {cate_id}`的分类
+      /posts:
+        get:
+          description: 获取所有所属在`cate_id = {caite_id}`分类的文章
+          responses:
+            200:
+              body:
+                application/json:
+                  example: |
+                    [
+                      {
+                        "id": 1,
+                        "title": "我猜你们在看这段文字",
+                        "slug": "wo-cai-ni-men-zai-kan-zhe-duan-wen-zi",
+                        "body": "直播写代码：http://www.douyutv.com/socket",
+                        "timestamp":"2016-03-13 05:55",
+                        "tags":[
+                          "直播",
+                          "熬夜",
+                          "写代码"
+                        ]
+                      },
+                      {
+                        "id": 2,
+                        "title": "吃饭了吗?",
+                        "slug": "chi-fan-le-ma",
+                        "body": "直播写代码：http://www.douyutv.com/socket",
+                        "timestamp":"2016-03-13 06:55",
+                        "tags":[
+                          "直播",
+                          "熬夜",
+                          "吃饭"
+                        ]
+                      },
+                      {
+                        "id": 3,
+                        "title": "快去看我直播",
+                        "slug": "see-my-live",
+                        "body": "直播写代码：http://www.douyutv.com/socket",
+                        "timestamp":"2016-03-14 06:55",
+                        "tags":[
+                          "直播",
+                          "熬夜",
+                          "写代码"
+                        ]
+                      }
+                    ]
+
+  /tags:
+    description: 所有标签
+    get:
+      queryParameters:
+        post_id:
+    post:
+      description: 添加新标签
+    /{tag_id}:
+      description: Tag实体
+      get:
+        description: 获取`tag_id = {tag_id}`的标签信息
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  {
+                    "id": 1,
+                    "name": "直播",
+                    "slug": "live",
+                    "post_count": 3
+                  }
+          404:
+            body:
+              application/json:
+                example: |
+                  {
+                    "message": "没有找到该标签"
+                  }
+      put:
+        description: 更改`tag_id = {tag_id}`的标签信息
+      delete:
+        description: 删除`tag_id = {tag_id}`的标签
+      /posts:
+        get:
+          description: 获取所有标有`tag_id = {tag_id}`分类的文章
+          responses:
+            200:
+              body:
+                application/json:
+                  example: |
+                    [
+                      {
+                        "id": 1,
+                        "title": "我猜你们在看这段文字",
+                        "slug": "wo-cai-ni-men-zai-kan-zhe-duan-wen-zi",
+                        "body": "直播写代码：http://www.douyutv.com/socket",
+                        "timestamp":"2016-03-13 05:55",
+                        "tags":[
+                          "直播",
+                          "熬夜",
+                          "写代码"
+                        ]
+                      },
+                      {
+                        "id": 2,
+                        "title": "吃饭了吗?",
+                        "slug": "chi-fan-le-ma",
+                        "body": "直播写代码：http://www.douyutv.com/socket",
+                        "timestamp":"2016-03-13 06:55",
+                        "tags":[
+                          "直播",
+                          "熬夜",
+                          "吃饭"
+                        ]
+                      },
+                      {
+                        "id": 3,
+                        "title": "快去看我直播",
+                        "slug": "see-my-live",
+                        "body": "直播写代码：http://www.douyutv.com/socket",
+                        "timestamp":"2016-03-14 06:55",
+                        "tags":[
+                          "直播",
+                          "熬夜",
+                          "写代码"
+                        ]
+                      }
+                    ]
+
+  /comments:
+    description: 所有评论
+    get:
+      queryParameters:
+        post:
+    post:
+      description: 添加新评论
+    /{comment_id}:
+      description: Comment实体
+      get:
+        description: 获取`comment_id = {comment_id}`的评论
+      put:
+        description: 更改`comment_id = {comment_id}`的评论
+      delete:
+        description: 删除`comment_id = {comment_id}`的评论
+      /post:
+        get:
+          description: 获取`comment_id = {comment_id}`的评论所属的文章
