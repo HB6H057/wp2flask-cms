@@ -11,6 +11,8 @@ class BaseSerive(object):
         BUG: if slug not exits or ..
         """
         if model == Post:
+            import pdb; pdb.set_trace()
+        
             posts = Post.query.limit(count).all()
 
             posts_data = [
