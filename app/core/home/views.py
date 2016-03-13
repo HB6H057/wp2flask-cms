@@ -8,8 +8,10 @@ def index():
     """
     Index page
     """
+    # import pdb; pdb.set_trace()
+
     tag_dict = BaseSerive.get_tag_data()
-    
+
     return render_template('index.jinja2')
 
 @home.route('/category/<string:cslug>')
