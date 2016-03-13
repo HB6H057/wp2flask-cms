@@ -71,3 +71,34 @@ class PostService(BaseService):
         ]
 
         return tag_dict_list
+
+
+class CategoryService(BaseService):
+    def get_cate_list(self, cid):
+        pass
+
+    def get_cate_by_cid(self, cid):
+        pass
+
+    def get_posts_by_cid(self, cid):
+        pass
+
+class CommentService(BaseService):
+    def get_comment_list(self):
+        pass
+
+    def get_comment_by_cmid(self, cmid):
+        pass
+
+    def get_post_by_cmid(self, cmid):
+        pass
+
+class TagService(BaseService):
+    def get_tag_list(self):
+        pass
+
+    def get_tag_by_tid(self, tid):
+        pass
+
+    def get_posts_by_tid(self, tid):
+        pass
