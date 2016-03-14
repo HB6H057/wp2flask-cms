@@ -1,15 +1,28 @@
 # encoding: utf-8
+import json
 from app.core.base import *
-
+from app.core.service import (CategoryService, PostService,
+                              CommentService, TagService)
 from . import home
+
+@home.route('/api')
+def api():
+    # c = CategoryService()
+    # d = c.get_cate_list()
+    # c = PostService()
+    # d = c.get_post_list()
+    # c = CommentService()
+    # d = c.get_comment_list()
+    c = TagService()
+    d = c.get_tag_list()
+
+    return json.dumps(d)
 
 @home.route('/')
 def index():
     """
     Index page
     """
-    # import pdb; pdb.set_trace()
-
     tag_dict = BaseSerive.get_tag_data()
 
     return render_template('index.jinja2')
