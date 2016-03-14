@@ -9,12 +9,25 @@ from . import home
 def api():
     # c = CategoryService()
     # d = c.get_cate_list()
+    # d = c.get_cate_by_cid(2)
+    # d = c.get_cate_by_cid(2)
+    # d = c.get_posts_by_cid(2)
+
     # c = PostService()
     # d = c.get_post_list()
+    # d = c.get_post_by_pid(2)
+    # d = c.get_cate_of_post(2)
+    # d = c.get_comments_of_post(2)
+
     # c = CommentService()
     # d = c.get_comment_list()
+    # d = c.get_comment_by_cmid(2)
+    # d = c.get_post_by_cmid(2)
+
     c = TagService()
-    d = c.get_tag_list()
+    # d = c.get_tag_list()
+    d = c.get_posts_by_tid(2)
+
 
     return json.dumps(d)
 

@@ -66,19 +66,7 @@ class BaseService:
         data_dict_list = []
 
         for d in data:
-
             data_dict = self.data_dict_generator(d, keys, skeys)
-            # data_dict = {}
-            # for k in keys:
-            #     data_dict[k] = getattr(d, k, None)
-            # for sk in skeys:
-            #     if sk == "post_count":
-            #         data_dict[sk] = d.posts.count()
-            #     elif sk == "timestamp":
-            #         data_dict[sk] = d.timestamp.strftime("%F %H:%M:%S")
-            #     elif sk == "tags":
-            #         data_dict[sk] = [ t.name for t in d.tags ]
-
             data_dict_list.append(data_dict)
 
         return data_dict_list
@@ -99,16 +87,10 @@ class PostService(BaseService):
     def get_post_by_pid(self, pid):
         p = Post.query.get(pid)
 
-        post_dict = dict(
-            id=p.id,
-            title=p.title,
-            slug=p.slug,
-            body=p.body,
-            # timestamp
-            tags=[
-                t.name
-                for t in p.tags
-            ]
+        post_dict = self.data_dict_generator(
+            p,
+            post_keys,
+            post_special_keys,
         )
 
         return post_dict
@@ -116,12 +98,10 @@ class PostService(BaseService):
     def get_cate_of_post(self, pid):
         post = Post.query.get(pid)
 
-        cate_dict = dict(
-          id=post.category.id,
-          name=post.category.name,
-          slug=post.category.slug,
-          post_count=post.category.posts.count(),
-          description=post.category.description
+        cate_dict = self.data_dict_generator(
+            post.category,
+            cate_keys,
+            cate_special_keys
         )
 
         return cate_dict
@@ -144,17 +124,13 @@ class PostService(BaseService):
     def get_comments_of_post(self, pid):
         post = Post.query.get(pid)
 
-        comment_dict_list = [
-            dict(
-                id=cm.id,
-                author=cm.author,
-                email=cm.email,
-                site=cm.site,
-                content=cm.content,
-                # timestamp="2016-03-13 05:57",
-            )
-        ]
+        comment_dict_list = self.data_dict_list_generator(
+            post.comments,
+            comment_keys,
+            comment_special_keys
+        )
 
+        return comment_dict_list
 
 class CategoryService(BaseService):
     def get_cate_list(self):
@@ -169,10 +145,26 @@ class CategoryService(BaseService):
         return cate_dict_list
 
     def get_cate_by_cid(self, cid):
-        pass
+        cate = Category.query.get(cid)
+
+        cate_dict = self.data_dict_generator(
+            cate,
+            cate_keys,
+            cate_special_keys
+        )
+
+        return cate_dict
 
     def get_posts_by_cid(self, cid):
-        pass
+        cate = Category.query.get(cid)
+
+        post_dict_list = self.data_dict_list_generator(
+            cate.posts,
+            post_keys,
+            post_special_keys
+        )
+
+        return post_dict_list
 
 class CommentService(BaseService):
     def get_comment_list(self):
@@ -187,10 +179,27 @@ class CommentService(BaseService):
         return comment_dict_list
 
     def get_comment_by_cmid(self, cmid):
-        pass
+        comment = Comment.query.get(cmid)
+
+        comment_dict = self.data_dict_generator(
+            comment,
+            comment_keys,
+            comment_special_keys
+        )
+
+        return comment_dict
 
     def get_post_by_cmid(self, cmid):
-        pass
+        comment = Comment.query.get(cmid)
+
+        post_dict = self.data_dict_generator(
+            comment.post,
+            post_keys,
+            post_special_keys
+        )
+
+        return post_dict
+
 
 class TagService(BaseService):
     def get_tag_list(self):
@@ -205,7 +214,23 @@ class TagService(BaseService):
         return tag_dict_list
 
     def get_tag_by_tid(self, tid):
-        pass
+        tag = Tag.query.get(tid)
+
+        tag_dict = self.data_dict_generator(
+            tag,
+            tag_keys,
+            tag_special_keys
+        )
+
+        return tag_dict
 
     def get_posts_by_tid(self, tid):
-        pass
+        tag = Tag.query.get(tid)
+
+        post_dict_list = self.data_dict_list_generator(
+            tag.posts,
+            post_keys,
+            post_special_keys
+        )
+
+        return post_dict_list
