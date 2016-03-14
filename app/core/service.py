@@ -47,21 +47,37 @@ tag_special_keys = [
 ]
 
 class BaseService:
+    def data_dict_generator(self, d, keys=[], skeys=[]):
+        data_dict = {}
+
+        for k in keys:
+            data_dict[k] = getattr(d, k, None)
+        for sk in skeys:
+            if sk == "post_count":
+                data_dict[sk] = d.posts.count()
+            elif sk == "timestamp":
+                data_dict[sk] = d.timestamp.strftime("%F %H:%M:%S")
+            elif sk == "tags":
+                data_dict[sk] = [ t.name for t in d.tags ]
+
+        return data_dict
+
     def data_dict_list_generator(self, data=[], keys=[], skeys=[]):
         data_dict_list = []
 
         for d in data:
 
-            data_dict = {}
-            for k in keys:
-                data_dict[k] = getattr(d, k, None)
-            for sk in skeys:
-                if sk == "post_count":
-                    data_dict[sk] = d.posts.count()
-                elif sk == "timestamp":
-                    data_dict[sk] = d.timestamp.strftime("%F %H:%M:%S")
-                elif sk == "tags":
-                    data_dict[sk] = [ t.name for t in d.tags ]
+            data_dict = self.data_dict_generator(d, keys, skeys)
+            # data_dict = {}
+            # for k in keys:
+            #     data_dict[k] = getattr(d, k, None)
+            # for sk in skeys:
+            #     if sk == "post_count":
+            #         data_dict[sk] = d.posts.count()
+            #     elif sk == "timestamp":
+            #         data_dict[sk] = d.timestamp.strftime("%F %H:%M:%S")
+            #     elif sk == "tags":
+            #         data_dict[sk] = [ t.name for t in d.tags ]
 
             data_dict_list.append(data_dict)
 
