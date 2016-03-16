@@ -8,10 +8,14 @@
     description: 所有文章
     get:
       queryParameters:
-        cate_id:
+        cid:
           description: 获取`cate_id = {cate_id}`条件下的所有文章
-        tag_id:
+        tid:
           description: 获取`tag_id = {tag_id}`条件下的所有文章
+        limit:
+          description: 获取`tag_id = {tag_id}`条件下{limit}条文章
+        radom:
+          description: 随机排序(默认为false)
     post:
       description: 提交一篇新文章
     /{post_id}:

@@ -1,20 +1,29 @@
 # encoding: utf-8
 import json
+from sqlalchemy import func
+from flask import request
 from app.core.base import *
 from app.core.service import (CategoryService, PostService,
                               CommentService, TagService)
 from . import home
 
+@home.route('/test')
+def test():
+    import pdb; pdb.set_trace()
+    Post.query.limit(11).order_By(fun.random()).all()
+
 @home.route('/api')
 def api():
+
+
     # c = CategoryService()
     # d = c.get_cate_list()
     # d = c.get_cate_by_cid(2)
     # d = c.get_cate_by_cid(2)
     # d = c.get_posts_by_cid(2)
 
-    # c = PostService()
-    # d = c.get_post_list()
+    c = PostService()
+    d = c.get_post_list(request.args)
     # d = c.get_post_by_pid(2)
     # d = c.get_cate_of_post(2)
     # d = c.get_comments_of_post(2)
@@ -24,9 +33,9 @@ def api():
     # d = c.get_comment_by_cmid(2)
     # d = c.get_post_by_cmid(2)
 
-    c = TagService()
+    # c = TagService()
     # d = c.get_tag_list()
-    d = c.get_posts_by_tid(2)
+    # d = c.get_posts_by_tid(2)
 
 
     return json.dumps(d)
@@ -36,7 +45,13 @@ def index():
     """
     Index page
     """
-    tag_dict = BaseSerive.get_tag_data()
+    ps = PostService()
+    hostlist = c.get_post_list(dict(
+        limit=11,
+        random='true'
+    ))
+
+    import pdb; pdb.set_trace()
 
     return render_template('index.jinja2')
 

@@ -12,7 +12,7 @@ class BaseSerive(object):
         """
         if model == Post:
             import pdb; pdb.set_trace()
-        
+
             posts = Post.query.limit(count).all()
 
             posts_data = [
@@ -92,14 +92,18 @@ class BaseSerive(object):
 
 class HomeServer(object):
 
-    @staticmethod
-    def get_hot_posts(model=Post, count=3):
-        pass
+    def get_hot_posts(self):
+        ps = PostService()
+        h_plist = c.get_post_list(dict(
+            limit=11,
+            random='true'
+        ))
+
+        return host_plist
 
     @staticmethod
     def get_brief(model=Post, count=3):
         pass
 
-    @staticmethod
     def get_cate_posts(count=5):
         pass

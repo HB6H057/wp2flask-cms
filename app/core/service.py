@@ -1,4 +1,5 @@
 #encoding: utf-8
+from sqlalchemy import func
 from app.core.models import User, Post, Category, Tag, Comment
 
 post_keys = [
@@ -73,8 +74,20 @@ class BaseService:
 
 class PostService(BaseService):
 
-    def get_post_list(self):
-        posts = Post.query.all()
+    def get_post_list(self, kw=[]):
+        base_query = Post.query
+
+        if kw is not None and isinstance(kw, dict):
+            if 'cid' in kw.keys() and kw['cid'] is not None:
+                base_query = base_query.filter_by(category_id=kw['cid'])
+            if 'tid' in kw.keys() and kw['tid'] is not None:
+                base_query = base_query.filter_by(category_id=kw['cid'])
+            if 'random' in kw.keys() and kw['random'] == 'true':
+                base_query = base_query.order_by(func.random())
+            if 'limit' in kw.keys() and kw['limit'] is not None:
+                base_query = base_query.limit(kw['limit'])
+
+        posts = base_query.all()
 
         post_dict_list = self.data_dict_list_generator(
                 posts,
