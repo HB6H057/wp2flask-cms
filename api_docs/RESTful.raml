@@ -298,6 +298,37 @@
       description: Comment实体
       get:
         description: 获取`comment_id = {comment_id}`的评论
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                    [
+                      {
+                        "id": 1,
+                        "author": "你家伟哥",
+                        "email": "we@foobar.com",
+                        "site": "http://www.hb6.org/",
+                        "content": "叫我伟哥就可以了。",
+                        "timestamp": "2016-03-13 05:57"
+                      },
+                      {
+                        "id": 2,
+                        "author": "你家伟哥",
+                        "email": "we@foobar.com",
+                        "site": "http://www.hb6.org/",
+                        "content": "实在不行你就叫我小伟",
+                        "timestamp": "2016-03-13 05:59"
+                      },
+                      {
+                        "id": 3,
+                        "author": "李纳斯·托沃兹(伪)",
+                        "email": "Linus@foobar.com",
+                        "site": "http://www.Linus.org/",
+                        "content": "hello",
+                        "timestamp": "2016-03-13 06:57"
+                      }
+                    ]
       put:
         description: 更改`comment_id = {comment_id}`的评论
       delete:
@@ -305,3 +336,20 @@
       /post:
         get:
           description: 获取`comment_id = {comment_id}`的评论所属的文章
+          responses:
+            200:
+              body:
+                application/json:
+                  example: |
+                    {
+                      "id": 1,
+                      "title": "我猜你们在看这段文字",
+                      "slug": "wo-cai-ni-men-zai-kan-zhe-duan-wen-zi",
+                      "body": "直播写代码：http://www.douyutv.com/socket",
+                      "timestamp":"2016-03-13 05:55",
+                      "tags":[
+                        "直播",
+                        "熬夜",
+                        "写代码"
+                      ]
+                    }
