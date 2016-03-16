@@ -46,7 +46,7 @@ def index():
     Index page
     """
     ps = PostService()
-    hostlist = c.get_post_list(dict(
+    hostlist = ps.get_post_list(dict(
         limit=11,
         random='true'
     ))

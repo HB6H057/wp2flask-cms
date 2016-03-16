@@ -94,16 +94,35 @@ class HomeServer(object):
 
     def get_hot_posts(self):
         ps = PostService()
-        h_plist = c.get_post_list(dict(
+        res = c.get_post_list(dict(
             limit=11,
             random='true'
         ))
 
-        return host_plist
+        return res
 
     @staticmethod
     def get_brief(model=Post, count=3):
         pass
 
-    def get_cate_posts(count=5):
-        pass
+    def get_cate_posts(self, count=5):
+        cates = Category.query.all()
+
+        res = [
+            dict(
+                id=c.id,
+                slug=c.slug,
+                name=c.name,
+                plist=[
+                    dict(
+                        id=p.id,
+                        title=p.title,
+                        slug=p.slug
+                    )
+                    for p in c.posts[:count]
+                ]
+            )
+            for c in cates
+        ]
+
+        return res

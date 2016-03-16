@@ -7,6 +7,7 @@ post_keys = [
     "title",
     "slug",
     "body",
+    "category_id",
 ]
 
 post_special_keys = [
