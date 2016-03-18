@@ -11,17 +11,17 @@
 <div class="taobaobei">
     <!--页面导航 开始 -->
     <div class="subnavi">
-        <div class="subnavi-l">当前位置: <a href="http://www.tigang.net">高中复习提纲网</a> &gt; <a href="http://www.tigang.net/category/yingyu" rel="category tag">高中英语复习提纲</a></div>
+        <div class="subnavi-l">当前位置: <a href="http://www.tigang.net">高中复习提纲网</a> &gt; <a href="{{ url_for('home.category', cslug=catepage_data.slug) }}" rel="category tag">高中英语复习提纲</a></div>
     </div>
     <!--页面导航 结束 -->
     <!-- 分类文章列表 开始 -->
     <div class="bb_post">
-      {% for p in plist %}
+      {% for p in catepage_data.plist %}
         <div class="bb_list" id="baobei-{{ p.id }}">
-            <h2><a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" rel="bookmark" title="{{ p.title }}">{{ p.title }}</a></h2>
+            <h2><a href="{{ url_for('home.post', cslug=catepage_data.slug, pslug=p.slug) }}" rel="bookmark" title="{{ p.title }}">{{ p.title }}</a></h2>
             <span class="bb_date">{{ p.post_time }}</span>
             <div class="bb_detail">
-                {{ p.brief }}......<a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" rel="bookmark" title="{{ p.title }}">复习提纲详细内容</a>
+                {{ p.brief }}......<a href="{{ url_for('home.post', cslug=catepage_data.slug, pslug=p.slug) }}" rel="bookmark" title="{{ p.title }}">复习提纲详细内容</a>
             </div>
         </div>
       {% endfor %}

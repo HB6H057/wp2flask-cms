@@ -2,50 +2,22 @@
 from flask import render_template
 
 from app.core.models import User, Post, Category, Tag
+from app.core.service import *
 
 class BaseSerive(object):
-    @staticmethod
-    def get_newest_posts(slug=None, model=Post, count=3):
-        """
-        get newest posts
-        BUG: if slug not exits or ..
-        """
-        if model == Post:
-            import pdb; pdb.set_trace()
+    def __init__(self):
+        self.cate_data = self.get_cate_data()
 
-            posts = Post.query.limit(count).all()
+    def paginate(self, data=[], page_index=1, per_page=12):
+        # TODO: 错误处理
+        try:
+            offset = (page_index-1) * per_page
+            res = data[offset:offset+per_page]
+            return res
+        except:
+            return []
 
-            posts_data = [
-                dict(
-                    id=p.id,
-                    title=p.title,
-                    slug=p.slug,
-                )
-                for p in posts
-            ]
-
-        else:
-            cate = model.query.filter_by(slug=slug).one()
-            posts = cate.posts[:count]
-
-            posts_data = dict(
-                id=cate.id,
-                slug=cate.slug,
-                name=cate.name,
-                plist=[
-                    dict(
-                        id=p.id,
-                        title=p.title,
-                        slug=p.slug,
-                    )
-                    for p in posts
-                ],
-            )
-
-        return posts_data
-
-    @staticmethod
-    def get_tag_data():
+    def get_tag_data(self):
         """
         get tag data
         """
@@ -63,8 +35,7 @@ class BaseSerive(object):
 
         return tag_dict
 
-    @staticmethod
-    def get_cate_data():
+    def get_cate_data(self):
         """
         get category data
         TODO: finish sorted function
@@ -83,26 +54,19 @@ class BaseSerive(object):
 
         return nav_dict
 
-    @staticmethod
-    def random_get_data(model=Post, count=3):
-        """
-        Random get data (no finish)
-        """
-        return model.query.limit(count).all()
+    def get_random_post(self):
+        pass
 
-class HomeServer(object):
+class HomeServer(BaseSerive):
 
     def get_hot_posts(self):
-        ps = PostService()
-        res = c.get_post_list(dict(
-            limit=11,
-            random='true'
-        ))
-
+        res = Post.query.order_by(func.random()).limit(11)
         return res
 
-    @staticmethod
     def get_brief(model=Post, count=3):
+        """
+        TODO: 中文分片
+        """
         pass
 
     def get_cate_posts(self, count=5):
@@ -124,5 +88,37 @@ class HomeServer(object):
             )
             for c in cates
         ]
+
+        return res
+
+class CatePageService(BaseSerive):
+    def __init__(self, cslug, page_index=1):
+        super(CatePageService, self).__init__()
+        self.page_index = page_index
+        self.cslug = cslug
+        # TODO: error: if slug not exist?????
+        self.cate = Category.query.filter_by(slug=self.cslug).first()
+
+    def get_catepage_data(self):
+        # TODO: post sorted???
+        # TODO: 分页展示
+        posts = self.paginate(self.cate.posts, self.page_index, 12)
+        res = dict(
+            cid=self.cate.id,
+            slug=self.cate.slug,
+            name=self.cate.name,
+            page_num=self.page_index,
+            plist=[
+                dict(
+                    id=p.id,
+                    title=p.title,
+                    slug=p.slug,
+                    post_time=p.timestamp.strftime("%F %H:%M:%S"),
+                    brief=u"中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？"
+                    #TODO: brief???
+                )
+                for p in posts
+            ],
+        )
 
         return res

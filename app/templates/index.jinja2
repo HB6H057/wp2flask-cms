@@ -45,10 +45,10 @@
         {% for c in cate_list %}
         <div id="cat-{{c.id}}" class="bb_cats">
           <div class="cats_content">
-            <h2><a href="{{ url_for('home.category', cslug=c.slug) }}" title="{{c.title}}">{{c.title}}</a></h2>
+            <h2><a href="{{ url_for('home.category', cslug=c.slug) }}" title="{{c.name}}">{{c.name}}</a></h2>
             <ul>
               {% for p in c.plist %}
-              <li><a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" title="{{p.title}}">{{p.title}}</a></li>
+              <li><a href="{{ url_for('home.post', cslug=c.slug, pslug=p.slug) }}" title="{{p.title}}">{{p.title}}</a></li>
               {% endfor %}
             </ul>
           </div>

@@ -9,8 +9,9 @@ from . import home
 
 @home.route('/test')
 def test():
+    sa = CatePageService('miller', 1);
+    sa.get_catepage_data()
     import pdb; pdb.set_trace()
-    Post.query.limit(11).order_By(fun.random()).all()
 
 @home.route('/api')
 def api():
@@ -45,47 +46,27 @@ def index():
     """
     Index page
     """
-    ps = PostService()
-    hostlist = ps.get_post_list(dict(
-        limit=11,
-        random='true'
-    ))
-
-    import pdb; pdb.set_trace()
-
-    return render_template('index.jinja2')
+    hs = HomeServer()
+    cate_list = hs.get_cate_posts()
+    hot_list = hs.get_hot_posts()
+    ss
+    return render_template(
+        'index.jinja2',
+        cates=hs.cate_data,
+        cate_list=cate_list,
+        hot_list=hot_list
+    )
 
 @home.route('/category/<string:cslug>')
-def category(cslug):
-    cates = Category.query.all()
-    cate_posts = Category.query.filter_by(slug=cslug).one().posts
+@home.route('/category/<string:cslug>/<int:page>')
+def category(cslug, page=1):
+    ca = CatePageService(cslug, page);
+    catepage_data = ca.get_catepage_data()
 
-    plist = [
-        dict(
-            id=p.id,
-            title=p.title,
-            slug=p.slug,
-            cslug=p.category.slug,
-            brief=p.body[:360],
-        )
-        for p in cate_posts
-    ]
-
-    cate_sidebar = [
-        {
-            'id': c.id,
-            'title': c.name,
-            'slug': c.slug,
-            'count': c.posts.count()
-        }
-        for c in cates
-    ]
-
-    tags = Tag.query.all()
-
-    return render_template('category.jinja2', cates=cates, plist=plist,
-                            cate_sidebar=cate_sidebar, tags=tags
-                          )
+    return render_template(
+        'category.jinja2',
+        catepage_data=catepage_data,
+    )
 
 @home.route('/<int:year>/<string:month>', methods=['GET', 'POST'])
 def archive(year, month):

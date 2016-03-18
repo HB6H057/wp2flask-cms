@@ -48,7 +48,7 @@ tag_special_keys = [
     "post_count",
 ]
 
-class BaseService:
+class BaseService(object):
     def data_dict_generator(self, d, keys=[], skeys=[]):
         data_dict = {}
 
