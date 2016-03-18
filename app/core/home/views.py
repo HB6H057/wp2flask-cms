@@ -58,7 +58,7 @@ def index():
     )
 
 @home.route('/category/<string:cslug>')
-@home.route('/category/<string:cslug>/<int:page>')
+@home.route('/category/<string:cslug>/page/<int:page>')
 def category(cslug, page=1):
     ca = CatePageService(cslug, page);
     catepage_data = ca.get_catepage_data()
@@ -69,7 +69,8 @@ def category(cslug, page=1):
     )
 
 @home.route('/<int:year>/<string:month>', methods=['GET', 'POST'])
-def archive(year, month):
+@home.route('/<int:year>/<string:month>/page/<int:page_num>', methods=['GET', 'POST'])
+def archive(year, month, page_num=1):
     """
     Archive default page
     """
@@ -87,7 +88,8 @@ def post(cslug, pslug):
     return render_template('post.jinja2', p=post)
 
 @home.route('/tag/<string:tslug>', methods=['GET', 'POST'])
-def tag(tslug):
+@home.route('/tag/<string:tslug>/page/<int:page_num>', methods=['GET', 'POST'])
+def tag(tslug, page_num=1):
     """
     Tag default page
     """

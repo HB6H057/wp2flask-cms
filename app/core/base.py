@@ -120,5 +120,15 @@ class CatePageService(BaseSerive):
                 for p in posts
             ],
         )
-
         return res
+
+class TagPageService(BaseSerive):
+    def __init__(self, tslug, page_num=1):
+        super(CatePageService, self).__init__()
+        self.page_num = page_num
+        self.tslug = tslug
+        # TODO: error: if slug not exist?????
+        self.tag = Tag.query.filter_by(slug=self.tslug).first()
+
+    def get_tagpage_data(self):
+        posts = self.paginate(self.cate.posts, self.page_num, 12)
