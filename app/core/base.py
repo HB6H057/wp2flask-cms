@@ -17,23 +17,6 @@ class BaseSerive(object):
         except:
             return []
 
-    def get_tag_data(self):
-        """
-        get tag data
-        """
-        tags = Tag.query.all()
-
-        tag_dict = [
-            dict(
-                id=t.id,
-                name=t.name,
-                slug=t.slug,
-                count=t.posts.count()
-            )
-            for t in tags
-        ]
-
-        return tag_dict
 
     def get_cate_data(self):
         """
@@ -132,3 +115,61 @@ class TagPageService(BaseSerive):
 
     def get_tagpage_data(self):
         posts = self.paginate(self.cate.posts, self.page_num, 12)
+
+class WidgetsService(BaseSerive):
+
+    def get_archive_data(self):
+        # TODO: 是否抛弃这个功能？
+        pass
+
+    def get_newest_posts(self, count=10):
+        posts = Post.query.limit(count).all()
+        res = [
+            dict(
+                id=p.id,
+                title=p.title,
+                slug=p.slug,
+                cslug=p.category.slug,
+            )
+            for p in posts
+        ]
+
+        return res
+    def get_tag_data(self):
+        """
+        get tag data
+        # TODO: sorted & limit
+        """
+        tags = Tag.query.all()
+
+        tag_dict = [
+            dict(
+                id=t.id,
+                name=t.name,
+                slug=t.slug,
+                count=t.posts.count()
+            )
+            for t in tags
+        ]
+
+        return tag_dict
+
+    def get_random_post(self, count):
+        # TODO: 一次性取出所有文章，效率上能否优化？
+        posts = Post.query.order_by(func.random()).all()[:count]
+
+        res = [
+            dict(
+                id=p.id,
+                title=p.title,
+                slug=p.slug,
+                cslug=p.category.slug,
+            )
+            for p in posts
+        ]
+
+        return res
+
+    def get_related_posts(self):
+        # TODO: wp-related-post 原理
+        pass

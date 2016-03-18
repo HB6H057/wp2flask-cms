@@ -49,7 +49,6 @@ def index():
     hs = HomeServer()
     cate_list = hs.get_cate_posts()
     hot_list = hs.get_hot_posts()
-    ss
     return render_template(
         'index.jinja2',
         cates=hs.cate_data,
