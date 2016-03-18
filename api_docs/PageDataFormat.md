@@ -1,4 +1,4 @@
-## 文章列表(无分类信息):
+## 文章列表部件(无分类信息):
 
 ```python
 post_dict_list = [
@@ -12,7 +12,7 @@ post_dict_list = [
 ]
 ```
 
-## 文章列表(含分类信息)
+## 文章列表部件(含分类信息)
 
 ```python
 cate_posts_list = dict(
@@ -30,6 +30,27 @@ cate_posts_list = dict(
     ],
 )
 ```
+## 文章(不是那个出轨的明星)
+
+```python
+  post_dict = dict(
+    id=p.id,
+    title=p.title,
+    slug=p.slug,
+    cslug=p.category.slug
+    body=p.body,
+    timestamp=p.timestamp.strftime("%F"),
+    tags=[
+      dict(
+        id=t.id,
+        name=t.name,
+        slug=t.slug,
+      )
+      for t in tags
+    ],
+  )
+```
+
 ## 分类列表
 
 ```python

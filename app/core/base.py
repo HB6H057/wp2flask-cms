@@ -75,17 +75,20 @@ class HomeServer(BaseSerive):
         return res
 
 class CatePageService(BaseSerive):
-    def __init__(self, cslug, page_index=1):
+    def __init__(self, cslug, page_num=1):
         super(CatePageService, self).__init__()
-        self.page_index = page_index
+        self.page_num = page_num
         self.cslug = cslug
         # TODO: error: if slug not exist?????
         self.cate = Category.query.filter_by(slug=self.cslug).first()
+        self.pagination = Post.query.filter(
+            Post.category.has(slug=self.cslug)
+        ).paginate(page_num=self.page_num, per_page=CAGE_PER_PAGE)
 
     def get_catepage_data(self):
         # TODO: post sorted???
         # TODO: 分页展示
-        posts = self.paginate(self.cate.posts, self.page_index, 12)
+
         res = dict(
             cid=self.cate.id,
             slug=self.cate.slug,
@@ -114,7 +117,8 @@ class TagPageService(BaseSerive):
         self.tag = Tag.query.filter_by(slug=self.tslug).first()
 
     def get_tagpage_data(self):
-        posts = self.paginate(self.cate.posts, self.page_num, 12)
+        # pagination =
+        pass
 
 class WidgetsService(BaseSerive):
 
