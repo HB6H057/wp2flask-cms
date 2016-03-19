@@ -38,6 +38,12 @@ TAG_WIDGET_DICT_KEY = [
 ]
 TAG_WIDGET_DICT_KEY.extend(TAG_DICT_KEY)
 
+#posts of cate page dict
+TAG_PAGE_DICT_KEY = [
+    "pagination",
+]
+TAG_PAGE_DICT_KEY.extend(TAG_DICT_KEY)
+
 # ## Category PageService Constants ##
 CATEGORY_DICT_KEY = [
     "id",
@@ -45,3 +51,8 @@ CATEGORY_DICT_KEY = [
     "slug",
     "post_count",
 ]
+#posts of cate page dict
+CATEGORY_PAGE_DICT_KEY = [
+    "pagination",
+]
+CATEGORY_PAGE_DICT_KEY.extend(CATEGORY_DICT_KEY)

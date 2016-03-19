@@ -1,3 +1,21 @@
+## 文章列表页
+```python
+page_dict = dict(
+  id=c.id, # t.id
+  name=c.name, # t.name
+  slug=c.slug, # t.slug
+  post_count=c.posts.count(), # t.posts.count
+  pagination=self.pagination,
+  plist=[
+    dict(
+        id=p.id,
+        title=p.title,
+        slug=p.slug,
+    )
+    for p in posts
+  ],
+)
+```
 ## 文章列表部件(无分类信息):
 
 ```python

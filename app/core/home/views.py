@@ -9,8 +9,6 @@ from . import home
 
 @home.route('/test')
 def test():
-    ws = WidgetsService()
-    d = ws.get_newest_posts()
     # import pdb; pdb.set_trace()
     # testerror
     return json.dumps(d)

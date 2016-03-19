@@ -8,16 +8,7 @@ from app.core.models import User, Post, Category, Tag
 class BasePageService(object):
     def __init__(self):
         self.cate_data = self.get_cate_data()
-
-    def paginate(self, data=[], page_index=1, per_page=12):
-        # TODO: 错误处理
-        try:
-            offset = (page_index-1) * per_page
-            res = data[offset:offset+per_page]
-            return res
-        except:
-            return []
-
+        self.pagination = None
 
     def get_cate_data(self):
         """
@@ -26,25 +17,22 @@ class BasePageService(object):
         """
         cates = Category.query.all()
 
-        nav_dict = [
-            dict(
-                id=c.id,
-                name=c.name,
-                slug=c.slug,
-                count=c.posts.count()
-            )
-            for c in cates
-        ]
+        cate_dict_list = self.data_dict_list_generator(cates, CATEGORY_DICT_KEY)
 
-        return nav_dict
+        return cate_dict_list
 
     def get_value_by_special_key(self, d, sk):
         if sk == "post_count":
             v = d.posts.count()
+        elif sk == "pagination":
+            v = self.pagination
         elif sk == "cslug":
             v = d.category.slug
         elif sk == "create_date":
             v = d.timestamp.strftime("%F %H:%M:%S")
+        elif sk == "brief":
+            # TODO: brief function
+            v = u"第八单元  19世纪以来的世界文学艺术  第22课  文学的繁荣  【基础解读】  一、浪漫主义文学     1、浪漫主义文学产生的背景：   （1）18世纪末至19世纪30年代，欧洲革命和战争不断，社会动乱不已。  （2）政治中的黑暗，社会的不平等，使人们感到法国大革命后确立的资本主义制度远不如启..."
         elif sk == "font_size":
             # TODO: font_size function
             v = 3
@@ -74,8 +62,12 @@ class BasePageService(object):
 
         return dict_list
 
-        def post_list_page_data_generator(self, key):
-            pass
+    def post_list_page_data_generator(self, d, key, pkey):
+        d_dict = self.data_dict_generator(d, key)
+        plist = self.data_dict_list_generator(self.pagination.items, pkey)
+        d_dict['plist'] = plist
+
+        return d_dict
 
 class HomeServer(BasePageService):
 
@@ -126,25 +118,31 @@ class CatePageService(BasePageService):
         # TODO: post sorted???
         # TODO: 分页展示
 
-        res = dict(
-            cid=self.cate.id,
-            slug=self.cate.slug,
-            name=self.cate.name,
-            page_num=self.page_index,
-            plist=[
-                dict(
-                    id=p.id,
-                    title=p.title,
-                    slug=p.slug,
-                    post_time=p.timestamp.strftime("%F %H:%M:%S"),
-                    brief=u"中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？"
-                    #TODO: brief???
-                )
-                for p in posts
-            ],
-        )
-        return res
+        # res = dict(
+        #     cid=self.cate.id,
+        #     slug=self.cate.slug,
+        #     name=self.cate.name,
+        #     page_num=self.page_index,
+        #     plist=[
+        #         dict(
+        #             id=p.id,
+        #             title=p.title,
+        #             slug=p.slug,
+        #             post_time=p.timestamp.strftime("%F %H:%M:%S"),
+        #             brief=u"中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？"
+        #             #TODO: brief???
+        #         )
+        #         for p in posts
+        #     ],
+        # )
 
+        post_list_dict = self.post_list_page_data_generator(
+            self.cate,
+            CATEGORY_PAGE_DICT_KEY,
+            POST_BRIEF_DICT_KEY,
+        )
+
+        return post_list_dict
 class TagPageService(BasePageService):
     def __init__(self, tslug, page_num=1):
         super(CatePageService, self).__init__()
