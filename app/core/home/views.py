@@ -9,9 +9,10 @@ from . import home
 
 @home.route('/test')
 def test():
-    sa = CatePageService('miller', 1);
-    sa.get_catepage_data()
+    ws = WidgetsService()
+    d = ws.get_tag_data()
     import pdb; pdb.set_trace()
+    testerror
 
 @home.route('/api')
 def api():

@@ -20,7 +20,7 @@ POST_PAGE_DICT_KEY.extend(POST_DICT_KEY)
 
 # post brief dict key
 POST_BRIEF_DICT_KEY = [
-    "brief"
+    "brief",
 ]
 POST_BRIEF_DICT_KEY.extend(POST_DICT_KEY)
 
@@ -36,7 +36,7 @@ TAG_DICT_KEY = [
 TAG_WIDGET_DICT_KEY = [
     "font_size",
 ]
-TAG_WIDGETS_DICT_KEY.extend(TAG_DICT_KEY)
+TAG_WIDGET_DICT_KEY.extend(TAG_DICT_KEY)
 
 # ## Category PageService Constants ##
 CATEGORY_DICT_KEY = [
