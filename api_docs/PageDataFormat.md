@@ -39,7 +39,7 @@ cate_posts_list = dict(
     slug=p.slug,
     cslug=p.category.slug
     body=p.body,
-    timestamp=p.timestamp.strftime("%F"),
+    create_date=p.timestamp.strftime("%F"),
     tags=[
       dict(
         id=t.id,

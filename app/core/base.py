@@ -41,7 +41,9 @@ class BasePageService(object):
     def get_value_by_special_key(self, d, sk):
         if sk == "post_count":
             v = d.posts.count()
-        elif sk == "timestamp":
+        elif sk == "cslug":
+            v = d.category.slug
+        elif sk == "create_date":
             v = d.timestamp.strftime("%F %H:%M:%S")
         elif sk == "font_size":
             # TODO: font_size function
@@ -53,28 +55,27 @@ class BasePageService(object):
 
         return v
 
-    def tag_dict_list_generator(self, data, key):
+    def data_dict_generator(self, d, key):
+        data_dict = {}
+        for k in key:
+            try:
+                data_dict[k] = getattr(d, k)
+            except AttributeError:
+                data_dict[k] = self.get_value_by_special_key(d, k)
+        return data_dict
+
+    def data_dict_list_generator(self, data, key):
         # TODO: error
         dict_list = []
 
         for d in data:
-            data_dict = {}
-            for k in key:
-                try:
-                    data_dict[k] = getattr(d, k)
-                except AttributeError:
-                    data_dict[k] = self.get_value_by_special_key(d, k)
+            data_dict = self.data_dict_generator(d, key)
             dict_list.append(data_dict)
 
         return dict_list
 
         def post_list_page_data_generator(self, key):
             pass
-
-        def post_list_data_generator(self, key):
-            pass
-
-
 
 class HomeServer(BasePageService):
 
@@ -164,43 +165,29 @@ class WidgetsService(BasePageService):
 
     def get_newest_posts(self, count=10):
         posts = Post.query.limit(count).all()
-        res = [
-            dict(
-                id=p.id,
-                title=p.title,
-                slug=p.slug,
-                cslug=p.category.slug,
-            )
-            for p in posts
-        ]
 
-        return res
+        post_dict_list = self.data_dict_list_generator(posts, POST_DICT_KEY)
+
+        return post_dict_list
+
     def get_tag_data(self):
         """
         get tag data
-        # TODO: tags sorted & limit
         """
+        # TODO: tags sorted & limit
         tags = Tag.query.all()
 
-        tag_dict = self.tag_dict_list_generator(tags, TAG_WIDGET_DICT_KEY)
+        tag_dict_list = self.data_dict_list_generator(tags, TAG_WIDGET_DICT_KEY)
 
-        return tag_dict
+        return tag_dict_list
 
-    def get_random_post(self, count):
+    def get_random_post(self, count=10):
         # TODO: 一次性取出所有文章，效率上能否优化？
         posts = Post.query.order_by(func.random()).all()[:count]
 
-        res = [
-            dict(
-                id=p.id,
-                title=p.title,
-                slug=p.slug,
-                cslug=p.category.slug,
-            )
-            for p in posts
-        ]
+        post_dict_list = self.data_dict_list_generator(posts, POST_DICT_KEY)
 
-        return res
+        return post_dict_list
 
     def get_related_posts(self):
         # TODO: wp-related-post 原理

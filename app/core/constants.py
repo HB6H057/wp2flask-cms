@@ -9,7 +9,7 @@ POST_DICT_KEY = [
     "title",
     "slug",
     "cslug",
-    "timestamp",
+    "create_date",
 ]
 
 # post page dict key
