@@ -2,6 +2,8 @@
 
 # ##
 CAGE_PER_PAGE = 12
+TAG_PER_PAGE = 12
+HOME_HOT_POSTS_NUM = 11
 # ## Post PageService Constants ##
 # Post dict key
 POST_DICT_KEY = [

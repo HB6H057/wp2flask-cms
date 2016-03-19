@@ -9,6 +9,8 @@ from . import home
 
 @home.route('/test')
 def test():
+    hs = HomeService()
+    d = hs.get_brief()
     # import pdb; pdb.set_trace()
     # testerror
     return json.dumps(d)
@@ -18,14 +20,22 @@ def index():
     """
     Index page
     """
-    hs = HomeServer()
-    cate_list = hs.get_cate_posts()
+    hs = HomeService()
+
+    cate_post_list = hs.get_cate_posts()
     hot_list = hs.get_hot_posts()
+    brief_list = hs.get_brief()
+
+    context = dict(
+        nav=hs.cate_data,
+        cps=cate_post_list,
+        hs=hot_list,
+        briefs = brief_list,
+    )
+    # return json.dumps(context)
     return render_template(
         'index.jinja2',
-        cates=hs.cate_data,
-        cate_list=cate_list,
-        hot_list=hot_list
+        ct=context
     )
 
 @home.route('/category/<string:cslug>')

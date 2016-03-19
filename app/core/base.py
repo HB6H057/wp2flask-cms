@@ -10,6 +10,10 @@ class BasePageService(object):
         self.cate_data = self.get_cate_data()
         self.pagination = None
 
+    def briefy(self, body, count):
+        # TODO: 编码问题 && html标签问题
+        return body[:count]
+
     def get_cate_data(self):
         """
         get category data
@@ -33,6 +37,7 @@ class BasePageService(object):
         elif sk == "brief":
             # TODO: brief function
             v = u"第八单元  19世纪以来的世界文学艺术  第22课  文学的繁荣  【基础解读】  一、浪漫主义文学     1、浪漫主义文学产生的背景：   （1）18世纪末至19世纪30年代，欧洲革命和战争不断，社会动乱不已。  （2）政治中的黑暗，社会的不平等，使人们感到法国大革命后确立的资本主义制度远不如启..."
+            v = self.briefy(v, 80)
         elif sk == "font_size":
             # TODO: font_size function
             v = 3
@@ -69,41 +74,50 @@ class BasePageService(object):
 
         return d_dict
 
-class HomeServer(BasePageService):
+class HomeService(BasePageService):
 
     def get_hot_posts(self):
-        res = Post.query.order_by(func.random()).limit(11)
-        return res
+        posts = Post.query.order_by(func.random()).limit(HOME_HOT_POSTS_NUM).all()
 
-    def get_brief(model=Post, count=3):
-        """
-        TODO: 中文分片
-        """
-        pass
+        post_dict_list = self.data_dict_list_generator(
+            posts,
+            POST_DICT_KEY,
+        )
+
+        return post_dict_list
+
+    def get_brief(self, count=3):
+        # TODO: 保证随机性
+        posts = Post.query.limit(count).all()
+
+        brief_dict_list = self.data_dict_list_generator(
+            posts,
+            POST_BRIEF_DICT_KEY
+        )
+
+        return brief_dict_list
 
     def get_cate_posts(self, count=5):
         cates = Category.query.all()
 
-        res = [
-            dict(
-                id=c.id,
-                slug=c.slug,
-                name=c.name,
-                plist=[
-                    dict(
-                        id=p.id,
-                        title=p.title,
-                        slug=p.slug
-                    )
-                    for p in c.posts[:count]
-                ]
-            )
-            for c in cates
-        ]
+        cate_post_dict_list = []
 
-        return res
+        for c in cates:
+            cate_dict = self.data_dict_generator(
+                c,
+                CATEGORY_DICT_KEY
+            )
+            cate_dict['plist'] = self.data_dict_list_generator(
+                c.posts[:count],
+                POST_DICT_KEY
+            )
+
+            cate_post_dict_list.append(cate_dict)
+
+        return cate_post_dict_list
 
 class CatePageService(BasePageService):
+
     def __init__(self, cslug, page_num=1):
         super(CatePageService, self).__init__()
         self.page_num = page_num
@@ -117,25 +131,6 @@ class CatePageService(BasePageService):
     def get_catepage_data(self):
         # TODO: post sorted???
         # TODO: 分页展示
-
-        # res = dict(
-        #     cid=self.cate.id,
-        #     slug=self.cate.slug,
-        #     name=self.cate.name,
-        #     page_num=self.page_index,
-        #     plist=[
-        #         dict(
-        #             id=p.id,
-        #             title=p.title,
-        #             slug=p.slug,
-        #             post_time=p.timestamp.strftime("%F %H:%M:%S"),
-        #             brief=u"中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？中文分词改如何做？"
-        #             #TODO: brief???
-        #         )
-        #         for p in posts
-        #     ],
-        # )
-
         post_list_dict = self.post_list_page_data_generator(
             self.cate,
             CATEGORY_PAGE_DICT_KEY,
@@ -143,6 +138,7 @@ class CatePageService(BasePageService):
         )
 
         return post_list_dict
+
 class TagPageService(BasePageService):
     def __init__(self, tslug, page_num=1):
         super(CatePageService, self).__init__()
@@ -150,10 +146,14 @@ class TagPageService(BasePageService):
         self.tslug = tslug
         # TODO: error: if slug not exist?????
         self.tag = Tag.query.filter_by(slug=self.tslug).first()
+        # TODO: bug
+        self.pagination = Post.query.filter(
+            Post.tags.has(slug=self.cslug)
+        ).paginate(page=self.page_num, per_page=TAG_PER_PAGE)
 
     def get_tagpage_data(self):
-        # pagination =
-        pass
+        post_list_dict = self.post_list_page_data_generator(
+        )
 
 class WidgetsService(BasePageService):
 
@@ -164,7 +164,10 @@ class WidgetsService(BasePageService):
     def get_newest_posts(self, count=10):
         posts = Post.query.limit(count).all()
 
-        post_dict_list = self.data_dict_list_generator(posts, POST_DICT_KEY)
+        post_dict_list = self.data_dict_list_generator(
+            posts,
+            POST_DICT_KEY
+        )
 
         return post_dict_list
 
@@ -175,7 +178,10 @@ class WidgetsService(BasePageService):
         # TODO: tags sorted & limit
         tags = Tag.query.all()
 
-        tag_dict_list = self.data_dict_list_generator(tags, TAG_WIDGET_DICT_KEY)
+        tag_dict_list = self.data_dict_list_generator(
+            tags,
+            TAG_WIDGET_DICT_KEY
+        )
 
         return tag_dict_list
 
@@ -183,7 +189,10 @@ class WidgetsService(BasePageService):
         # TODO: 一次性取出所有文章，效率上能否优化？
         posts = Post.query.order_by(func.random()).all()[:count]
 
-        post_dict_list = self.data_dict_list_generator(posts, POST_DICT_KEY)
+        post_dict_list = self.data_dict_list_generator(
+            posts,
+            POST_DICT_KEY
+        )
 
         return post_dict_list
 

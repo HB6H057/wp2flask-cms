@@ -13,8 +13,8 @@
           <h2>最热复习提纲</h2>
           <div class="sbar1_content">
             <ul class="promo">
-              {% for h in hot_list %}
-              <li><a href="{{ url_for('home.post', cslug=h.category.slug, pslug=h.slug) }}" title="{{h.title}}">{{h.title}}</a></li>
+              {% for h in ct.hs %}
+              <li><a href="{{ url_for('home.post', cslug=h.cslug, pslug=h.slug) }}" title="{{h.title}}">{{h.title}}</a></li>
               {% endfor %}
             </ul>
           </div>
@@ -24,11 +24,11 @@
       <!-- 侧边栏1 结束 -->
       <!-- 宝贝推荐 开始 -->
       <div class="bb_recommend">
-        {% for p in random_brief %}
+        {% for p in ct.briefs %}
         <div class="baobei" id="baobei-{{p.id}}">
           <h2><a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" rel="bookmark" title="{{p.title}}">{{p.title}}</a></h2>
           <div class="baobei_detail">
-            {{p.brief}}
+            {{p.brief}}......
           </div>
         </div>
         {% endfor %}
@@ -42,13 +42,13 @@
       <div class="allcats">
         <!-- 单一分类 开始 -->
         <!-- 分类列表 开始 -->
-        {% for c in cate_list %}
+        {% for c in ct.cps %}
         <div id="cat-{{c.id}}" class="bb_cats">
           <div class="cats_content">
             <h2><a href="{{ url_for('home.category', cslug=c.slug) }}" title="{{c.name}}">{{c.name}}</a></h2>
             <ul>
               {% for p in c.plist %}
-              <li><a href="{{ url_for('home.post', cslug=c.slug, pslug=p.slug) }}" title="{{p.title}}">{{p.title}}</a></li>
+              <li><a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" title="{{p.title}}">{{p.title}}</a></li>
               {% endfor %}
             </ul>
           </div>
