@@ -1,4 +1,5 @@
-#encoding: utf-8
+#!/usr/bin/python
+# encoding: utf-8
 
 # ##
 CAGE_PER_PAGE = 12
@@ -40,7 +41,7 @@ TAG_WIDGET_DICT_KEY = [
 ]
 TAG_WIDGET_DICT_KEY.extend(TAG_DICT_KEY)
 
-#posts of cate page dict
+# posts of cate page dict
 TAG_PAGE_DICT_KEY = [
     "pagination",
 ]
@@ -53,7 +54,7 @@ CATEGORY_DICT_KEY = [
     "slug",
     "post_count",
 ]
-#posts of cate page dict
+# posts of cate page dict
 CATEGORY_PAGE_DICT_KEY = [
     "pagination",
 ]

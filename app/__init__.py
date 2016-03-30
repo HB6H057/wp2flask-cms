@@ -2,6 +2,7 @@ from flask import Flask
 from flask.ext.login import LoginManager
 from app.core.models import db
 
+
 def create_app():
     """
     Initialize && create app
@@ -15,12 +16,14 @@ def create_app():
 
     return app
 
+
 def init_db(app):
     """
     Initialize db
     """
     db.init_app(app)
     db.app = app
+
 
 def init_login(app):
     """
@@ -35,6 +38,7 @@ def init_login(app):
     def load_user(user_id):
         from app.core.models import User
         return User.query.get(int(user_id))
+
 
 def init_blueprint(app):
     """

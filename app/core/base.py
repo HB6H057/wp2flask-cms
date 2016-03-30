@@ -5,7 +5,9 @@ from app.core.constants import *
 from app.core.service import *
 from app.core.models import User, Post, Category, Tag
 
+
 class BasePageService(object):
+
     def __init__(self):
         self.cate_data = self.get_cate_data()
         self.pagination = None
@@ -21,7 +23,10 @@ class BasePageService(object):
         """
         cates = Category.query.all()
 
-        cate_dict_list = self.data_dict_list_generator(cates, CATEGORY_DICT_KEY)
+        cate_dict_list = self.data_dict_list_generator(
+            cates,
+            CATEGORY_DICT_KEY
+        )
 
         return cate_dict_list
 
@@ -74,6 +79,7 @@ class BasePageService(object):
 
         return d_dict
 
+
 class HomeService(BasePageService):
 
     def get_hot_posts(self):
@@ -116,6 +122,7 @@ class HomeService(BasePageService):
 
         return cate_post_dict_list
 
+
 class CatePageService(BasePageService):
 
     def __init__(self, cslug, page_num=1):
@@ -139,6 +146,7 @@ class CatePageService(BasePageService):
 
         return post_list_dict
 
+
 class TagPageService(BasePageService):
     def __init__(self, tslug, page_num=1):
         super(CatePageService, self).__init__()
@@ -154,6 +162,7 @@ class TagPageService(BasePageService):
     def get_tagpage_data(self):
         post_list_dict = self.post_list_page_data_generator(
         )
+
 
 class WidgetsService(BasePageService):
 

@@ -7,6 +7,7 @@ from app.core.service import (CategoryService, PostService,
                               CommentService, TagService)
 from . import home
 
+
 @home.route('/test')
 def test():
     hs = HomeService()
@@ -14,6 +15,7 @@ def test():
     # import pdb; pdb.set_trace()
     # testerror
     return json.dumps(d)
+
 
 @home.route('/')
 def index():
@@ -30,7 +32,7 @@ def index():
         nav=hs.cate_data,
         cps=cate_post_list,
         hs=hot_list,
-        briefs = brief_list,
+        briefs=brief_list,
     )
     # return json.dumps(context)
     return render_template(
@@ -38,16 +40,18 @@ def index():
         ct=context
     )
 
+
 @home.route('/category/<string:cslug>')
 @home.route('/category/<string:cslug>/page/<int:page>')
 def category(cslug, page=1):
-    ca = CatePageService(cslug, page);
+    ca = CatePageService(cslug, page)
     catepage_data = ca.get_catepage_data()
 
     return render_template(
         'category.jinja2',
         catepage_data=catepage_data,
     )
+
 
 @home.route('/<int:year>/<string:month>', methods=['GET', 'POST'])
 @home.route('/<int:year>/<string:month>/page/<int:page_num>', methods=['GET', 'POST'])
@@ -57,6 +61,7 @@ def archive(year, month, page_num=1):
     """
     return 'High & Dry'
 
+
 @home.route('/<string:cslug>/<string:pslug>.html', methods=['GET', 'POST'])
 def post(cslug, pslug):
     """
@@ -65,8 +70,8 @@ def post(cslug, pslug):
 
     post = Post.query.filter_by(slug=pslug).first()
 
-
     return render_template('post.jinja2', p=post)
+
 
 @home.route('/tag/<string:tslug>', methods=['GET', 'POST'])
 @home.route('/tag/<string:tslug>/page/<int:page_num>', methods=['GET', 'POST'])

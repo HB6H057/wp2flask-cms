@@ -1,4 +1,5 @@
-#encoding: utf-8
+# encoding: utf-8
+
 from sqlalchemy import func
 from app.core.models import User, Post, Category, Tag, Comment
 
@@ -48,6 +49,7 @@ tag_special_keys = [
     "post_count",
 ]
 
+
 class BaseService(object):
     def data_dict_generator(self, d, keys=[], skeys=[]):
         data_dict = {}
@@ -60,7 +62,7 @@ class BaseService(object):
             elif sk == "timestamp":
                 data_dict[sk] = d.timestamp.strftime("%F %H:%M:%S")
             elif sk == "tags":
-                data_dict[sk] = [ t.name for t in d.tags ]
+                data_dict[sk] = [t.name for t in d.tags]
 
         return data_dict
 
@@ -72,6 +74,7 @@ class BaseService(object):
             data_dict_list.append(data_dict)
 
         return data_dict_list
+
 
 class PostService(BaseService):
 
@@ -146,6 +149,7 @@ class PostService(BaseService):
 
         return comment_dict_list
 
+
 class CategoryService(BaseService):
     def get_cate_list(self):
         cates = Category.query.all()
@@ -179,6 +183,7 @@ class CategoryService(BaseService):
         )
 
         return post_dict_list
+
 
 class CommentService(BaseService):
     def get_comment_list(self):

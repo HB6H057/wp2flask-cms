@@ -15,6 +15,7 @@ post_tag_table = db.Table(
     db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
 )
 
+
 class BaseModels(object):
     def toslug(self, name):
         '''
@@ -31,6 +32,7 @@ class BaseModels(object):
         slug = re.sub(pattern, '', name.lower().replace(' ', '-'))
         slug = re.sub('-+', '-', slug)
         return slug
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,6 +57,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %s>' % self.username
 
+
 class Category(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)
     name_ = db.Column(db.String(64), index=True, unique=True)
@@ -75,6 +78,7 @@ class Category(db.Model, BaseModels):
     def __repr__(self):
         return '<Category %s>' % self.name
 
+
 class Post(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)
     title_ = db.Column(db.String(128), index=True, unique=True)
@@ -86,9 +90,11 @@ class Post(db.Model, BaseModels):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
-    tags = db.relationship('Tag', secondary=post_tag_table,
-                            backref=db.backref('posts', lazy='dynamic')
-                          )
+    tags = db.relationship(
+        'Tag',
+        secondary=post_tag_table,
+        backref=db.backref('posts', lazy='dynamic')
+    )
 
     @property
     def title(self):
@@ -102,6 +108,7 @@ class Post(db.Model, BaseModels):
     def __repr__(self):
         return '<Post %s>' % self.title
 
+
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.String(64), nullable=False)
@@ -111,6 +118,7 @@ class Comment(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
 
 class Tag(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)

@@ -8,6 +8,7 @@ from app import create_app
 app = create_app()
 manager = Manager(app)
 
+
 @manager.command
 def forged():
     from app.core.models import db, User, Category, Post, Tag, Comment
@@ -54,15 +55,17 @@ def forged():
     tags = [generate_tag() for i in xrange(30)]
     db.session.add_all(tags)
 
-    random_user = lambda: choice(users)
-    random_category = lambda: choice(categorys)
-    random_tags = lambda: sample(tags, randint(1, 5))
+    def random_user(): return choice(users)
+
+    def random_category(): return choice(categorys)
+
+    def random_tags(): return sample(tags, randint(1, 5))
 
     posts = [generate_post(random_user,
                            random_category, random_tags) for i in xrange(100)]
     db.session.add_all(posts)
 
-    random_post = lambda: choice(posts)
+    def random_post(): return choice(posts)
 
     comments = [generate_comment(random_post) for i in xrange(1000)]
     db.session.add_all(comments)
