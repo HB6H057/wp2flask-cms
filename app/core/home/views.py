@@ -13,7 +13,7 @@ def test():
     hs = HomeService()
     d = hs.get_brief()
     # import pdb; pdb.set_trace()
-    # testerror
+    testerror
     return json.dumps(d)
 
 
