@@ -10,11 +10,9 @@ from . import home
 
 @home.route('/test')
 def test():
-    hs = HomeService()
-    d = hs.get_brief()
     # import pdb; pdb.set_trace()
-    testerror
-    return json.dumps(d)
+    # testerror
+    return json.dumps(str(test))
 
 
 @home.route('/')

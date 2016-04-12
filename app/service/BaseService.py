@@ -1,14 +1,19 @@
 # encoding: utf-8
 from app.core.models import db
+from config import logger
 
 
 def try_curd(fn):
     def wrapped(*args, **kwargs):
         try:
             fn(*args, **kwargs)
-        except:
-            print '-----------------test---------------------'
+            logger.debug('test curd')
+        except Exception, e:
+            logger.error('Service curd error: %s' % e)
             db.session.rollback()
+        else:
+            logger.info('Service curd success: %s' % str(args))
+            db.session.commit()
     return wrapped
 
 
@@ -25,24 +30,31 @@ class BaseService(object):
     @try_curd
     def add(self, obj):
         db.session.add(obj)
-        self.save()
+
+    # @try_curd
+    # def add_all(self, objs):
+    #     db.session.add_all(objs)
 
     @try_curd
-    def add_all(self, objs):
-        db.session.add_all(objs)
-        self.save()
+    def delete(self, obj):
+        if isinstance(obj, int):
+            obj = self.model.query.get(obj)
+            db.session.delete(obj)
+        elif isinstance(obj, (db.Model)):
+            db.session.delete(obj)
+        elif isinstance(obj, list):
+            self.__delete(list)
+        else:
+            assert TypeError, "obj must be int/Model/list, not %s" % type(obj)
 
-    @try_curd
-    def delete(self, id):
-        db.session.delete(obj)
-        self.save()
-
-    @try_curd
-    def delete_all(self):
+    def __delete(self, list):
         ms = self.model.query.all()
         for m in ms:
             db.session.delete(m)
-        self.sava()
+
+    # def delete_all(self, list):
+    #     ms = self.model.query.all()
+    #     self.__delete(ms)
 
     def save(self):
         db.session.commit()
