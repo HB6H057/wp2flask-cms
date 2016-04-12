@@ -15,6 +15,7 @@ build
 db.ini
 deploy_key_rsa
 /*.db
+/db.py
 /db_repository/*
 /flask/*
 /logs/*.log

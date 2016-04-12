@@ -8,7 +8,6 @@ from app import create_app
 app = create_app()
 manager = Manager(app)
 
-
 @manager.command
 def forged():
     from app.core.models import db, User, Category, Post, Tag, Comment

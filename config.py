@@ -1,17 +1,20 @@
 import os
 import logging
 
+from db import *
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 SECRET_KEY = 'buyaoyongroot'
 CSRF_ENABLE = True
 
-MYSQL_USERNAME = 'root'
-MYSQL_PASSWORD = '123123'
-MYSQL_HOST = 'localhost'
-MYSQL_DBNAME = 'flask'
+# remove to db.py
+# MYSQL_USERNAME = 'root'
+# MYSQL_PASSWORD = '123123'
+# MYSQL_HOST = 'localhost'
+# MYSQL_DBNAME = 'flask'
 
-LOGGING_PATH = SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'logs')
+LOGGING_PATH = os.path.join(basedir, 'logs')
 LOGGING_FILENAME = 'wp2flask-cms.log'
 
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
