@@ -2,7 +2,7 @@
 from flask import render_template
 
 from app.core.constants import *
-from app.core.service import *
+# from app.core.service import *
 from app.core.models import User, Post, Category, Tag
 
 
