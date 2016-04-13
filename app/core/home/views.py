@@ -13,7 +13,18 @@ def test():
     from app.service.BaseService import PostService, CategoryService
     # import pdb; pdb.set_trace()
     p = CategoryService()
-    test = p.get_cate_posts_by_id(10000)
+    kw = dict(
+        name='wangbadan',
+        description='fucking me'
+    )
+    new_info = dict(
+        description='fucking you'
+    )
+    # p.delete(slug='wangbadan')
+    # p.add(**kw)
+    p.update(new_info=new_info, slug='wangbadan')
+    test = p.get(slug='wangbadan')
+
     testerror
     return json.dumps(str(test))
 

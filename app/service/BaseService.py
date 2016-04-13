@@ -23,10 +23,10 @@ def try_curd(fn):
     def wrapped(*args, **kwargs):
         try:
             fn(*args, **kwargs)
-            logger.debug('test curd')
         except Exception, e:
             logger.error('Service curd error: %s' % e)
             db.session.rollback()
+            raise TypeError
         else:
             logger.info('Service curd success: %s' % str(args))
             db.session.commit()
@@ -47,30 +47,21 @@ class BaseService(object):
                                                       offset(offset).all()
         return models
 
-    @try_curd
-    def add(self, obj):
-        db.session.add(obj)
+    def add(self, **kwargs):
+        model = self.model(**kwargs)
+        db.session.add(model)
+        db.session.commit()
 
-    @try_curd
-    def delete(self, obj):
-        if isinstance(obj, int):
-            obj = self.model.query.get(obj)
-            db.session.delete(obj)
-        elif isinstance(obj, (db.Model)):
-            db.session.delete(obj)
-        elif isinstance(obj, list):
-            self.__delete(list)
-        else:
-            raise TypeError("obj must be int/Model/list, not %s" % type(obj))
-
-    def __delete(self, list):
-        ms = self.model.query.all()
-        for m in ms:
+    def delete(self, **kwargs):
+        models = self.get_list(**kwargs)
+        for m in models:
             db.session.delete(m)
+        db.session.commit()
 
-    # def delete_all(self, list):
-    #     ms = self.model.query.all()
-    #     self.__delete(ms)
+    def update(self, new_info=None, **kwargs):
+        model = self.model.query.filter_by(**kwargs)
+        model.update(new_info)
+        db.session.commit()
 
     def save(self):
         db.session.commit()
@@ -104,9 +95,9 @@ class PostService(BaseService):
 
     def get_post_comments_by_id(self, pid):
         post = self.get(id=pid)
-        cate = post.comments
+        comments = post.comments
 
-        return cate
+        return comments
 
 
 class TagService(BaseService):
