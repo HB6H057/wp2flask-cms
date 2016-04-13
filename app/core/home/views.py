@@ -10,8 +10,11 @@ from . import home
 
 @home.route('/test')
 def test():
+    from app.service.BaseService import PostService, CategoryService
     # import pdb; pdb.set_trace()
-    # testerror
+    p = CategoryService()
+    test = p.get_cate_posts_by_id(10000)
+    testerror
     return json.dumps(str(test))
 
 
