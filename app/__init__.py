@@ -1,6 +1,4 @@
 from flask import Flask
-from flask.ext.login import LoginManager
-from app.core.models import db
 
 
 def create_app():
@@ -13,6 +11,7 @@ def create_app():
     init_db(app)
     init_login(app)
     init_blueprint(app)
+    init_restful(app)
 
     return app
 
@@ -21,6 +20,7 @@ def init_db(app):
     """
     Initialize db
     """
+    from app.core.models import db
     db.init_app(app)
     db.app = app
 
@@ -29,6 +29,7 @@ def init_login(app):
     """
     Initialize login
     """
+    from flask.ext.login import LoginManager
     login_manager = LoginManager()
     login_manager.session_protection = 'strong'
     login_manager.login_view = 'manage.login'
@@ -53,8 +54,11 @@ def init_blueprint(app):
     from app.core.module import module
     app.register_blueprint(module)
 
-    # from app.core.post import post
-    # app.register_blueprint(post)
-    #
-    # from app.core.tag import tag
-    # app.register_blueprint(tag)
+    # from app.core.apiv1 import apiv1
+    # app.register_blueprint(apiv1, url_prefix='/api/v1')
+
+
+def init_restful(app):
+    from app.core.apiv1 import apiv1
+    apiv1.init_app(app)
+    apiv1.app = app

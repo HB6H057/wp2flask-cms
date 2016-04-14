@@ -1,5 +1,6 @@
-from flask import Blueprint
+from flask_restful import Api
+apiv1 = Api()
 
-home = Blueprint('apiv1', __name__)
+from .views import Test
 
-from . import views
+apiv1.add_resource(Test, '/api/v1/test')
