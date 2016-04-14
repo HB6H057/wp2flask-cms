@@ -2,6 +2,7 @@ import re
 from datetime import datetime
 
 from xpinyin import Pinyin
+from slugify import slugify
 
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import UserMixin
@@ -17,21 +18,18 @@ post_tag_table = db.Table(
 
 
 class BaseModels(object):
-    def toslug(self, name):
-        '''
-            1. chinese to pinyin.
-            2. to lower.
-            3. remove special character. (except: '-',' ')
-            4. to convert ' ' into '-'
-            5. fix special case of slug.
-                I.  multi '-', eg: 'GlaDOS's block' ---> 'gladoss--blog'
-                II. ...
-        '''
-        name = Pinyin().get_pinyin(name)
-        pattern = re.compile(r'[^a-zA-z0-9\-]')
-        slug = re.sub(pattern, '', name.lower().replace(' ', '-'))
-        slug = re.sub('-+', '-', slug)
-        return slug
+    def make_slug(self, name, model):
+        slug = slugify(name)
+        if slug is None:
+            raise TypeError('%s slugify Error' % model)
+
+        slug_ = slug
+        i = 0
+        while model.query.filter_by(slug=slug_).first() is not None:
+            slug_ = "%s-%s" % (slug, i)
+            i += 1
+
+        return slug_
 
 
 class User(UserMixin, db.Model):
@@ -60,20 +58,16 @@ class User(UserMixin, db.Model):
 
 class Category(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)
-    name_ = db.Column(db.String(64), index=True, unique=True)
+    name = db.Column(db.String(64), index=True, unique=True)
     slug = db.Column(db.String(64), index=True, unique=True)
     description = db.Column(db.String(128))
 
     posts = db.relationship('Post', backref='category', lazy='dynamic')
 
-    @property
-    def name(self):
-        return self.name_
-
-    @name.setter
-    def name(self, name):
-        self.name_ = name
-        self.slug = self.toslug(name)
+    def __init__(self, *args, **kwargs):
+        if 'slug' not in kwargs:
+            kwargs['slug'] = self.make_slug(kwargs['name'], Category)
+        super(Category, self).__init__(*args, **kwargs)
 
     def __repr__(self):
         return '<Category %s>' % self.name
@@ -81,7 +75,7 @@ class Category(db.Model, BaseModels):
 
 class Post(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)
-    title_ = db.Column(db.String(128), index=True, unique=True)
+    title = db.Column(db.String(128), index=True)
     slug = db.Column(db.String(128), index=True, unique=True)
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
@@ -96,14 +90,10 @@ class Post(db.Model, BaseModels):
         backref=db.backref('posts', lazy='dynamic')
     )
 
-    @property
-    def title(self):
-        return self.title_
-
-    @title.setter
-    def title(self, title):
-        self.title_ = title
-        self.slug = self.toslug(title)
+    def __init__(self, *args, **kwargs):
+        if 'slug' not in kwargs:
+            kwargs['slug'] = self.make_slug(kwargs['title'], Post)
+        super(Post, self).__init__(*args, **kwargs)
 
     def __repr__(self):
         return '<Post %s>' % self.title
@@ -122,19 +112,15 @@ class Comment(db.Model):
 
 class Tag(db.Model, BaseModels):
     id = db.Column(db.Integer, primary_key=True)
-    name_ = db.Column(db.String(64), index=True, unique=True)
+    name = db.Column(db.String(64), index=True, unique=True)
     slug = db.Column(db.String(64), index=True, unique=True)
 
     # posts m2m
 
-    @property
-    def name(self):
-        return self.name_
-
-    @name.setter
-    def name(self, name):
-        self.name_ = name
-        self.slug = self.toslug(name)
+    def __init__(self, *args, **kwargs):
+        if 'slug' not in kwargs:
+            kwargs['slug'] = self.make_slug(kwargs['name'], Tag)
+        super(Tag, self).__init__(*args, **kwargs)
 
     def __repr__(self):
         return '<Tag %s>' % self.name
