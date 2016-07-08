@@ -55,6 +55,9 @@ class BasePageService(object):
         return v
 
     def data_dict_generator(self, d, key):
+        """
+            数据字典化
+        """
         data_dict = {}
         for k in key:
             try:
@@ -64,6 +67,9 @@ class BasePageService(object):
         return data_dict
 
     def data_dict_list_generator(self, data, key):
+        """
+            数据字典化列表
+        """
         # TODO: error
         dict_list = []
 
@@ -74,6 +80,9 @@ class BasePageService(object):
         return dict_list
 
     def post_list_page_data_generator(self, d, key, pkey):
+        """
+            文章列表页面数据
+        """
         d_dict = self.data_dict_generator(d, key)
         plist = self.data_dict_list_generator(self.pagination.items, pkey)
         d_dict['plist'] = plist

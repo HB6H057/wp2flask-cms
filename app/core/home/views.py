@@ -12,19 +12,14 @@ from . import home
 def test():
     from app.service.BaseService import PostService, CategoryService
     # import pdb; pdb.set_trace()
-    p = CategoryService()
+    p = PostService()
     kw = dict(
-        name='wangbadan',
-        description='fucking me'
+        tag_id=[
+            13,
+            26,
+        ]
     )
-    new_info = dict(
-        description='fucking you'
-    )
-    # p.delete(slug='wangbadan')
-    # p.add(**kw)
-    p.update(new_info=new_info, slug='wangbadan')
-    test = p.get(slug='wangbadan')
-
+    s = p.get_list(**kw)
     testerror
     return json.dumps(str(test))
 
@@ -46,6 +41,7 @@ def index():
         hs=hot_list,
         briefs=brief_list,
     )
+
     # return json.dumps(context)
     return render_template(
         'index.jinja2',
@@ -59,9 +55,14 @@ def category(cslug, page=1):
     ca = CatePageService(cslug, page)
     catepage_data = ca.get_catepage_data()
 
+    context = dict(
+        nav=ca.cate_data,
+        cd=catepage_data,
+    )
+
     return render_template(
         'category.jinja2',
-        catepage_data=catepage_data,
+        ct=context,
     )
 
 

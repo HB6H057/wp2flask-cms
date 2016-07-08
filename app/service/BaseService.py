@@ -42,9 +42,13 @@ class BaseService(object):
         model = self.model.query.filter_by(**kwargs).one()
         return model
 
-    def get_list(self, limit=None, offset=None, **kwargs):
-        models = self.model.query.filter_by(**kwargs).limit(limit).\
-                                                      offset(offset).all()
+    def get_list(self, limit=None, offset=None, tag_id=None, **kwargs):
+        if tag_id is not None:
+            # TODO
+            query = self.model.query.filter(Post.tags.any(Tag.id.in_(tag_id)))
+        else:
+            query = self.model.query
+        models = query.filter_by(**kwargs).limit(limit).offset(offset).all()
         return models
 
     def add(self, **kwargs):
