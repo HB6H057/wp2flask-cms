@@ -12,12 +12,12 @@
     <div class="taobaobei">
       <!--页面导航 开始 -->
       <div class="subnavi">
-        <div class="subnavi-l">搜索到符合 <strong>人教版</strong> 标签的相关复习提纲</div>
+          <div class="subnavi-l">当前位置: <a href="http://www.tigang.net">高中复习提纲网</a> &gt; <a href="{{ url_for('home.tag', tslug=ct.td.slug) }}" rel="category tag">{{ ct.td.name }} </a> 标签</div>
       </div>
       <!--页面导航 结束 -->
       <!-- 分类文章列表 开始 -->
       <div class="bb_post">
-        {% for p in plist %}
+        {% for p in ct.td.plist %}
           <div class="bb_list" id="baobei-{{ p.id }}">
               <h2><a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" rel="bookmark" title="{{ p.title }}">{{ p.title }}</a></h2>
               <span class="bb_date">{{ p.post_time }}</span>

@@ -87,22 +87,20 @@ def post(cslug, pslug):
 
 
 @home.route('/tag/<string:tslug>', methods=['GET', 'POST'])
-@home.route('/tag/<string:tslug>/page/<int:page_num>', methods=['GET', 'POST'])
-def tag(tslug, page_num=1):
+@home.route('/tag/<string:tslug>/page/<int:page>', methods=['GET', 'POST'])
+def tag(tslug, page=1):
     """
     Tag default page
     """
+    tps = TagPageService(tslug, page)
+    tagpage_data = tps.get_tagpage_data()
 
-    posts = Tag.query.filter_by(slug=tslug).one().posts
-    plist = [
-        dict(
-            id=p.id,
-            title=p.title,
-            slug=p.slug,
-            cslug=p.category.slug,
-            brief=p.body[:360],
-        )
-        for p in posts
-    ]
+    context = dict(
+        nav=tps.cate_data,
+        td=tagpage_data,
+    )
 
-    return render_template('tag.jinja2', plist=plist)
+    return render_template(
+        'tag.jinja2',
+        ct=context,
+    )

@@ -93,7 +93,9 @@ class BasePageService(object):
 class HomeService(BasePageService):
 
     def get_hot_posts(self):
-        posts = Post.query.order_by(func.random()).limit(HOME_HOT_POSTS_NUM).all()
+        posts = Post.query.order_by(
+            func.random()
+        ).limit(HOME_HOT_POSTS_NUM).all()
 
         post_dict_list = self.data_dict_list_generator(
             posts,
@@ -140,6 +142,7 @@ class CatePageService(BasePageService):
         self.page_num = page_num
         self.cslug = cslug
         # TODO: error: if slug not exist?????
+        # TODO: BUG: 会自动包含favicon.ico(访问/category/favicon.ico)
         self.cate = Category.query.filter_by(slug=self.cslug).first()
         self.pagination = Post.query.filter(
             Post.category.has(slug=self.cslug)
@@ -159,19 +162,24 @@ class CatePageService(BasePageService):
 
 class TagPageService(BasePageService):
     def __init__(self, tslug, page_num=1):
-        super(CatePageService, self).__init__()
+        super(TagPageService, self).__init__()
         self.page_num = page_num
         self.tslug = tslug
         # TODO: error: if slug not exist?????
         self.tag = Tag.query.filter_by(slug=self.tslug).first()
         # TODO: bug
         self.pagination = Post.query.filter(
-            Post.tags.has(slug=self.cslug)
+            Post.tags.any(slug=self.tslug)
         ).paginate(page=self.page_num, per_page=TAG_PER_PAGE)
 
     def get_tagpage_data(self):
         post_list_dict = self.post_list_page_data_generator(
+            self.tag,
+            CATEGORY_PAGE_DICT_KEY,
+            POST_BRIEF_DICT_KEY,
         )
+
+        return post_list_dict
 
 
 class WidgetsService(BasePageService):
