@@ -182,6 +182,31 @@ class TagPageService(BasePageService):
         return post_list_dict
 
 
+class PostPageService(BasePageService):
+    def __init__(self, cslug, pslug):
+        # BUG: 检测cslug
+        super(PostPageService, self).__init__()
+        self.post = Post.query.filter_by(
+            slug=pslug,
+        ).first()
+
+    def get_post_data(self):
+        post_dict = self.data_dict_generator(self.post, POST_PAGE_DICT_KEY)
+        return post_dict
+
+    def get_comments_data(self):
+        comment_dict_list = self.data_dict_list_generator(
+            self.post.comments,
+            COMMENT_DICT_KEY
+        )
+
+        return comment_dict_list
+
+    def get_related_posts(self):
+        # TODO: 暂时做不来
+        pass
+
+
 class WidgetsService(BasePageService):
 
     def get_archive_data(self):

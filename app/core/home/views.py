@@ -10,17 +10,8 @@ from . import home
 
 @home.route('/test')
 def test():
-    from app.service.BaseService import PostService, CategoryService
-    # import pdb; pdb.set_trace()
-    p = PostService()
-    kw = dict(
-        tag_id=[
-            13,
-            26,
-        ]
-    )
-    s = p.get_list(**kw)
-    testerror
+    pp = PostPageService()
+    import pdb; pdb.set_trace()
     return json.dumps(str(test))
 
 
@@ -80,10 +71,20 @@ def post(cslug, pslug):
     """
     post page
     """
+    pp = PostPageService(cslug, pslug)
+    post_dict = pp.get_post_data()
+    comment_dict_list = pp.get_comments_data()
 
-    post = Post.query.filter_by(slug=pslug).first()
-
-    return render_template('post.jinja2', p=post)
+    context = dict(
+        nav=pp.cate_data,
+        pd=post_dict,
+        cmds=comment_dict_list,
+    )
+    # return json.dumps(comment_dict_list)
+    return render_template(
+        'post.jinja2',
+        ct=context
+    )
 
 
 @home.route('/tag/<string:tslug>', methods=['GET', 'POST'])

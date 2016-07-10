@@ -12,9 +12,8 @@
 
 <h3 id="comments"><strong>已经有2个评论，你也说点什么吧</strong></h3>
 <ol class="commentlist">
-  {% for c in p.comments %}
-  {{ c.name }}
-  {{ generate_comment(c=c,  index=loop.index) }}
+  {% for c in ct.cmds %}
+  {{ generate_comment(c=c, index=loop.index) }}
   {% endfor %}
 </ol>
 {% include 'commentbox.html' %}

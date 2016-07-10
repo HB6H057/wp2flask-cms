@@ -59,3 +59,14 @@ CATEGORY_PAGE_DICT_KEY = [
     "pagination",
 ]
 CATEGORY_PAGE_DICT_KEY.extend(CATEGORY_DICT_KEY)
+
+# ## Comment PageService Constants ##
+COMMENT_DICT_KEY = [
+    "id",
+    "author",
+    "email",
+    "site",
+    "content",
+    "create_date",
+    "post_id"
+]
