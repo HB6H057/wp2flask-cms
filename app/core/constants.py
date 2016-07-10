@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 # ##
-CAGE_PER_PAGE = 12
+CAGE_PER_PAGE = 6
 TAG_PER_PAGE = 12
 HOME_HOT_POSTS_NUM = 11
 # ## Post PageService Constants ##

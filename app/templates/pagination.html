@@ -1,0 +1,22 @@
+{% macro render_pagination(pagination, endpoint) %}
+<div class="page_navi">
+    <div class="wp-pagenavi">
+      <span class="pages">第 {{ pagination.page }} 页，共 {{ pagination.pages }} 页</span>
+      {%- if pagination.has_prev %}
+      <a class="previouspostslink" rel="prev" href="{{ url_for(endpoint, page=pagination.prev_num, **kwargs) }}">«</a>
+      {%- endif %}
+      {%- for page in pagination.iter_pages() %}
+        {%- if pagination.page == page %}
+          <span class="current">{{ page }}</span>
+        {% elif pagination.page < page %}
+          <a class="page smaller" href="{{ url_for(endpoint, page=page, **kwargs) }}">{{ page }}</a>
+        {% else %}
+          <a class="page larger" href="{{ url_for(endpoint, page=page, **kwargs) }}">{{ page }}</a>
+        {%- endif %}
+      {%- endfor %}
+      {%- if pagination.has_next %}
+      <a class="nextpostslink" rel="next" href="{{ url_for(endpoint, page=pagination.next_num, **kwargs) }}">»</a>
+      {%- endif %}
+    </div>
+</div>
+{% endmacro %}

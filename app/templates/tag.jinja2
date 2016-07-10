@@ -1,4 +1,5 @@
 {% extends "base.jinja2"%}
+{% from 'pagination.html' import render_pagination %}
 
 {%block title%}高中复习提纲网-高一,高二,高三高中各科必修选修复习资料提纲聚集地{%endblock title%}
 {%block description%}高中复习提纲网是一个收集高中复习资料提纲的聚集地{%endblock description%}
@@ -27,11 +28,7 @@
           </div>
         {% endfor %}
         <!-- 翻页 开始 -->
-        <div class="page_navi">
-          <div class="wp-pagenavi">
-            <span class="pages">第 1 页，共 8 页</span><span class="current">1</span><a class="page larger" href="http://www.tigang.net/tag/pep/page/2">2</a><a class="page larger" href="http://www.tigang.net/tag/pep/page/3">3</a><a class="page larger" href="http://www.tigang.net/tag/pep/page/4">4</a><a class="page larger" href="http://www.tigang.net/tag/pep/page/5">5</a><span class="extend">...</span><a class="nextpostslink" rel="next" href="http://www.tigang.net/tag/pep/page/2">»</a><a class="last" href="http://www.tigang.net/tag/pep/page/8">最旧 »</a>
-          </div>
-        </div>
+        {{ render_pagination(ct.td.pagination, 'home.tag', tslug=ct.td.slug) }}
         <!-- 翻页 结束 -->
       </div>
       <!-- 分类文章列表 结束 -->
