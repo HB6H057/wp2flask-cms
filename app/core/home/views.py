@@ -23,7 +23,7 @@ def index():
     hs = HomeService()
 
     cate_post_list = hs.get_cate_posts()
-    hot_list = hs.get_hot_posts()
+    hot_list = hs.get_random_posts(10)
     brief_list = hs.get_brief()
 
     context = dict(
@@ -74,6 +74,7 @@ def post(cslug, pslug):
     pp = PostPageService(cslug, pslug)
     post_dict = pp.get_post_data()
     comment_dict_list = pp.get_comments_data()
+    related_posts = pp.get_related_posts()
 
     context = dict(
         nav=pp.cate_data,
