@@ -1,5 +1,5 @@
 # encoding: utf-8
-from flask import render_template
+from flask import render_template, abort
 
 from app.core.constants import *
 # from app.core.service import *
@@ -141,16 +141,15 @@ class CatePageService(BasePageService):
         super(CatePageService, self).__init__()
         self.page_num = page_num
         self.cslug = cslug
-        # TODO: error: if slug not exist?????
-        # TODO: BUG: 会自动包含favicon.ico(访问/category/favicon.ico)
         self.cate = Category.query.filter_by(slug=self.cslug).first()
+        if self.cate is None:
+            abort(404)
         self.pagination = Post.query.filter(
             Post.category.has(slug=self.cslug)
         ).paginate(page=self.page_num, per_page=CAGE_PER_PAGE)
 
     def get_catepage_data(self):
         # TODO: post sorted???
-        # TODO: 分页展示
         post_list_dict = self.post_list_page_data_generator(
             self.cate,
             CATEGORY_PAGE_DICT_KEY,
@@ -183,6 +182,7 @@ class TagPageService(BasePageService):
 
 
 class PostPageService(BasePageService):
+    # 李白喝酒写的诗,都是三分豪气四分爽利五分恣意,舍我其谁。，我喝酒写代码，z z z z z z z
     def __init__(self, cslug, pslug):
         # BUG: 检测cslug
         super(PostPageService, self).__init__()
@@ -238,8 +238,9 @@ class WidgetsService(BasePageService):
         return tag_dict_list
 
     def get_random_post(self, count=10):
-        # TODO: 一次性取出所有文章，效率上能否优化？
-        posts = Post.query.order_by(func.random()).all()[:count]
+        posts = Post.query.order_by(
+            func.random()
+        ).limit(count).all
 
         post_dict_list = self.data_dict_list_generator(
             posts,
