@@ -16,6 +16,7 @@ ipython==4.0.1
 ipython-genutils==0.1.0
 itsdangerous==0.24
 Jinja2==2.8
+lxml==3.6.0
 MarkupSafe==0.23
 path.py==8.1.2
 pbr==1.8.1
