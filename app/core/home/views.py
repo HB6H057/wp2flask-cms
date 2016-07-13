@@ -10,8 +10,8 @@ from . import home
 
 @home.route('/test')
 def test():
-    pp = PostPageService()
-    import pdb; pdb.set_trace()
+    # please test me
+    # import pdb; pdb.set_trace()
     return json.dumps(str(test))
 
 
@@ -24,10 +24,10 @@ def index():
 
     cate_post_list = hs.get_cate_posts()
     hot_list = hs.get_random_posts(10)
-    brief_list = hs.get_brief()
+    brief_list = hs.get_briefs()
 
     context = dict(
-        nav=hs.cate_data,
+        nav=hs.cates,
         cps=cate_post_list,
         hs=hot_list,
         briefs=brief_list,
@@ -44,10 +44,10 @@ def index():
 @home.route('/category/<string:cslug>/page/<int:page>')
 def category(cslug, page=1):
     ca = CatePageService(cslug, page)
-    catepage_data = ca.get_catepage_data()
+    catepage_data = ca.get_post_list()
 
     context = dict(
-        nav=ca.cate_data,
+        nav=ca.cates,
         cd=catepage_data,
     )
 
@@ -72,12 +72,12 @@ def post(cslug, pslug):
     post page
     """
     pp = PostPageService(cslug, pslug)
-    post_dict = pp.get_post_data()
+    post_dict = pp.get_post()
     comment_dict_list = pp.get_comments_data()
     related_posts = pp.get_related_posts()
 
     context = dict(
-        nav=pp.cate_data,
+        nav=pp.cates,
         pd=post_dict,
         cmds=comment_dict_list,
     )
@@ -95,10 +95,10 @@ def tag(tslug, page=1):
     Tag default page
     """
     tps = TagPageService(tslug, page)
-    tagpage_data = tps.get_tagpage_data()
+    tagpage_data = tps.get_post_list()
 
     context = dict(
-        nav=tps.cate_data,
+        nav=tps.cates,
         td=tagpage_data,
     )
 
