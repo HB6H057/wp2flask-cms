@@ -80,8 +80,10 @@ def post(cslug, pslug):
         nav=pp.cates,
         pd=post_dict,
         cmds=comment_dict_list,
+        rel=related_posts,
+        random=pp.get_random_posts(),
     )
-    # return json.dumps(comment_dict_list)
+    # return json.dumps(related_posts)
     return render_template(
         'post.jinja2',
         ct=context

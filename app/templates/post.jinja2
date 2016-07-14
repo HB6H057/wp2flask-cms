@@ -37,44 +37,34 @@
                 <div class="pro_next">上一篇: <a href="http://www.tigang.net/shuxue/4-1-ji-he-zheng-ming-xuan-jiang.html" rel="prev">数学选修4-1《几何证明选讲》知识点总结(精简版)</a></div>
                 <div class="pro_next"></div>
             </div>
-            <!-- 相关商品信息  开始 -->
+            <!-- 相关提纲信息  开始 -->
             <div class="relran">
                 <h3>相关提纲</h3>
                 <div class="relran_cont">
-
                     <div class="wp_rp_wrap  wp_rp_plain">
                         <div class="wp_rp_content">
                             <ul class="related_post wp_rp">
-                                <li data-position="0" data-poid="in-449" data-post-type="none"><a href="http://www.tigang.net/shuxue/4-1-ji-he-zheng-ming-xuan-jiang.html" class="wp_rp_title">数学选修4-1《几何证明选讲》知识点总结(精简版)</a></li>
-                                <li data-position="1" data-poid="in-85" data-post-type="none"><a href="http://www.tigang.net/shengwu/sheng-wu-bi-xiu-1-2.html" class="wp_rp_title">生物必修一复习提纲-第二章 细胞的化学组成</a></li>
-                                <li data-position="2" data-poid="in-247" data-post-type="none"><a href="http://www.tigang.net/yingyu/ying-yu-bi-xiu-er-unit5-music.html" class="wp_rp_title">高中英语必修二知识点-Unit 5 Music</a></li>
-                                <li data-position="3" data-poid="in-217" data-post-type="none"><a href="http://www.tigang.net/shengwu/sheng-wu-xuan-xiu-3-2-xi-bao-gong-cheng.html" class="wp_rp_title">生物选修3知识点-专题2 细胞工程</a></li>
-                                <li data-position="4" data-poid="in-240" data-post-type="none"><a href="http://www.tigang.net/yingyu/ying-yu-bi-xiu-er-unit4-wildlife-protection.html" class="wp_rp_title">高中英语必修二知识点-Unit 4 Wildlife protection</a></li>
+                              {% for p in ct.rel %}
+                                <li data-position="{{ loop.index0 }}" data-poid="in-{{ p.id }}" data-post-type="none"><a href="{{ url_for('home.post', pslug=p.slug, cslug=p.cslug) }}" class="wp_rp_title">{{ p.title }}</a></li>
+                              {% endfor %}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- 相关商品信息 志结束 -->
-            <!-- 随机商品  开始 -->
+            <!-- 相关提纲信息 志结束 -->
+            <!-- 随机提纲  开始 -->
             <div class="relran">
                 <h3>随机提纲</h3>
                 <div class="relran_cont">
                     <ul>
-                        <li><a href="http://www.tigang.net/wuli/wu-li-bi-xiu-yi-zhi-shi-dian-1.html" title="高中物理必修一知识点-第一章:运动的描述">高中物理必修一知识点-第一章:运动的描述</a></li>
-                        <li><a href="http://www.tigang.net/lishi/li-shi-bi-xiu-yi-1.html" title="高中历史必修一-第一单元 古代中国的政治制度">高中历史必修一-第一单元 古代中国的政治制度</a></li>
-                        <li><a href="http://www.tigang.net/lishi/li-shi-bi-xiu-er-4.html" title="高中历史必修二-第四单元 中国近现代社会生活的变迁">高中历史必修二-第四单元 中国近现代社会生活的变迁</a></li>
-                        <li><a href="http://www.tigang.net/shengwu/sheng-wu-xuan-xiu-3-1-ji-yin-gong-cheng.html" title="生物选修3知识点-专题1 基因工程">生物选修3知识点-专题1 基因工程</a></li>
-                        <li><a href="http://www.tigang.net/lishi/li-shi-bi-xiu-er-7.html" title="高中历史必修二-第七单元苏联社会主义建设的经验与教训">高中历史必修二-第七单元苏联社会主义建设的经验与教训</a></li>
-                        <li><a href="http://www.tigang.net/yingyu/unit3-a-taste-of-english-humour.html" title="英语必修四复习提纲-Unit3 A taste of English humour">英语必修四复习提纲-Unit3 A taste of English humour</a></li>
-                        <li><a href="http://www.tigang.net/lishi/bixiusan-ba.html" title="高中历史必修三提纲-第八单元 19世纪以来的世界文学艺术">高中历史必修三提纲-第八单元 19世纪以来的世界文学艺术</a></li>
-                        <li><a href="http://www.tigang.net/yingyu/unit1-women-of-achievement.html" title="英语必修四复习提纲-Unit1 Women of achievement">英语必修四复习提纲-Unit1 Women of achievement</a></li>
-                        <li><a href="http://www.tigang.net/shengwu/sheng-wu-bi-xiu-1-2.html" title="生物必修一复习提纲-第二章 细胞的化学组成">生物必修一复习提纲-第二章 细胞的化学组成</a></li>
-                        <li><a href="http://www.tigang.net/wuli/wu-li-ke-ben-mu-lu-1.html" title="新课标高中物理课本目录[1]">新课标高中物理课本目录[1]</a></li>
+                      {% for p in ct.random %}
+                        <li><a href="{{ url_for('home.post', pslug=p.slug, cslug=p.cslug) }}" >{{ p.title }}</a></li>
+                      {% endfor %}
                     </ul>
                 </div>
             </div>
-            <!-- 随机商品 志结束 -->
+            <!-- 随机提纲 志结束 -->
             <div class="clear"></div>
 
             <!-- You can start editing here. -->

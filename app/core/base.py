@@ -240,7 +240,7 @@ class TagPageService(ListPageService):
         ).paginate(page=self.page, per_page=TAG_PER_PAGE)
 
 
-class PostPageService(BaseService):
+class PostPageService(BaseService, WidgetsMiXin):
     # 李白喝酒写的诗,都是三分豪气四分爽利五分恣意,舍我其谁。，我喝酒写的代码，zzzzzz
     def __init__(self, cslug, pslug):
         # BUG: 检测cslug,一会一起做
@@ -270,8 +270,13 @@ class PostPageService(BaseService):
     def get_related_posts(self, count=10):
         # TODO: 原理：取同分类下第一个tag相同的文章，然后再文本相似度计算（后者先不做）
         # TODO: 未完成
-        related_posts = Post.query.filter_by(
+        posts = Post.query.filter_by(
             category_id=self.post.category_id,
         ).limit(count).all()
+
+        related_posts = self.data_dict_list_generator(
+            posts,
+            POST_DICT_KEY
+        )
 
         return related_posts
