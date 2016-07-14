@@ -20,17 +20,17 @@ def index():
     """
     Index page
     """
-    hs = HomeService()
-
-    cate_post_list = hs.get_cate_posts()
-    hot_list = hs.get_random_posts(10)
-    brief_list = hs.get_briefs()
+    ser = HomeService()
 
     context = dict(
-        nav=hs.cates,
-        cps=cate_post_list,
-        hs=hot_list,
-        briefs=brief_list,
+        nav=ser.cates,
+        cps=ser.get_cate_posts(),
+        hs=ser.get_random_posts(10),
+        briefs=ser.get_briefs(),
+        sidebar=dict(
+            new=ser.get_newest_posts(),
+            tags=ser.get_tags(),
+        )
     )
 
     # return json.dumps(context)

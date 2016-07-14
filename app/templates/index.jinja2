@@ -1,5 +1,6 @@
 {% extends "base.jinja2"%}
-
+{% from 'sidebar.html' import render_sidebar_category, render_sidebar_tag %}
+{% from 'sidebar.html' import render_sidebar_new %}
 {%block title%}高中复习提纲网-高一,高二,高三高中各科必修选修复习资料提纲聚集地{%endblock title%}
 {%block description%}高中复习提纲网是一个收集高中复习资料提纲的聚集地{%endblock description%}
 {%block keywords%}提纲,高中,复习,数学,语文,英语,物理,化学,生物,政治,地理,历史,重点,归纳{%endblock keywords%}
@@ -59,5 +60,10 @@
       </div>
     </div>
     <!-- 侧边栏2 开始 -->
-    {% include 'sidebar.html' %}
+    <div class="sidebar2">
+      <ul>
+        {{ render_sidebar_new(ct.sidebar.new) }}
+        {{ render_sidebar_tag(ct.sidebar.tags)  }}
+      </ul>
+    </div>
 {% endblock content %}
