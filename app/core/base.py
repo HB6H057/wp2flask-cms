@@ -24,8 +24,7 @@ class DataGeneratorMixin(object):
         elif sk == "create_date":
             v = d.timestamp.strftime("%F %H:%M:%S")
         elif sk == "brief":
-            # TODO: 考虑把截断字符的任务放到views.py
-            v = self.briefy(HTML, 50)
+            v = self.briefy(HTML)
         elif sk == "font_size":
             # TODO: font_size function
             v = 3
@@ -68,6 +67,15 @@ class DataGeneratorMixin(object):
         data_dict['plist'] = plist
 
         return data_dict
+
+    def briefy(self, body):
+        '''
+        生成摘要
+        '''
+        html_str = lxml.html.fromstring(body)
+        text = html_str.text_content()
+        text = re.sub("(\s)+", " ", text)
+        return text
 
 
 class WidgetsMiXin(DataGeneratorMixin):
@@ -119,16 +127,6 @@ class BaseService(DataGeneratorMixin):
     """
     def __init__(self):
         self.cates = self.get_cates()
-
-    def briefy(self, body, count):
-        '''
-        生成摘要
-        '''
-        # TODO: 效率不知道高不高，只能先这样了
-        html_str = lxml.html.fromstring(body)
-        text = html_str.text_content()
-        text = re.sub("(\s)+", " ", text)
-        return text[:count]
 
     def get_cates(self):
         """

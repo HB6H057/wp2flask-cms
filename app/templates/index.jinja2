@@ -28,7 +28,7 @@
         <div class="baobei" id="baobei-{{p.id}}">
           <h2><a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" rel="bookmark" title="{{p.title}}">{{p.title}}</a></h2>
           <div class="baobei_detail">
-            {{p.brief}}......
+            {{p.brief[:50]}}......
           </div>
         </div>
         {% endfor %}
