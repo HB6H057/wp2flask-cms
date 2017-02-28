@@ -18,6 +18,8 @@ deploy_key_rsa
 /db.py
 /db_repository/*
 /flask/*
+/env/*
+/.idea/*
 /logs/*.log
 *.DS_Store
 *.project
