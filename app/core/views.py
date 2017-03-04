@@ -122,7 +122,7 @@ class ListView(MultipleObjectMixin, TemplateView, View):
         basequery = self.get_basequery()
         page_kwargs = self.get_page_kwargs()
         page = self.kwargs.get(page_kwargs) or 1
-        self.object_list = basequery.Pagination(page, self.paginate_by)
+        self.object_list = basequery.paginate(page, self.paginate_by)
         context = self.get_context_data(object_list=self.object_list)
         return self.render_to_response(**dict(context=context))
 

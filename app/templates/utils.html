@@ -4,7 +4,7 @@
       <h2><a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" rel="bookmark" title="{{ p.title }}">{{ p.title }}</a></h2>
       <span class="bb_date">{{ p.create_date }}</span>
       <div class="bb_detail">
-          {{ p.brief[:200] }}......<a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" rel="bookmark" title="{{ p.title }}">复习提纲详细内容</a>
+          {{ p.body[:200] }}......<a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" rel="bookmark" title="{{ p.title }}">复习提纲详细内容</a>
       </div>
   </div>
 {% endfor %}

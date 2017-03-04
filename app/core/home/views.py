@@ -22,22 +22,27 @@ home.add_url_rule('/test123/<string:slug>', view_func=TestView.as_view('test123'
 
 
 class IndexView(TemplateView):
-    template_name = 'index.jinja2'
+    template_name = "index.jinja2"
 
 
 class CategoryView(ListView):
-    model = Category
+    model = Post
     paginate_by = 10
-    template_name = 'category.jinja2'
+    template_name = "home/category.jinja2"
 
-    def get_context_data(self, **kwargs):
-        context = super(CategoryView, self).get_context_data(**kwargs)
-        return context
+    def get_basequery(self):
+        basequery = super(CategoryView, self).get_basequery()
+        slug = self.kwargs.get('slug')
+        if not slug:
+            abort(404)
+        return basequery.filter(self.model.category.has(slug=slug))
 
+index_view_func = IndexView.as_view('index')
+home.add_url_rule('/', view_func=index_view_func)
 
-home.add_url_rule('/', view_func=IndexView.as_view('index'))
-home.add_url_rule('/cate/<string:slug>', view_func=CategoryView.as_view('category'))
-home.add_url_rule('/cate/<string:slug>/page/<int:page>', view_func=CategoryView.as_view('category'))
+category_view_func = CategoryView.as_view('category')
+home.add_url_rule('/category/<string:slug>', view_func=category_view_func)
+home.add_url_rule('/category/<string:slug>/page/<int:page>', view_func=category_view_func)
 
 
 @home.route('/test')
@@ -72,21 +77,21 @@ def test():
 #     )
 
 
-@home.route('/category/<string:cslug>')
-@home.route('/category/<string:cslug>/page/<int:page>')
-def category(cslug, page=1):
-    ca = CatePageService(cslug, page)
-    catepage_data = ca.get_post_list()
-
-    context = dict(
-        nav=ca.cates,
-        cd=catepage_data,
-    )
-
-    return render_template(
-        'category.jinja2',
-        ct=context,
-    )
+# @home.route('/category/<string:cslug>')
+# @home.route('/category/<string:cslug>/page/<int:page>')
+# def category(cslug, page=1):
+#     ca = CatePageService(cslug, page)
+#     catepage_data = ca.get_post_list()
+#
+#     context = dict(
+#         nav=ca.cates,
+#         cd=catepage_data,
+#     )
+#
+#     return render_template(
+#         'category.jinja2',
+#         ct=context,
+#     )
 
 
 @home.route('/<int:year>/<string:month>', methods=['GET', 'POST'])

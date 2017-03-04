@@ -53,7 +53,7 @@
 					<ul class="main_menu">
 						<li class="cat-item cat-item-0"><a href="{{ url_for('home.index') }}" title="高中复习提纲首页">首页</a></li>
 						{% for c in Category.query.all() %}
-						<li class="cat-item cat-item-{{ c.id }}"><a href="{{ url_for('home.category', cslug=c.slug) }}" title="查看 {{c.name}} 下的所有文章">{{c.name}}</a></li>
+						<li class="cat-item cat-item-{{ c.id }}"><a href="{{ url_for('home.category', slug=c.slug) }}" title="查看 {{c.name}} 下的所有文章">{{c.name}}</a></li>
 						{% endfor %}
 					</ul>
 				</div>
