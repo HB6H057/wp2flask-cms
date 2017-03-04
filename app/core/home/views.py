@@ -5,26 +5,39 @@ from sqlalchemy import func
 from flask import request
 from flask.views import MethodView
 
-from app.core.views import TemplateView, DetailView
+from app.core.views import TemplateView, DetailView, ListView
 from app.core.models import Category
 from app.core.base import *
 from . import home
 
 
-class TestView(DetailView):
-    model = Category
-    template_name = 'category.jinja2'
-    
-    def get(self, slug):
-        return super(TestView, self).get(slug)
+class TestView(TemplateView):
+    template_name = 'index.jinja2'
 
     def get_context_data(self, **kwargs):
         context = super(TestView, self).get_context_data(**kwargs)
-        ct = {'ct': context}
-        return ct
-
+        return context
 
 home.add_url_rule('/test123/<string:slug>', view_func=TestView.as_view('test123'))
+
+
+class IndexView(TemplateView):
+    template_name = 'index.jinja2'
+
+
+class CategoryView(ListView):
+    model = Category
+    paginate_by = 10
+    template_name = 'category.jinja2'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryView, self).get_context_data(**kwargs)
+        return context
+
+
+home.add_url_rule('/', view_func=IndexView.as_view('index'))
+home.add_url_rule('/cate/<string:slug>', view_func=CategoryView.as_view('category'))
+home.add_url_rule('/cate/<string:slug>/page/<int:page>', view_func=CategoryView.as_view('category'))
 
 
 @home.route('/test')
@@ -34,29 +47,29 @@ def test():
     return json.dumps(str(test))
 
 
-@home.route('/')
-def index():
-    """
-    Index page
-    """
-    ser = HomeService()
-
-    context = dict(
-        nav=ser.cates,
-        cps=ser.get_cate_posts(),
-        hs=ser.get_random_posts(10),
-        briefs=ser.get_briefs(),
-        sidebar=dict(
-            new=ser.get_newest_posts(),
-            tags=ser.get_tags(),
-        )
-    )
-
-    # return json.dumps(context)
-    return render_template(
-        'index.jinja2',
-        ct=context
-    )
+# @home.route('/')
+# def index():
+#     """
+#     Index page
+#     """
+#     ser = HomeService()
+#
+#     context = dict(
+#         nav=ser.cates,
+#         cps=ser.get_cate_posts(),
+#         hs=ser.get_random_posts(10),
+#         briefs=ser.get_briefs(),
+#         sidebar=dict(
+#             new=ser.get_newest_posts(),
+#             tags=ser.get_tags(),
+#         )
+#     )
+#
+#     # return json.dumps(context)
+#     return render_template(
+#         'index.jinja2',
+#         ct=context
+#     )
 
 
 @home.route('/category/<string:cslug>')

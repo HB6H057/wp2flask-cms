@@ -1,19 +1,25 @@
 #!flask/bin/python
 from faker import Factory
+from random import choice, sample, randint
 
+from sqlalchemy import func
 from flask_migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager, Server
 
-from app import create_app, db
+from app import create_app
+from app.core.models import db, User, Category, Post, Tag, Comment
 
 app = create_app()
 manager = Manager(app)
 Migrate(app, db)
 
+app.jinja_env.globals['Category'] = Category
+app.jinja_env.globals['Post'] = Post
+app.jinja_env.globals['Tag'] = Tag
+app.jinja_env.globals['func'] = func
+
 @manager.command
 def forged():
-    from app.core.models import db, User, Category, Post, Tag, Comment
-    from random import choice, sample, randint
 
     db.drop_all()
     db.create_all()

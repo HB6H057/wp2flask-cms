@@ -14,8 +14,8 @@
           <h2>最热复习提纲</h2>
           <div class="sbar1_content">
             <ul class="promo">
-              {% for h in ct.hs %}
-              <li><a href="{{ url_for('home.post', cslug=h.cslug, pslug=h.slug) }}" title="{{h.title}}">{{h.title}}</a></li>
+              {% for h in Post.query.order_by(func.random()).limit(10).all()%}
+              <li><a href="{{ url_for('home.post', cslug=h.category.slug, pslug=h.slug) }}" title="{{h.title}}">{{h.title}}</a></li>
               {% endfor %}
             </ul>
           </div>
@@ -25,11 +25,11 @@
       <!-- 侧边栏1 结束 -->
       <!-- 宝贝推荐 开始 -->
       <div class="bb_recommend">
-        {% for p in ct.briefs %}
+        {% for p in Post.query.order_by(func.random()).limit(3).all() %}
         <div class="baobei" id="baobei-{{p.id}}">
-          <h2><a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" rel="bookmark" title="{{p.title}}">{{p.title}}</a></h2>
+          <h2><a href="{{ url_for('home.post', cslug=p.category.slug, pslug=p.slug) }}" rel="bookmark" title="{{p.title}}">{{p.title}}</a></h2>
           <div class="baobei_detail">
-            {{p.brief[:50]}}......
+            核心知识 课标解读  力的概念 1 理解力是物体之间的相互作用，能找出施力物体和受力物体． 2 知......
           </div>
         </div>
         {% endfor %}
@@ -43,13 +43,13 @@
       <div class="allcats">
         <!-- 单一分类 开始 -->
         <!-- 分类列表 开始 -->
-        {% for c in ct.cps %}
+        {% for c in Category.query.all() %}
         <div id="cat-{{c.id}}" class="bb_cats">
           <div class="cats_content">
             <h2><a href="{{ url_for('home.category', cslug=c.slug) }}" title="{{c.name}}">{{c.name}}</a></h2>
             <ul>
-              {% for p in c.plist %}
-              <li><a href="{{ url_for('home.post', cslug=p.cslug, pslug=p.slug) }}" title="{{p.title}}">{{p.title}}</a></li>
+              {% for p in c.posts.limit(5).all() %}
+              <li><a href="{{ url_for('home.post', cslug=p.category.slug, pslug=p.slug) }}" title="{{p.title}}">{{p.title}}</a></li>
               {% endfor %}
             </ul>
           </div>
@@ -62,8 +62,8 @@
     <!-- 侧边栏2 开始 -->
     <div class="sidebar2">
       <ul>
-        {{ render_sidebar_new(ct.sidebar.new) }}
-        {{ render_sidebar_tag(ct.sidebar.tags)  }}
+        {{ render_sidebar_new(Post.query.limit(15).all()) }}
+        {{ render_sidebar_tag(Tag.query.all()) }}
       </ul>
     </div>
 {% endblock content %}
