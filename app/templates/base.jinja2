@@ -1,91 +1,99 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-{% block head %}
-	<meta charset="utf-8">
-	<title>{%block title%}{%endblock title%}</title>
-	<meta name="description" content="{%block description%}高中复习提纲网是一个收集高中复习资料提纲的聚集地{%endblock description%}" />
-	<meta name="keywords" content="{%block keywords%}提纲,高中,复习,数学,语文,英语,物理,化学,生物,政治,地理,历史,重点,归纳{%endblock keywords%}">
-	<meta name="generator" content="wp2flask-cms">
-	<link rel="shortcut icon" href="favicon.ico">
-	<link rel="icon" type="image/gif" href="{{url_for('static', filename='images/animated_favicon1.gif')}}">
-	<!-- <link rel="alternate" type="application/rss+xml" title="高中复习提纲网 RSS Feed" href="feed"> -->
-	{%block style%}
-	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" media="screen">
-	{%endblock style%}
-{% endblock head %}
+    {% block head %}
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock title %}</title>
+        <meta name="description" content="{% block description %}高中复习提纲网是一个收集高中复习资料提纲的聚集地{% endblock description %}"/>
+        <meta name="keywords"
+              content="{% block keywords %}提纲,高中,复习,数学,语文,英语,物理,化学,生物,政治,地理,历史,重点,归纳{% endblock keywords %}">
+        <meta name="generator" content="wp2flask-cms">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="icon" type="image/gif" href="{{ url_for('static', filename='images/animated_favicon1.gif') }}">
+        <!-- <link rel="alternate" type="application/rss+xml" title="高中复习提纲网 RSS Feed" href="feed"> -->
+        {% block style %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css"
+                  media="screen">
+        {% endblock style %}
+    {% endblock head %}
 </head>
 
 <body>
 {% block body %}
-	{% block header %}
-	<div class="header">
-		<div class="header-content">
-			<!-- 顶部功能 开始 -->
-			<div id="logo">
-				<h1 id="blogtitle"><a href="{{ url_for('home.index') }}" title="高中复习提纲网首页">高中复习提纲网</a></h1>
-				<!-- <img alt="高考加油!!!" src="/gaokaojiayou.gif" />  -->
-			</div>
-			<div class="headerR">
-				<div class="top_menu">
-					<ul class="menu_list">
-						<li class="page_item page-item-2"><a href="{{ url_for('page.about') }}">关于</a></li>
-						<li class="page_item page-item-299"><a href="{{ url_for('page.jiaofushu') }}">高中教辅书排行榜</a></li>
-						<li><a href="#" onclick="javascript:bookmark(&#39;高中复习提纲网&#39;,&#39;http://www.tigang.net&#39;);" target="_blank">收藏本站</a></li>
-					</ul>
-				</div>
-				<div class="clear"></div>
-				<div class="so">
-					<div id="topsearch">
-						<form action="" method="post">
-							<input type="text" name="s" id="ls">
-							<input type="submit" id="searchsubmit" value="搜 索">
-						</form>
-					</div>
-				</div>
-			</div>
-			<!-- 顶部功能 结束 -->
-			<div class="clear"></div>
-			{% block navigation %}
-			<div class="navigation">
-				<div class="mnavil"></div>
-				<div class="mnavim">
-					<ul class="main_menu">
-						<li class="cat-item cat-item-0"><a href="{{ url_for('home.index') }}" title="高中复习提纲首页">首页</a></li>
-						{% for c in Category.query.all() %}
-						<li class="cat-item cat-item-{{ c.id }}"><a href="{{ url_for('home.category', slug=c.slug) }}" title="查看 {{c.name}} 下的所有文章">{{c.name}}</a></li>
-						{% endfor %}
-					</ul>
-				</div>
-				<div class="mnavir"></div>
-			</div>
-			{% endblock navigation %}
-		</div>
-	</div>
-	{% endblock header %}
-	<!-- 头部 结束 -->
-	<div class="clear"></div>
-	<!-- 内容 开始 -->
-	<div class="wrap">
-    <div class="content">
-	{% block content %}
+    {% block header %}
+        <div class="header">
+            <div class="header-content">
+                <!-- 顶部功能 开始 -->
+                <div id="logo">
+                    <h1 id="blogtitle"><a href="{{ url_for('home.index') }}" title="高中复习提纲网首页">高中复习提纲网</a></h1>
+                    <!-- <img alt="高考加油!!!" src="/gaokaojiayou.gif" />  -->
+                </div>
+                <div class="headerR">
+                    <div class="top_menu">
+                        <ul class="menu_list">
+                            <li class="page_item page-item-2"><a href="{{ url_for('page.about') }}">关于</a></li>
+                            <li class="page_item page-item-299"><a href="{{ url_for('page.jiaofushu') }}">高中教辅书排行榜</a>
+                            </li>
+                            <li><a href="#"
+                                   onclick="javascript:bookmark(&#39;高中复习提纲网&#39;,&#39;http://www.tigang.net&#39;);"
+                                   target="_blank">收藏本站</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="so">
+                        <div id="topsearch">
+                            <form action="" method="post">
+                                <input type="text" name="s" id="ls">
+                                <input type="submit" id="searchsubmit" value="搜 索">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- 顶部功能 结束 -->
+                <div class="clear"></div>
+                {% block navigation %}
+                    <div class="navigation">
+                        <div class="mnavil"></div>
+                        <div class="mnavim">
+                            <ul class="main_menu">
+                                <li class="cat-item cat-item-0"><a href="{{ url_for('home.index') }}" title="高中复习提纲首页">首页</a>
+                                </li>
+                                {% for c in Category.query.all() %}
+                                    <li class="cat-item cat-item-{{ c.id }}"><a
+                                            href="{{ url_for('home.category', slug=c.slug) }}"
+                                            title="查看 {{ c.name }} 下的所有文章">{{ c.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="mnavir"></div>
+                    </div>
+                {% endblock navigation %}
+            </div>
+        </div>
+    {% endblock header %}
+    <!-- 头部 结束 -->
+    <div class="clear"></div>
+    <!-- 内容 开始 -->
+    <div class="wrap">
+        <div class="content">
+            {% block content %}
 
-	{% endblock content %}
-		</div>
-	</div>
-	<!-- 内容 结束 -->
-	<div class="clear"></div>
-	<!-- 底部 开始 -->
-	{% block footer %}
-	<div class="foot">
-		<p>Copyright &copy; <a href="http://www.tigang.net">高中复习提纲网</a>为公益性网站,为服务师生而建,部分内容来源网络,版权为原作者所有.
-			<br>如无意中侵犯了您的版权,或是含有非法内容,请及时与我们联系请来信告知,我们将在第一时间做出回应!谢谢! </p>
-		<p>Powered by wp2flask-cms and Theme by Wpyou and <a href="sitemap.html" target="_blank">Sitemap</a>
-		</p>
-		<p></p>
-	</div>
-	{% endblock footer %}
-	<!-- **************** 尊重作者劳动成果，请保留版权，谢谢合作！****************** -->
+            {% endblock content %}
+        </div>
+    </div>
+    <!-- 内容 结束 -->
+    <div class="clear"></div>
+    <!-- 底部 开始 -->
+    {% block footer %}
+        <div class="foot">
+            <p>Copyright &copy; <a href="http://www.tigang.net">高中复习提纲网</a>为公益性网站,为服务师生而建,部分内容来源网络,版权为原作者所有.
+                <br>如无意中侵犯了您的版权,或是含有非法内容,请及时与我们联系请来信告知,我们将在第一时间做出回应!谢谢! </p>
+            <p>Powered by wp2flask-cms and Theme by Wpyou and <a href="sitemap.html" target="_blank">Sitemap</a>
+            </p>
+            <p></p>
+        </div>
+    {% endblock footer %}
+    <!-- **************** 尊重作者劳动成果，请保留版权，谢谢合作！****************** -->
 {% endblock body %}
 </body>
 </html>
