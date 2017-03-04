@@ -78,7 +78,9 @@ class Post(db.Model, BaseModels):
     title = db.Column(db.String(128), index=True)
     slug = db.Column(db.String(128), index=True, unique=True)
     body = db.Column(db.Text)
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    create_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    update_time = db.Column(db.DateTime, index=True, default=datetime.utcnow, onupdate=datetime.utcnow())
+
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
@@ -105,7 +107,7 @@ class Comment(db.Model):
     email = db.Column(db.String(64), nullable=False)
     site = db.Column(db.String(64))
     content = db.Column(db.Text)
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    create_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 

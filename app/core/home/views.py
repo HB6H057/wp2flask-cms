@@ -1,11 +1,30 @@
 # encoding: utf-8
 import json
+
 from sqlalchemy import func
 from flask import request
+from flask.views import MethodView
+
+from app.core.views import TemplateView, DetailView
+from app.core.models import Category
 from app.core.base import *
-# from app.core.service import (CategoryService, PostService,
-#                               CommentService, TagService)
 from . import home
+
+
+class TestView(DetailView):
+    model = Category
+    template_name = 'category.jinja2'
+    
+    def get(self, slug):
+        return super(TestView, self).get(slug)
+
+    def get_context_data(self, **kwargs):
+        context = super(TestView, self).get_context_data(**kwargs)
+        ct = {'ct': context}
+        return ct
+
+
+home.add_url_rule('/test123/<string:slug>', view_func=TestView.as_view('test123'))
 
 
 @home.route('/test')
