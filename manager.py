@@ -4,10 +4,11 @@ from faker import Factory
 from flask_migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager, Server
 
-from app import create_app
+from app import create_app, db
 
 app = create_app()
 manager = Manager(app)
+Migrate(app, db)
 
 @manager.command
 def forged():
@@ -74,4 +75,5 @@ def forged():
 
 if __name__ == '__main__':
     manager.add_command("runserver", Server(use_debugger=True))
+    manager.add_command("db", MigrateCommand)
     manager.run()

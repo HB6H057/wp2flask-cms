@@ -60,7 +60,7 @@ class BaseService(object):
             if sk == "post_count":
                 data_dict[sk] = d.posts.count()
             elif sk == "timestamp":
-                data_dict[sk] = d.timestamp.strftime("%F %H:%M:%S")
+                data_dict[sk] = d.create_time.strftime("%F %H:%M:%S")
             elif sk == "tags":
                 data_dict[sk] = [t.name for t in d.tags]
 

@@ -22,7 +22,7 @@ class DataGeneratorMixin(object):
         elif sk == "cslug":
             v = d.category.slug
         elif sk == "create_date":
-            v = d.timestamp.strftime("%F %H:%M:%S")
+            v = d.create_time.strftime("%F %H:%M:%S")
         elif sk == "brief":
             v = self.briefy(HTML)
         elif sk == "font_size":

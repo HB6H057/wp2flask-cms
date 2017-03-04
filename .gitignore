@@ -23,3 +23,4 @@ deploy_key_rsa
 /logs/*.log
 *.DS_Store
 *.project
+/migrations/*

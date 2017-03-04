@@ -1,5 +1,7 @@
 from flask import Flask
 
+from app.core.models import db
+
 
 def create_app():
     """
@@ -20,7 +22,6 @@ def init_db(app):
     """
     Initialize db
     """
-    from app.core.models import db
     db.init_app(app)
     db.app = app
 
