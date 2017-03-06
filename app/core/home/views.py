@@ -5,20 +5,23 @@ from sqlalchemy import func
 from flask import request
 from flask.views import MethodView
 
-from app.core.views import TemplateView, DetailView, ListView
+from app.core.views import TemplateView, DetailView, ListView, ModelFieldListView
 from app.core.models import Category
 from app.core.base import *
 from . import home
 
 
-class TestView(TemplateView):
+class TestView(ModelFieldListView):
+    model = Category
+    model_field = 'posts'
     template_name = 'index.jinja2'
 
     def get_context_data(self, **kwargs):
         context = super(TestView, self).get_context_data(**kwargs)
+        # import pdb; pdb.set_trace()
         return context
 
-home.add_url_rule('/test123/<string:slug>', view_func=TestView.as_view('test123'))
+home.add_url_rule('/test/<string:slug>', view_func=TestView.as_view('test123'))
 
 
 class IndexView(TemplateView):
@@ -29,13 +32,6 @@ class CategoryView(ListView):
     model = Post
     paginate_by = 10
     template_name = "home/category.jinja2"
-
-    def get_basequery(self):
-        basequery = super(CategoryView, self).get_basequery()
-        slug = self.kwargs.get('slug')
-        if not slug:
-            abort(404)
-        return basequery.filter(self.model.category.has(slug=slug))
 
 
 class PostView(DetailView):
@@ -60,13 +56,6 @@ home.add_url_rule('/category/<string:slug>/page/<int:page>', view_func=category_
 
 post_view_func = PostView.as_view('post')
 home.add_url_rule('/<string:cslug>/<string:slug>.html', view_func=post_view_func )
-
-
-@home.route('/test')
-def test():
-    # please test me
-    # import pdb; pdb.set_trace()
-    return json.dumps(str(test))
 
 
 # @home.route('/')
