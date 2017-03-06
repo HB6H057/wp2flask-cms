@@ -22,7 +22,7 @@ home.add_url_rule('/test123/<string:slug>', view_func=TestView.as_view('test123'
 
 
 class IndexView(TemplateView):
-    template_name = "index.jinja2"
+    template_name = "home/index.jinja2"
 
 
 class CategoryView(ListView):
@@ -37,12 +37,29 @@ class CategoryView(ListView):
             abort(404)
         return basequery.filter(self.model.category.has(slug=slug))
 
+
+class PostView(DetailView):
+    model = Post
+    template_name = 'home/post.jinja2'
+
+    def get_basequery(self):
+        basequery = super(PostView, self).get_basequery()
+        cslug = self.kwargs.get('cslug')
+        if cslug is None:
+            abort(404)
+        basequery = basequery.filter(self.model.category.has(slug=cslug))
+        return basequery
+
+
 index_view_func = IndexView.as_view('index')
 home.add_url_rule('/', view_func=index_view_func)
 
 category_view_func = CategoryView.as_view('category')
 home.add_url_rule('/category/<string:slug>', view_func=category_view_func)
 home.add_url_rule('/category/<string:slug>/page/<int:page>', view_func=category_view_func)
+
+post_view_func = PostView.as_view('post')
+home.add_url_rule('/<string:cslug>/<string:slug>.html', view_func=post_view_func )
 
 
 @home.route('/test')
@@ -103,28 +120,28 @@ def archive(year, month, page_num=1):
     return 'High & Dry'
 
 
-@home.route('/<string:cslug>/<string:pslug>.html', methods=['GET', 'POST'])
-def post(cslug, pslug):
-    """
-    post page
-    """
-    pp = PostPageService(cslug, pslug)
-    post_dict = pp.get_post()
-    comment_dict_list = pp.get_comments_data()
-    related_posts = pp.get_related_posts()
-
-    context = dict(
-        nav=pp.cates,
-        pd=post_dict,
-        cmds=comment_dict_list,
-        rel=related_posts,
-        random=pp.get_random_posts(),
-    )
-    # return json.dumps(related_posts)
-    return render_template(
-        'post.jinja2',
-        ct=context
-    )
+# @home.route('/<string:cslug>/<string:pslug>.html', methods=['GET', 'POST'])
+# def post(cslug, pslug):
+#     """
+#     post page
+#     """
+#     pp = PostPageService(cslug, pslug)
+#     post_dict = pp.get_post()
+#     comment_dict_list = pp.get_comments_data()
+#     related_posts = pp.get_related_posts()
+#
+#     context = dict(
+#         nav=pp.cates,
+#         pd=post_dict,
+#         cmds=comment_dict_list,
+#         rel=related_posts,
+#         random=pp.get_random_posts(),
+#     )
+#     # return json.dumps(related_posts)
+#     return render_template(
+#         'post.jinja2',
+#         ct=context
+#     )
 
 
 @home.route('/tag/<string:tslug>', methods=['GET', 'POST'])

@@ -1,0 +1,79 @@
+{% extends "base.jinja2"%}
+
+{%block title%}高中复习提纲网-高一,高二,高三高中各科必修选修复习资料提纲聚集地{%endblock title%}
+{%block description%}高中复习提纲网是一个收集高中复习资料提纲的聚集地{%endblock description%}
+{%block keywords%}提纲,高中,复习,数学,语文,英语,物理,化学,生物,政治,地理,历史,重点,归纳{%endblock keywords%}
+{% block content %}
+<div class="taobaobei">
+    <div class="subnavi">
+        <div class="subnavi-l">当前位置: <a href="{{url_for('home.index')}}">高中复习提纲网</a> &gt; <a href="{{url_for('home.category', slug=view.kwargs.cslug)}}" rel="category tag">高中数学复习提纲</a> &gt; 提纲详细内容</div>
+    </div>
+    <!--– 复制加版权开始 –-->
+    <div class="bb_post">
+        <div class="bb_list" id="baobei-460">
+            <h2 class="txtcenter"><a href="http://www.tigang.net/shuxue/gong-shi-kou-jue.html" rel="bookmark" title="{{ object.title }}">{{ object.title }}</a></h2>
+            <div class="descmid dashborder">
+                <label class="page-date">发表时间：2011-09-02</label><label class="page-views">关注度：21,844 views </label><label class="page-comments">评论数：<a href="#respond">1</a></label>
+            </div>
+
+            <div id="wshare">
+                <!-- Baidu Button BEGIN -->
+                分享
+                <!-- Baidu Button END -->
+            </div>
+
+            <div class="bb_detail baobei_info">
+              {{ object.body }}
+                <div class="reship">
+                    <hr>
+                    <p>转载请注明文章转载自：<a href="{{ url_for('home.index') }}">高中复习提纲网</a> [http://www.tigang.net]<br>本文链接地址：<a href="{{ url_for('home.post', cslug=object.category.slug, slug=object.slug) }}" rel="bookmark">{{ object.title }}</a><br>
+                        <a href="{{ url_for('page.about') }}"><img src="http://www.tigang.net/wp-content/themes/WPYOU%20CMS/images/jfs.jpg" alt="高中教辅书排行榜" title="高中教辅书排行榜"></a>
+                    </p>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="post_foot_pro_next">
+                <div class="pro_next">上一篇: <a href="http://www.tigang.net/shuxue/4-1-ji-he-zheng-ming-xuan-jiang.html" rel="prev">数学选修4-1《几何证明选讲》知识点总结(精简版)</a></div>
+                <div class="pro_next"></div>
+            </div>
+            <!-- 相关提纲信息  开始 -->
+            <div class="relran">
+                <h3>相关提纲</h3>
+                <div class="relran_cont">
+                    <div class="wp_rp_wrap  wp_rp_plain">
+                        <div class="wp_rp_content">
+                            <ul class="related_post wp_rp">
+{#                              {% for p in ct.rel %}#}
+{#                                <li data-position="{{ loop.index0 }}" data-poid="in-{{ p.id }}" data-post-type="none"><a href="{{ url_for('home.post', pslug=p.slug, cslug=p.cslug) }}" class="wp_rp_title">{{ p.title }}</a></li>#}
+{#                              {% endfor %}#}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 相关提纲信息 志结束 -->
+            <!-- 随机提纲  开始 -->
+            <div class="relran">
+                <h3>随机提纲</h3>
+                <div class="relran_cont">
+                    <ul>
+{#                      {% for p in ct.random %}#}
+{#                        <li><a href="{{ url_for('home.post', pslug=p.slug, cslug=p.cslug) }}" >{{ p.title }}</a></li>#}
+{#                      {% endfor %}#}
+                    </ul>
+                </div>
+            </div>
+            <!-- 随机提纲 志结束 -->
+            <div class="clear"></div>
+
+            <!-- You can start editing here. -->
+            {% include 'comment.html' %}
+        </div>
+
+
+    </div>
+
+</div>
+{% include 'sidebar.html' %}
+{% endblock content %}

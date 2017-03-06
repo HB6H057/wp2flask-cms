@@ -15,7 +15,7 @@
   <ul>
     {% for p in new %}
     <li>
-      <a href="{{ url_for('home.post', cslug=p.category.slug, pslug=p.slug) }}">{{p.title}}</a>
+      <a href="{{ url_for('home.post', cslug=p.category.slug, slug=p.slug) }}">{{p.title}}</a>
     </li>
     {% endfor %}
   </ul>

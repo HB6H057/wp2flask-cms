@@ -1,0 +1,69 @@
+{% extends "base.jinja2"%}
+{% from 'sidebar.html' import render_sidebar_category, render_sidebar_tag %}
+{% from 'sidebar.html' import render_sidebar_new %}
+{%block title%}高中复习提纲网-高一,高二,高三高中各科必修选修复习资料提纲聚集地{%endblock title%}
+{%block description%}高中复习提纲网是一个收集高中复习资料提纲的聚集地{%endblock description%}
+{%block keywords%}提纲,高中,复习,数学,语文,英语,物理,化学,生物,政治,地理,历史,重点,归纳{%endblock keywords%}
+
+{%block content%}
+    <div class="bb_home">
+      <!-- 侧边栏1 开始 -->
+      <div class="sidebar1">
+        <!-- 分类 开始 -->
+        <div class="special sbar1">
+          <h2>最热复习提纲</h2>
+          <div class="sbar1_content">
+            <ul class="promo">
+              {% for h in Post.query.order_by(func.random()).limit(10).all()%}
+              <li><a href="{{ url_for('home.post', cslug=h.category.slug, slug=h.slug) }}" title="{{h.title}}">{{h.title}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <!-- 分类 结束 -->
+      </div>
+      <!-- 侧边栏1 结束 -->
+      <!-- 宝贝推荐 开始 -->
+      <div class="bb_recommend">
+        {% for p in Post.query.order_by(func.random()).limit(3).all() %}
+        <div class="baobei" id="baobei-{{p.id}}">
+          <h2><a href="{{ url_for('home.post', cslug=p.category.slug, slug=p.slug) }}" rel="bookmark" title="{{p.title}}">{{p.title}}</a></h2>
+          <div class="baobei_detail">
+            核心知识 课标解读  力的概念 1 理解力是物体之间的相互作用，能找出施力物体和受力物体． 2 知......
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- 宝贝推荐 结束 -->
+      <div class="clear"></div>
+      <div class="long_ad">
+        <a href="{{ url_for('page.jiaofushu') }}"><img src="{{ url_for('static', filename='images/jfs.jpg') }}" alt="高中教辅书排行榜" title="高中教辅书排行榜"></a>
+      </div>
+      <div class="clear"></div>
+      <div class="allcats">
+        <!-- 单一分类 开始 -->
+        <!-- 分类列表 开始 -->
+        {% for c in Category.query.all() %}
+        <div id="cat-{{c.id}}" class="bb_cats">
+          <div class="cats_content">
+            <h2><a href="{{ url_for('home.category', slug=c.slug) }}" title="{{c.name}}">{{c.name}}</a></h2>
+            <ul>
+              {% for p in c.posts.limit(5).all() %}
+              <li><a href="{{ url_for('home.post', cslug=p.category.slug, slug=p.slug) }}" title="{{p.title}}">{{p.title}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endfor %}
+
+        <div class="clear"></div>
+      </div>
+    </div>
+    <!-- 侧边栏2 开始 -->
+    <div class="sidebar2">
+      <ul>
+        {{ render_sidebar_new(Post.query.limit(15).all()) }}
+        {{ render_sidebar_tag(Tag.query.all()) }}
+      </ul>
+    </div>
+{% endblock content %}
