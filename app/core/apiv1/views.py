@@ -40,7 +40,7 @@ class PostsApi(Resource):
         # lklk
         s = pservice.get_list(**parser)
 
-        return a
+        return s
 
     def post(self):
         a = self.post_parser.parse_args()

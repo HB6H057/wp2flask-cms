@@ -1,8 +1,9 @@
 # encoding: utf-8
 
+from flask import abort
+
 from app.core.views import TemplateView, DetailView, ModelFieldListView
-from app.core.models import Category
-from app.core.base import *
+from app.core.models import Category, Tag, Post
 from . import home
 
 
@@ -50,21 +51,6 @@ class PostView(DetailView):
         basequery = basequery.filter(self.model.category.has(slug=cslug))
         return basequery
 
-
-index_view_func = IndexView.as_view('index')
-home.add_url_rule('/', view_func=index_view_func)
-
-category_view_func = CategoryView.as_view('category')
-home.add_url_rule('/category/<string:slug>', view_func=category_view_func)
-home.add_url_rule('/category/<string:slug>/page/<int:page>', view_func=category_view_func)
-
-
-tag_view_func = TagView.as_view('tag')
-home.add_url_rule('/tag/<string:slug>', view_func=tag_view_func)
-home.add_url_rule('/tag/<string:slug>/page/<int:page>', view_func=tag_view_func)
-
-post_view_func = PostView.as_view('post')
-home.add_url_rule('/<string:cslug>/<string:slug>.html', view_func=post_view_func )
 
 
 @home.route('/<int:year>/<string:month>', methods=['GET', 'POST'])
