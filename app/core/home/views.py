@@ -14,6 +14,7 @@ from . import home
 class TestView(ModelFieldListView):
     model = Category
     model_field = 'posts'
+    paginate_by = 10
     template_name = 'index.jinja2'
 
     def get_context_data(self, **kwargs):
@@ -28,10 +29,18 @@ class IndexView(TemplateView):
     template_name = "home/index.jinja2"
 
 
-class CategoryView(ListView):
-    model = Post
+class CategoryView(ModelFieldListView):
+    model = Category
+    model_field = 'posts'
     paginate_by = 10
     template_name = "home/category.jinja2"
+
+
+class TagView(ModelFieldListView):
+    model = Tag
+    model_field = 'posts'
+    paginate_by = 10
+    template_name = "home/tag.jinja2"
 
 
 class PostView(DetailView):
@@ -53,6 +62,11 @@ home.add_url_rule('/', view_func=index_view_func)
 category_view_func = CategoryView.as_view('category')
 home.add_url_rule('/category/<string:slug>', view_func=category_view_func)
 home.add_url_rule('/category/<string:slug>/page/<int:page>', view_func=category_view_func)
+
+
+tag_view_func = TagView.as_view('tag')
+home.add_url_rule('/tag/<string:slug>', view_func=tag_view_func)
+home.add_url_rule('/tag/<string:slug>/page/<int:page>', view_func=tag_view_func)
 
 post_view_func = PostView.as_view('post')
 home.add_url_rule('/<string:cslug>/<string:slug>.html', view_func=post_view_func )
@@ -133,21 +147,21 @@ def archive(year, month, page_num=1):
 #     )
 
 
-@home.route('/tag/<string:tslug>', methods=['GET', 'POST'])
-@home.route('/tag/<string:tslug>/page/<int:page>', methods=['GET', 'POST'])
-def tag(tslug, page=1):
-    """
-    Tag default page
-    """
-    tps = TagPageService(tslug, page)
-    tagpage_data = tps.get_post_list()
-
-    context = dict(
-        nav=tps.cates,
-        td=tagpage_data,
-    )
-
-    return render_template(
-        'tag.jinja2',
-        ct=context,
-    )
+# @home.route('/tag/<string:tslug>', methods=['GET', 'POST'])
+# @home.route('/tag/<string:tslug>/page/<int:page>', methods=['GET', 'POST'])
+# def tag(tslug, page=1):
+#     """
+#     Tag default page
+#     """
+#     tps = TagPageService(tslug, page)
+#     tagpage_data = tps.get_post_list()
+#
+#     context = dict(
+#         nav=tps.cates,
+#         td=tagpage_data,
+#     )
+#
+#     return render_template(
+#         'tag.jinja2',
+#         ct=context,
+#     )

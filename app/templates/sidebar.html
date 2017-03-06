@@ -27,7 +27,7 @@
   <h2 class="widgettitle">复习提纲标签</h2>
   <div class="tagcloud">
     {% for t in tags %}
-    <a href="{{ url_for('home.tag', tslug=t.slug) }}" class="tag-link-{{t.id}}" title="{{t.post_count}}个话题" style="font-size: 9pt;">{{t.name}}</a>
+    <a href="{{ url_for('home.tag', slug=t.slug) }}" class="tag-link-{{t.id}}" title="{{t.post_count}}个话题" style="font-size: 9pt;">{{t.name}}</a>
     {% endfor %}
   </div>
 </li>
