@@ -88,6 +88,9 @@ class SingleObjectMixin(ContextMixin):
             raise MultipleResultsFound
         return obj
 
+    def get_basequery(self):
+        return self.model.query
+
     def get_context_data(self, **kwargs):
         context = dict()
         if self.object is not None:
@@ -121,7 +124,8 @@ class TemplateView(TemplateResponseMixin, ContextMixin, View):
 
 class DetailView(SingleObjectMixin, TemplateResponseMixin, View):
     def get(self, *args, **kwargs):
-        self.object = self.get_object()
+        basequery = self.get_basequery()
+        self.object = self.get_object(basequery)
         context = self.get_context_data(object=self.object)
         return self.render_to_response(**dict(context=context))
 
