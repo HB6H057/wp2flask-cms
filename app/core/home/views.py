@@ -2,23 +2,21 @@
 
 from flask import abort
 
-from app.core.views import TemplateView, DetailView, ModelFieldListView
+from app.core.views import (
+    TemplateView, DetailView, ModelFieldListView, ArchiveView
+)
 from app.core.models import Category, Tag, Post
 from . import home
 
 
-class TestView(ModelFieldListView):
-    model = Category
-    model_field = 'posts'
-    paginate_by = 10
+class TestView(TemplateView):
     template_name = 'index.jinja2'
 
     def get_context_data(self, **kwargs):
         context = super(TestView, self).get_context_data(**kwargs)
-        # import pdb; pdb.set_trace()
         return context
 
-home.add_url_rule('/test/<string:slug>', view_func=TestView.as_view('test123'))
+home.add_url_rule('/test/<int:slug>/', view_func=TestView.as_view('test123'), methods=['GET', 'POST'])
 
 
 class IndexView(TemplateView):
@@ -52,11 +50,20 @@ class PostView(DetailView):
         return basequery
 
 
+class ArchivePageView(ArchiveView):
+    template_name = 'home/archive.jinja2'
+    model = Post
+    paginate_by = 10
 
-@home.route('/<int:year>/<string:month>', methods=['GET', 'POST'])
-@home.route('/<int:year>/<string:month>/page/<int:page_num>', methods=['GET', 'POST'])
-def archive(year, month, page_num=1):
-    """
-    Archive default page
-    """
-    return 'High & Dry'
+    def get_context_data(self, **kwargs):
+        context = super(ArchivePageView, self).get_context_data(**kwargs)
+        return context
+
+
+# @home.route('/<int:year>/<string:month>', methods=['GET', 'POST'])
+# @home.route('/<int:year>/<string:month>/page/<int:page_num>', methods=['GET', 'POST'])
+# def archive(year, month, page_num=1):
+#     """
+#     Archive default page
+#     """
+#     return 'High & Dry'

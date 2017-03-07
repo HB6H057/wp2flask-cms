@@ -2,6 +2,7 @@
 from flask.views import MethodView
 from flask import request, render_template, abort
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+from sqlalchemy.sql.expression import extract
 
 
 class View(MethodView):
@@ -156,8 +157,37 @@ class ModelFieldListView(SingleObjectFieldListMixin, TemplateView, View):
         return self.render_to_response(**dict(context=context))
 
 
-class ArchiveView(View):
-    pass
+class ArchiveView(ListView):
+    day_kwarg = 'day'
+    month_kwarg = 'month'
+    year_kwarg = 'year'
 
+    def get_basequery(self):
+        basequery = super(ArchiveView, self).get_basequery()
+        day_kwarg = self.get_day_kwarg()
+        month_kwarg = self.get_month_kwarg()
+        year_kwarg = self.get_year_kwarg()
 
+        day = self.kwargs.get(day_kwarg) or self.request.args.get(day_kwarg)
+        month = self.kwargs.get(month_kwarg) or self.request.args.get(month_kwarg)
+        year = self.kwargs.get(year_kwarg) or self.request.args.get(year_kwarg)
 
+        if year is None:
+            raise ValueError, 'feel bad'
+        basequery = basequery.filter(extract('year', self.model.create_time) == year)
+        if month is None:
+            return basequery
+        basequery = basequery.filter(extract('month', self.model.create_time) == month)
+        if day is None:
+            return basequery
+        basequery = basequery.filter(extract('day', self.model.create_time) == day)
+        return basequery
+
+    def get_day_kwarg(self):
+        return self.day_kwarg
+
+    def get_month_kwarg(self):
+        return self.month_kwarg
+
+    def get_year_kwarg(self):
+        return self.year_kwarg

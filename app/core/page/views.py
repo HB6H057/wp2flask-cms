@@ -1,5 +1,4 @@
 # encoding: utf-8
-from app.core.base import *
 
 from . import page
 
