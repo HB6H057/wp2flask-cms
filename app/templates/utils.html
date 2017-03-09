@@ -1,45 +1,52 @@
 {% macro render_plist(plist) %}
-{% for p in plist %}
-  <div class="bb_list" id="baobei-{{ p.id }}">
-      <h2><a href="{{ url_for('home.post', cslug=p.cslug, slug=p.slug) }}" rel="bookmark" title="{{ p.title }}">{{ p.title }}</a></h2>
-      <span class="bb_date">{{ p.create_date }}</span>
-      <div class="bb_detail">
-          {{ p.body[:200] }}......<a href="{{ url_for('home.post', cslug=p.cslug, slug=p.slug) }}" rel="bookmark" title="{{ p.title }}">复习提纲详细内容</a>
-      </div>
-  </div>
-{% endfor %}
+    {% for p in plist %}
+        <div class="bb_list" id="baobei-{{ p.id }}">
+            <h2><a href="{{ url_for('home.post', cslug=p.category.slug, slug=p.slug) }}" rel="bookmark"
+                   title="{{ p.title }}">{{ p.title }}</a></h2>
+            <span class="bb_date">{{ p.create_date }}</span>
+            <div class="bb_detail">
+                {{ p.body[:200] }}......<a href="{{ url_for('home.post', cslug=p.category.slug, slug=p.slug) }}" rel="bookmark"
+                                           title="{{ p.title }}">复习提纲详细内容</a>
+            </div>
+        </div>
+    {% endfor %}
 {% endmacro %}
 
 {% macro _page_url(endpoint, _page) %}
-  {% if _page == 1 %}
-    {{ url_for(endpoint, **kwargs) }}
-  {% else %}
-    {{ url_for(endpoint, page=_page, **kwargs) }}
-  {% endif %}
+    {% if _page == 1 %}
+        {{ url_for(endpoint, **kwargs) }}
+    {% else %}
+        {{ url_for(endpoint, page=_page, **kwargs) }}
+    {% endif %}
 {% endmacro %}
 
 
 {% macro render_pagination(pagination, endpoint) %}
-<div class="page_navi">
-    <div class="wp-pagenavi">
-    {% if pagination.pages > 1%}
-      <span class="pages">第 {{ pagination.page }} 页，共 {{ pagination.pages }} 页</span>
-      {%- if pagination.has_prev %}
-      <a class="previouspostslink" rel="prev" href="{{ _page_url(endpoint, pagination.prev_num, **kwargs) }}">«</a>
-      {%- endif %}
-      {%- for page in pagination.iter_pages() %}
-        {%- if pagination.page == page %}
-          <span class="current">{{ page }}</span>
-        {% elif pagination.page < page %}
-          <a class="page smaller" href="{{ _page_url(endpoint, page, **kwargs) }}">{{ page }}</a>
-        {% else %}
-          <a class="page larger" href="{{ _page_url(endpoint, page, **kwargs) }}">{{ page }}</a>
-        {%- endif %}
-      {%- endfor %}
-      {%- if pagination.has_next %}
-      <a class="nextpostslink" rel="next" href="{{ _page_url(endpoint, pagination.next_num, **kwargs) }}">»</a>
-      {%- endif %}
-      {% endif %}
+    <div class="page_navi">
+        <div class="wp-pagenavi">
+            {% if pagination.pages > 1 %}
+                <span class="pages">第 {{ pagination.page }} 页，共 {{ pagination.pages }} 页</span>
+                {%- if pagination.has_prev %}
+                    <a class="previouspostslink" rel="prev"
+                       href="{{ _page_url(endpoint, pagination.prev_num, **kwargs) }}">«</a>
+                {%- endif %}
+                {%- for page in pagination.iter_pages() %}
+                    {% if page %}
+                        {%- if pagination.page == page %}
+                            <span class="current">{{ page }}</span>
+                        {% elif pagination.page < page %}
+                            <a class="page smaller" href="{{ _page_url(endpoint, page, **kwargs) }}">{{ page }}</a>
+                        {% else %}
+                            <a class="page larger" href="{{ _page_url(endpoint, page, **kwargs) }}">{{ page }}</a>
+                        {%- endif %}
+                    {% else %}
+                        <span class=ellipsis>…</span>
+                    {% endif %}
+                {%- endfor %}
+                {%- if pagination.has_next %}
+                    <a class="nextpostslink" rel="next" href="{{ _page_url(endpoint, pagination.next_num, **kwargs) }}">»</a>
+                {%- endif %}
+            {% endif %}
+        </div>
     </div>
-</div>
 {% endmacro %}

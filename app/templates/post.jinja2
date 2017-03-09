@@ -59,7 +59,7 @@
                 <div class="relran_cont">
                     <ul>
                       {% for p in ct.random %}
-                        <li><a href="{{ url_for('home.post', pslug=p.slug, cslug=p.cslug) }}" >{{ p.title }}</a></li>
+                        <li><a href="{{ url_for('home.post', pslug=p.slug, cslug=p.category.slug) }}" >{{ p.title }}</a></li>
                       {% endfor %}
                     </ul>
                 </div>
