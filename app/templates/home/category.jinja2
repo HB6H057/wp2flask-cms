@@ -11,14 +11,14 @@
 <div class="taobaobei">
     <!--页面导航 开始 -->
     <div class="subnavi">
-        <div class="subnavi-l">当前位置: <a href="http://www.tigang.net">高中复习提纲网</a> &gt; <a href="{{ url_for('home.category', cslug=ct.cd.slug) }}" rel="category tag">{{ ct.cd.name }}</a> 分类</div>
+        <div class="subnavi-l">当前位置: <a href="http://www.tigang.net">高中复习提纲网</a> &gt; <a href="{{ url_for('home.category', slug=object.slug) }}" rel="category tag">{{ object.name }}</a> 分类</div>
     </div>
     <!--页面导航 结束 -->
     <!-- 分类文章列表 开始 -->
     <div class="bb_post">
-      {{ render_plist(ct.cd.plist) }}
+      {{ render_plist(object_list.items) }}
       <!-- 翻页 开始 -->
-      {{ render_pagination(ct.cd.pagination, 'home.category', cslug=ct.cd.slug) }}
+      {{ render_pagination(object_list, 'home.category', slug=object.slug) }}
       <!-- 翻页 结束 -->
     </div>
     <!-- 分类文章列表 结束 -->

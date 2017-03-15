@@ -1,0 +1,29 @@
+{% extends "base.jinja2"%}
+{% from 'utils.html' import render_pagination, render_plist %}
+
+{%block title%}高中复习提纲网-高一,高二,高三高中各科必修选修复习资料提纲聚集地{%endblock title%}
+{%block description%}高中复习提纲网是一个收集高中复习资料提纲的聚集地{%endblock description%}
+{%block keywords%}提纲,高中,复习,数学,语文,英语,物理,化学,生物,政治,地理,历史,重点,归纳{%endblock keywords%}
+{% block style %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/pagenavi-css.css')}}" type="text/css" media="screen">
+{{ super() }}
+{% endblock style %}
+{% block content %}
+
+    <div class="taobaobei">
+      <!--页面导航 开始 -->
+      <div class="subnavi">
+          <div class="subnavi-l">当前位置: <a href="http://www.tigang.net">高中复习提纲网</a> &gt; <a href="{{ url_for('home.tag', slug=object.slug) }}" rel="category tag">{{ object.name }} </a> 标签</div>
+      </div>
+      <!--页面导航 结束 -->
+      <!-- 分类文章列表 开始 -->
+      <div class="bb_post">
+        {{ render_plist(object_list.items) }}
+        <!-- 翻页 开始 -->
+        {{ render_pagination(object_list, 'home.tag', slug=object.slug) }}
+        <!-- 翻页 结束 -->
+      </div>
+      <!-- 分类文章列表 结束 -->
+    </div>
+    {% include 'sidebar.html' %}
+  {% endblock content %}

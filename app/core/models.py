@@ -81,7 +81,6 @@ class Post(db.Model, BaseModels):
     create_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     update_time = db.Column(db.DateTime, index=True, default=datetime.utcnow, onupdate=datetime.utcnow())
 
-
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 

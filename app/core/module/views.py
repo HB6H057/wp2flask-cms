@@ -1,5 +1,4 @@
 # encoding: utf-8
-from app.core.base import *
 from flask import send_from_directory, request
 
 from . import module
