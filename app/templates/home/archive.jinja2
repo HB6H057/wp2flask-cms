@@ -18,7 +18,7 @@
     <div class="bb_post">
       {{ render_plist(object_list.items) }}
       <!-- 翻页 开始 -->
-      {{ render_pagination(object_list, 'home.archive', **view.kwargs) }}
+      {{ render_pagination(object_list, 'home.archive', **filter_kwargs) }}
       <!-- 翻页 结束 -->
     </div>
     <!-- 分类文章列表 结束 -->

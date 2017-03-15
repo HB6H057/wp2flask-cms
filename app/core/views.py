@@ -174,14 +174,29 @@ class ArchiveView(ListView):
 
         if year is None:
             raise ValueError, 'feel bad'
-        basequery = basequery.filter(extract('year', self.model.create_time) == year)
+        basequery = basequery.filter(extract('year', self.model.create_time) == int(year))
         if month is None:
             return basequery
-        basequery = basequery.filter(extract('month', self.model.create_time) == month)
+        basequery = basequery.filter(extract('month', self.model.create_time) == int(month))
         if day is None:
             return basequery
-        basequery = basequery.filter(extract('day', self.model.create_time) == day)
+        basequery = basequery.filter(extract('day', self.model.create_time) == int(day))
         return basequery
+
+    def get_context_data(self, **kwargs):
+        context = super(ArchiveView, self).get_context_data(**kwargs)
+        filter_kwargs = dict()
+        year = self.kwargs.get(self.get_year_kwarg())
+        month = self.kwargs.get(self.get_month_kwarg())
+        day = self.kwargs.get(self.get_day_kwarg())
+        if year:
+            filter_kwargs['year'] = year
+        if month:
+            filter_kwargs['month'] = month
+        if day:
+            filter_kwargs['day'] = day
+        context['filter_kwargs'] = filter_kwargs
+        return context
 
     def get_day_kwarg(self):
         return self.day_kwarg

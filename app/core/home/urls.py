@@ -18,9 +18,9 @@ home.add_url_rule('/<string:cslug>/<string:slug>.html', view_func=post_view_func
 
 archive_view_func = views.ArchivePageView.as_view('archive')
 home.add_url_rule('/<int:year>/<string:month>', view_func=archive_view_func)
-home.add_url_rule('/<int:year>/<string:month>/page/<int:page_num>', view_func=archive_view_func )
+home.add_url_rule('/<int:year>/<string:month>/page/<int:page>', view_func=archive_view_func )
 home.add_url_rule('/<int:year>', view_func=archive_view_func)
-home.add_url_rule('/<int:year>/page/<int:page_num>', view_func=archive_view_func )
+home.add_url_rule('/<int:year>/page/<int:page>', view_func=archive_view_func )
 
 
 
