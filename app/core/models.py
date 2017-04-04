@@ -4,8 +4,8 @@ from datetime import datetime
 from xpinyin import Pinyin
 from slugify import slugify
 
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()

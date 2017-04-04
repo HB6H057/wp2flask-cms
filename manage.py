@@ -1,10 +1,10 @@
-#!flask/bin/python
+#!env/bin/python
 from faker import Factory
 from random import choice, sample, randint
 
 from sqlalchemy import func
 from flask_migrate import Migrate, MigrateCommand
-from flask.ext.script import Manager, Server
+from flask_script import Manager, Server
 
 from app import create_app
 from app.core.models import db, User, Category, Post, Tag, Comment

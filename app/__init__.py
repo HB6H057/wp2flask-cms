@@ -31,7 +31,7 @@ def init_login(app):
     """
     Initialize login
     """
-    from flask.ext.login import LoginManager
+    from flask_login import LoginManager
     login_manager = LoginManager()
     login_manager.session_protection = 'strong'
     login_manager.login_view = 'manage.login'
@@ -67,6 +67,6 @@ def init_restful(flask_app):
 
 
 def init_admin(app):
-    from flask.ext.admin import Admin
+    from flask_admin import Admin
     admin = Admin(app)
     return admin
