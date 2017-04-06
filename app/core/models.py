@@ -91,11 +91,6 @@ class Post(db.Model, BaseModels):
         backref=db.backref('posts', lazy='dynamic')
     )
 
-    def __init__(self, *args, **kwargs):
-        if 'slug' not in kwargs:
-            kwargs['slug'] = self.make_slug(kwargs['title'], Post)
-        super(Post, self).__init__(*args, **kwargs)
-
     def __repr__(self):
         return '<Post %s>' % self.title
 

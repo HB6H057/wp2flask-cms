@@ -15,6 +15,7 @@ def create_app():
     init_blueprint(app)
     init_restful(app)
     init_admin(app)
+    init_babel(app)
 
     return app
 
@@ -66,7 +67,23 @@ def init_restful(flask_app):
     apiv1.app = flask_app
 
 
-def init_admin(app):
+def init_admin(flask_app):
     from flask_admin import Admin
-    admin = Admin(app)
+
+    admin = Admin(flask_app, name='manager', template_mode='bootstrap3')
+
+    from core.admin.views import MyView, PostView, CategoryView, TagView
+
+    admin.add_view(MyView(name='test', endpoint='test'))
+    admin.add_view(PostView(db.session))
+    admin.add_view(CategoryView(db.session))
+    admin.add_view(TagView(db.session))
+
     return admin
+
+
+def init_babel(flask_app):
+    from flask_babelex import Babel
+    babel = Babel(flask_app)
+    flask_app.config['BABEL_DEFAULT_LOCALE'] = 'zh_CN'
+    return babel

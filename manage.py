@@ -10,6 +10,7 @@ from app import create_app
 from app.core.models import db, User, Category, Post, Tag, Comment
 
 app = create_app()
+
 manager = Manager(app)
 Migrate(app, db)
 
