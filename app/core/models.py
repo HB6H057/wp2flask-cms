@@ -1,11 +1,10 @@
-import re
+# encoding: utf-8
 from datetime import datetime
 
-from xpinyin import Pinyin
 from slugify import slugify
 
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
@@ -17,16 +16,31 @@ post_tag_table = db.Table(
 )
 
 
-class BaseModels(object):
-    def make_slug(self, name, model):
-        slug = slugify(name)
-        if slug is None:
+class PageModelMixin(db.Model):
+    __abstract__ = True
+
+    create_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    update_time = db.Column(db.DateTime, index=True, default=datetime.utcnow, onupdate=datetime.utcnow())
+
+    def __init__(self, *args, **kwargs):
+        if 'slug' not in kwargs:
+            kwargs['slug'] = self.make_slug()
+        super(PageModelMixin, self).__init__(*args, **kwargs)
+
+    def get_slug_field(self):
+        raise NotImplementedError
+
+    def make_slug(self):
+        field = self.get_slug_field()
+        slug_ = slugify(field)
+        model = self.__class__
+        if slug_ is None:
             raise TypeError('%s slugify Error' % model)
 
-        slug_ = slug
-        i = 0
+        # TODO: 优化
+        i = 2
         while model.query.filter_by(slug=slug_).first() is not None:
-            slug_ = "%s-%s" % (slug, i)
+            slug_ = "%s-%s" % (slug_, i)
             i += 1
 
         return slug_
@@ -43,7 +57,7 @@ class User(UserMixin, db.Model):
 
     @property
     def password(self):
-        raise AttributeError('error: password onlyread')
+        raise AttributeError('error: password only read')
 
     @password.setter
     def password(self, password):
@@ -56,7 +70,7 @@ class User(UserMixin, db.Model):
         return '<User %s>' % self.username
 
 
-class Category(db.Model, BaseModels):
+class Category(PageModelMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
     slug = db.Column(db.String(64), index=True, unique=True)
@@ -64,22 +78,18 @@ class Category(db.Model, BaseModels):
 
     posts = db.relationship('Post', backref='category', lazy='dynamic')
 
-    def __init__(self, *args, **kwargs):
-        if 'slug' not in kwargs:
-            kwargs['slug'] = self.make_slug(kwargs['name'], Category)
-        super(Category, self).__init__(*args, **kwargs)
+    def get_slug_field(self):
+        return self.name
 
     def __repr__(self):
         return '<Category %s>' % self.name
 
 
-class Post(db.Model, BaseModels):
+class Post(PageModelMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), index=True)
     slug = db.Column(db.String(128), index=True, unique=True)
     body = db.Column(db.Text)
-    create_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    update_time = db.Column(db.DateTime, index=True, default=datetime.utcnow, onupdate=datetime.utcnow())
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
@@ -91,13 +101,26 @@ class Post(db.Model, BaseModels):
         backref=db.backref('posts', lazy='dynamic')
     )
 
-    def __init__(self, *args, **kwargs):
-        if 'slug' not in kwargs:
-            kwargs['slug'] = self.make_slug(kwargs['title'], Post)
-        super(Post, self).__init__(*args, **kwargs)
+    def get_slug_field(self):
+        return self.title
 
     def __repr__(self):
         return '<Post %s>' % self.title
+
+
+class Tag(PageModelMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True, unique=True)
+    slug = db.Column(db.String(64), index=True, unique=True)
+    description = db.Column(db.String(128))
+
+    # posts m2m
+
+    def get_slug_field(self):
+        return self.name
+
+    def __repr__(self):
+        return '<Tag %s>' % self.name
 
 
 class Comment(db.Model):
@@ -107,21 +130,9 @@ class Comment(db.Model):
     site = db.Column(db.String(64))
     content = db.Column(db.Text)
     create_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    update_time = db.Column(db.DateTime, index=True, default=datetime.utcnow, onupdate=datetime.utcnow())
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
-
-class Tag(db.Model, BaseModels):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, unique=True)
-    slug = db.Column(db.String(64), index=True, unique=True)
-
-    # posts m2m
-
-    def __init__(self, *args, **kwargs):
-        if 'slug' not in kwargs:
-            kwargs['slug'] = self.make_slug(kwargs['name'], Tag)
-        super(Tag, self).__init__(*args, **kwargs)
-
     def __repr__(self):
-        return '<Tag %s>' % self.name
+        return '<Comment %s>' % self.content
